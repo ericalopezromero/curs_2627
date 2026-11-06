@@ -15,7 +15,20 @@
     "inici": "2026-10-19",
     "titol": "Setmana pre-halloween",
     "text": "Poble Espanyol (48 h Open House), i partit del Barça",
-    "fotos": []
+    "fotos": [
+      {
+        "src": "setmanes/2026-10-19/9BF33BDF-15FA-43AB-B804-11C3C9C08BEF.jpeg",
+        "peu": "BF33BDF-15FA-43AB-B804-11C3C9C08BEF"
+      },
+      {
+        "src": "setmanes/2026-10-19/IMG_8078.jpeg",
+        "peu": "IMG_8078"
+      },
+      {
+        "src": "setmanes/2026-10-19/IMG_8096.jpeg",
+        "peu": "IMG_8096"
+      }
+    ]
   },
   {
     "inici": "2026-10-12",
