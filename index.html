@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El nostre curs 2026-2027 · Júlia i Erica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f5fc; --card:#fff; --ink:#26264d; --muted:#6d6c92; --line:#e6e4f4;
+  --ac:#6f6cf0; --ac-soft:#e9e8ff; --ac-ink:#3b38c9; --rose:#ff86a2; --rose-soft:#ffe4eb; --g2:#ff86a2;
+  --head:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --sh:0 1px 2px rgba(38,38,77,.06),0 10px 28px -10px rgba(38,38,77,.16);
+}
+/* temes d'estació (es trien sols segons la data; prova'ls amb ?tema=hivern) */
+html[data-t="tardor"]{--bg:#fbf4ec;--ink:#3a2a22;--muted:#86705f;--line:#ecdcca;--ac:#b9561a;--ac-soft:#ffe6d2;--ac-ink:#8f3f0c;--rose:#a8432b;--rose-soft:#fde0d6;--g2:#f0a93a}
+html[data-t="hivern"]{--bg:#eef4fb;--ink:#1f2a44;--muted:#5f6f8d;--line:#d9e4f2;--ac:#3a68c9;--ac-soft:#dfeaff;--ac-ink:#234a9e;--rose:#2f86c0;--rose-soft:#dcefff;--g2:#7cc4f0}
+html[data-t="primavera"]{--bg:#f2f8ef;--ink:#23342a;--muted:#66806f;--line:#dcebd8;--ac:#2f8a4b;--ac-soft:#dff3e3;--ac-ink:#1f6b38;--rose:#d6407a;--rose-soft:#ffe0ec;--g2:#f4a6c4}
+html[data-t="estiu"]{--bg:#fff8e6;--ink:#3b2f14;--muted:#85744f;--line:#f1e2b8;--ac:#b86e00;--ac-soft:#ffefc2;--ac-ink:#7a4a00;--rose:#d9480f;--rose-soft:#ffe3d3;--g2:#ffcf4d}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font:400 1.02rem/1.6 var(--body);
+  background:radial-gradient(60rem 26rem at 90% -8%,var(--ac-soft),transparent 70%) no-repeat,var(--bg)}
+body.locked main{display:none}
+body.modal{overflow:hidden}
+h1,h2,h3{font-family:var(--head);margin:0}
+:focus-visible{outline:3px solid var(--ac);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 1.2rem}
+
+/* contrasenya */
+#gate{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:1rem;background:var(--bg)}
+body:not(.locked) #gate{display:none}
+.gate-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:2rem;max-width:23rem;width:100%;text-align:center;box-shadow:var(--sh)}
+.gate-card h1{font-size:1.7rem;font-weight:800;line-height:1.15}
+.gate-card p{margin:.4rem 0 1.2rem;color:var(--muted)}
+.gate-card input{width:100%;font:inherit;padding:.75rem 1rem;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);text-align:center}
+.gate-card button{margin-top:.8rem;width:100%;font:700 1rem var(--body);padding:.75rem;border:0;border-radius:12px;background:var(--ac);color:#fff;cursor:pointer}
+.gate-card button:hover{filter:brightness(.92)}
+#gate-err{min-height:1.4em;margin:.7rem 0 0;color:#c0384f;font-size:.92rem}
+
+/* portada */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;padding:3.5rem 0 2.5rem}
+.estacio{display:inline-block;margin:0 0 1rem;padding:.2rem .9rem;border-radius:99px;background:var(--ac-soft);color:var(--ac-ink);font-weight:700;font-size:.92rem}
+.hero h1{font-size:clamp(2.7rem,7vw,4.7rem);font-weight:800;line-height:1;letter-spacing:-.03em}
+.hero h1 span{color:var(--ac)}
+.names{margin:1rem 0 0;font:600 1.3rem var(--head)}
+.lead{margin:.5rem 0 0;max-width:28rem;color:var(--muted)}
+.prog{margin-top:1.8rem;max-width:26rem}
+.bar{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--ac),var(--g2))}
+.pics{position:relative;aspect-ratio:1/1;max-width:25rem;width:100%;margin-inline:auto}
+.hp{position:absolute;margin:0;width:54%;padding:6px;background:#fff;border-radius:18px;box-shadow:0 14px 34px -12px rgba(38,38,77,.35)}
+.hp img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:13px}
+.hp0{top:0;left:2%;transform:rotate(-5deg)}
+.hp1{top:20%;right:0;transform:rotate(4deg)}
+.hp2{bottom:0;left:24%;width:46%;transform:rotate(-2deg)}
+
+.sec{font-size:1.9rem;font-weight:800;letter-spacing:-.02em}
+.sub{margin:.2rem 0 1.4rem;color:var(--muted)}
+a{color:var(--ac-ink)}
+
+/* estadístiques */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(10rem,1fr));gap:.8rem;margin:0 0 2.6rem}
+.st{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:.9rem 1.1rem;box-shadow:var(--sh)}
+.st b{display:block;font:800 2rem/1.1 var(--head);color:var(--ac);overflow-wrap:break-word}
+.st b.long{font-size:1.45rem;line-height:1.35}
+.st span{display:block;margin-top:.15rem;font-size:.85rem;line-height:1.35;color:var(--muted)}
+
+/* filtre d'etiquetes */
+.fl{display:flex;flex-wrap:wrap;gap:.5rem;margin:.9rem 0 .4rem}
+.f{font:600 .9rem var(--body);padding:.35rem .95rem;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.f:hover{border-color:var(--ac)}
+.f[aria-pressed="true"]{background:var(--ac);border-color:var(--ac);color:#fff}
+.f i{font-style:normal;opacity:.65;margin-left:.35rem}
+
+/* quadrícula de setmanes */
+.llista{padding-bottom:2.5rem}
+.mh{display:flex;align-items:center;gap:1rem;margin:2.2rem 0 1rem;font-size:1.4rem;font-weight:800}
+.mh::after{content:"";flex:1;height:1px;background:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:1.1rem}
+.tile{display:flex;flex-direction:column;padding:0;border:1px solid var(--line);background:var(--card);border-radius:22px;overflow:hidden;
+  box-shadow:var(--sh);text-align:left;font:inherit;color:inherit;cursor:pointer;transition:transform .2s ease}
+.tile:hover{transform:translateY(-4px)}
+.cover{position:relative;display:block;aspect-ratio:4/3;overflow:hidden;background:var(--cs,var(--ac-soft))}
+.cover img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.tile:hover .cover img{transform:scale(1.05)}
+.cover .chip{position:absolute;top:.6rem;left:.6rem;box-shadow:0 2px 8px rgba(38,38,77,.18)}
+.nofoto{display:grid;place-items:center;height:100%;font:800 3.6rem var(--head);color:var(--ci,var(--ac-ink));opacity:.55}
+.np{position:absolute;right:.6rem;bottom:.6rem;padding:.1rem .6rem;border-radius:99px;background:rgba(38,38,77,.62);color:#fff;font-size:.78rem;font-weight:700}
+.tb{display:block;padding:.8rem 1rem 1rem}
+.tb>span{display:block}
+.tt{font:800 1.2rem/1.2 var(--head)}
+.tb .dates{margin-top:.2rem;font-size:.88rem}
+.tb>.tg{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.55rem}
+.tnext{display:grid;place-items:center;min-height:12rem;padding:1rem;text-align:center;color:var(--muted);border:2px dashed var(--line);border-radius:22px}
+.err{padding:.8rem 1rem;border-radius:12px;background:var(--rose-soft);color:#a12a44}
+
+.chip{padding:.15rem .8rem;border-radius:99px;background:var(--cs,var(--ac-soft));color:var(--ci,var(--ac-ink));font-weight:700;font-size:.88rem}
+.dates{color:var(--muted);font-size:.95rem}
+.tag{display:inline-block;padding:.05rem .6rem;border:0;border-radius:99px;background:var(--cs,var(--ac-soft));color:var(--ci,var(--ac-ink));font:700 .78rem var(--body)}
+button.tag{padding:.15rem .75rem;font-size:.84rem;cursor:pointer}
+button.tag:hover{filter:brightness(.94)}
+
+/* detall d'una setmana (finestra) */
+#dt{position:fixed;inset:0;z-index:55;display:none;justify-content:center;align-items:flex-start;padding:1rem;overflow:auto;background:rgba(38,38,77,.6)}
+#dt.on{display:flex}
+.dt-box{width:100%;max-width:980px;margin:auto 0;padding:1rem;background:var(--bg);border-radius:30px}
+.dt-bar{display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem}
+.dt-bar button{font:700 .92rem var(--body);padding:.45rem .95rem;border:1px solid var(--line);border-radius:99px;background:var(--card);color:var(--ink);cursor:pointer}
+.dt-bar button:hover:not(:disabled){border-color:var(--ac)}
+.dt-bar button:disabled{opacity:.35;cursor:default}
+.dt-bar .cl{margin-left:auto}
+.card{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:1.4rem;padding:14px;
+  background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--sh)}
+.card.sola{grid-template-columns:1fr}
+.card.sola .txt{padding:.8rem}
+.mosaic{display:grid;gap:6px;aspect-ratio:4/3;align-self:start}
+.mosaic.n1{grid-template-columns:1fr}
+.mosaic.n2{grid-template-columns:1fr 1fr}
+.mosaic.n3{grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr}
+.mosaic.n3 .ph:first-child{grid-row:span 2}
+.mosaic.n4{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.ph{position:relative;padding:0;border:0;overflow:hidden;border-radius:16px;background:var(--line);cursor:zoom-in}
+.ph img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.ph:hover img{transform:scale(1.05)}
+.more{position:absolute;inset:0;display:grid;place-items:center;background:rgba(38,38,77,.55);color:#fff;font:800 1.6rem var(--head)}
+.txt{padding:.8rem .6rem .6rem 0;align-self:center}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin-bottom:.7rem}
+.txt h3{font-size:1.75rem;font-weight:800;line-height:1.15;letter-spacing:-.01em}
+.txt p{margin:.6rem 0 0;color:var(--ink);opacity:.85;max-width:34rem;white-space:pre-line}
+.txt .tg{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
+.notes{display:grid;gap:.6rem;margin-top:1rem}
+.nota{padding:.7rem .95rem;border-radius:16px;font-size:.96rem;line-height:1.45}
+.nota b{display:block;margin-bottom:.1rem;font:800 .76rem var(--head);text-transform:uppercase;letter-spacing:.07em}
+.nota.julia{background:#ffe4eb;color:#7d1f3a}
+.nota.erica{background:#e9e8ff;color:#2f2ca0}
+
+/* pendents */
+.pend{padding:0 0 3rem}
+.pend .bar{max-width:22rem}
+.pend .sub{margin-bottom:.7rem}
+.pl{list-style:none;margin:1.2rem 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(17rem,1fr));gap:.7rem}
+.it{display:flex;align-items:flex-start;gap:.75rem;padding:.75rem .95rem;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh)}
+.ck{flex:none;display:grid;place-items:center;width:1.5rem;height:1.5rem;margin-top:.1rem;border:2px solid var(--ac);border-radius:8px;color:#fff;font:800 .9rem/1 var(--body)}
+.it.fet .ck{background:var(--ac)}
+.it.fet .t{color:var(--muted);text-decoration:line-through}
+.lk{display:block;margin-top:.1rem;padding:0;border:0;background:none;color:var(--ac-ink);font:600 .82rem var(--body);text-decoration:underline;cursor:pointer}
+
+/* calendari */
+.cal{padding:1.5rem 0 4rem}
+details.cal>summary{cursor:pointer;list-style:none;font-family:var(--head);margin-bottom:.4rem}
+details.cal>summary::-webkit-details-marker{display:none}
+details.cal>summary::before{content:"▸ ";color:var(--ac)}
+details.cal[open]>summary::before{content:"▾ "}
+.months{display:grid;grid-template-columns:repeat(auto-fill,minmax(17.5rem,1fr));gap:1rem}
+.mc{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:1rem 1rem .8rem;box-shadow:var(--sh)}
+.mc h3{margin:0 0 .6rem;font-size:1.1rem;font-weight:800}
+.wd,.wk{display:grid;grid-template-columns:1.7rem repeat(7,1fr) 2rem;text-align:center}
+.wd{font-size:.75rem;color:var(--muted);margin-bottom:.2rem}
+.wk{height:2.25rem;align-items:center;font-size:.88rem;border-radius:99px;color:var(--ink);text-decoration:none}
+.wk b{display:grid;place-items:center;width:1.7rem;height:1.7rem;margin:auto;font-weight:inherit}
+.wk.has{background:var(--cs,var(--ac-soft));color:var(--ci,var(--ac-ink));font-weight:700;transition:filter .15s}
+.wk.has:hover{filter:brightness(.94)}
+.wn{font-size:.68rem;font-weight:700;opacity:.65}
+.th{display:block;width:1.8rem;height:1.8rem;margin:auto;object-fit:cover;border-radius:9px}
+.wk b.hoy{background:var(--rose);color:#fff;border-radius:50%;font-weight:700}
+
+/* ampliar foto */
+#lb{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;gap:.5rem;padding:1rem;background:rgba(38,38,77,.88)}
+#lb.on{display:flex}
+#lb figure{margin:0;text-align:center;max-width:min(88vw,980px)}
+#lb img{display:block;max-width:100%;max-height:78vh;border-radius:14px;margin:auto}
+#lb figcaption{margin-top:.7rem;color:#fff;font:600 1.1rem var(--head);min-height:1.5em}
+#lb button{flex:none;width:2.8rem;height:2.8rem;border:0;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;font-size:1.6rem;line-height:1;cursor:pointer}
+#lb button:hover{background:rgba(255,255,255,.3)}
+#lb .x{position:absolute;top:1rem;right:1rem}
+#lb.single .pv,#lb.single .nx{visibility:hidden}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;padding-top:2.2rem}
+  .card{grid-template-columns:1fr;gap:.6rem}
+  .txt{padding:.4rem .6rem .8rem}
+  .dt-box{padding:.7rem;border-radius:24px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
+  .tt{font-size:1.02rem}
+  .tb{padding:.65rem .75rem .8rem}
+  #lb button.pv,#lb button.nx{position:absolute;bottom:1rem}
+  #lb .pv{left:1rem}#lb .nx{right:1rem}
+}
+@media (max-width:380px){ .grid{grid-template-columns:1fr} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body class="locked">
+
+<div id="gate">
+  <div class="gate-card">
+    <h1>Només per a nosaltres</h1>
+    <p>Escriu la contrasenya per entrar.</p>
+    <input id="pw" type="password" autocomplete="off" aria-label="Contrasenya">
+    <button id="enter" type="button">Entrar</button>
+    <p id="gate-err" role="alert"></p>
+  </div>
+</div>
+
+<main class="wrap">
+  <header class="hero">
+    <div>
+      <p class="estacio" id="estacio"></p>
+      <h1>El nostre curs <span>2026–2027</span></h1>
+      <p class="names">Júlia i Erica · juliquers</p>
+      <p class="lead">Els plans, les rialles i les fotos de cada setmana, tot en un sol lloc.</p>
+      <p><a href="#calBox" onclick="document.getElementById('calBox').open=true">Veure el calendari ↓</a></p>
+      <div class="prog"><div class="bar"><i></i></div></div>
+    </div>
+    <div class="pics" id="heroPics"></div>
+  </header>
+
+  <section class="stats" id="stats" aria-label="Estadístiques del curs"></section>
+
+  <section class="llista" id="llista">
+    <h2 class="sec">Setmana a setmana</h2>
+    <div class="fl" id="filtre" role="group" aria-label="Filtrar per etiqueta" hidden></div>
+    <div id="errs"></div>
+    <div id="grid"></div>
+  </section>
+
+  <section class="pend" id="pend" hidden>
+    <h2 class="sec">Voldríem fer…</h2>
+    <p class="sub" id="pcnt"></p>
+    <div class="bar"><i></i></div>
+    <ul class="pl" id="pl"></ul>
+  </section>
+
+  <details class="cal" id="calBox">
+    <summary class="sec">Calendari</summary>
+    <p class="sub">Les setmanes marcades tenen plans guardats. Toca’n una per obrir-la.</p>
+    <div class="months" id="months"></div>
+  </details>
+</main>
+
+<div id="dt" role="dialog" aria-modal="true" aria-label="Detall de la setmana">
+  <div class="dt-box">
+    <div class="dt-bar">
+      <button class="pv2" type="button">‹ Anterior</button>
+      <button class="nx2" type="button">Següent ›</button>
+      <button class="cl" type="button">Tancar ×</button>
+    </div>
+    <div class="dt-body"></div>
+  </div>
+</div>
+
+<div id="lb" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button class="x" type="button" aria-label="Tancar">×</button>
+  <button class="pv" type="button" aria-label="Foto anterior">‹</button>
+  <figure><img alt=""><figcaption></figcaption></figure>
+  <button class="nx" type="button" aria-label="Foto següent">›</button>
+</div>
+
+<script>
+/* CONTRASENYA (ara: juliquers). Per canviar-la, posa aquí el SHA-256 de la nova, en minúscules. */
+const HASH = "a37336662829cc50922b40b2ee6ee2fa3bd49d5d97b2699a4be9527034278be9";
+
+/* Les setmanes i els pendents ja no es posen aquí: es generen soles a setmanes.json
+   a partir de la carpeta setmanes/ (vegeu LLEGEIX-ME.md). */
+let SETMANES = [], PENDENTS = [];
+
+/* ---------- a partir d'aquí no cal tocar res ---------- */
+const MESOS=["Gener","Febrer","Març","Abril","Maig","Juny","Juliol","Agost","Setembre","Octubre","Novembre","Desembre"];
+const DE=["de gener","de febrer","de març","d’abril","de maig","de juny","de juliol","d’agost","de setembre","d’octubre","de novembre","de desembre"];
+const DIA=864e5, INICI=Date.UTC(2026,7,31), FI=Date.UTC(2027,5,28), TOTAL=Math.round((FI-INICI)/(7*DIA))+1;
+/* colors per setmana: es van repetint en cicle ([fons suau, text]) */
+const PAL=[["#e9e8ff","#3b38c9"],["#ffe4eb","#c2294f"],["#d9f6ec","#17795c"],["#fff0d1","#9a5b00"],["#dff1ff","#14679e"],["#f1e3ff","#7b2fb8"]];
+const color=n=>PAL[((n-1)%PAL.length+PAL.length)%PAL.length];
+const numSet=t=>Math.round((t-INICI)/(7*DIA))+1;
+const $=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e};
+const lunes=t=>t-((new Date(t).getUTCDay()+6)%7)*DIA;
+const iso=t=>new Date(t).toISOString().slice(0,10);
+function llegeix(s){
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(s||""))return NaN;
+  const [y,m,d]=s.split("-").map(Number); return lunes(Date.UTC(y,m-1,d));
+}
+function rang(t){
+  const a=new Date(t),b=new Date(t+6*DIA),ma=a.getUTCMonth(),mb=b.getUTCMonth();
+  return ma===mb?`${a.getUTCDate()}–${b.getUTCDate()} ${DE[ma]}`:`${a.getUTCDate()} ${DE[ma]} – ${b.getUTCDate()} ${DE[mb]}`;
+}
+const avui=()=>{const h=new Date();return Date.UTC(h.getFullYear(),h.getMonth(),h.getDate())};
+const pinta_c=(el,n)=>{const [cs,ci]=color(n);el.style.setProperty("--cs",cs);el.style.setProperty("--ci",ci)};
+
+/* tema d'estació */
+const TEMES={tardor:["🍂","Tardor"],hivern:["❄️","Hivern"],primavera:["🌸","Primavera"],estiu:["☀️","Estiu"]};
+function estacio(){
+  const q=new URLSearchParams(location.search).get("tema");
+  if(q&&TEMES[q])return q;
+  const h=new Date(),v=(h.getMonth()+1)*100+h.getDate();
+  if(v>=1221||v<=320)return "hivern";
+  if(v<=620)return "primavera";
+  if(v<=831)return "estiu";
+  return "tardor";
+}
+const TEMA=estacio();
+document.documentElement.dataset.t=TEMA;
+document.getElementById("estacio").textContent=TEMES[TEMA][0]+" "+TEMES[TEMA][1];
+
+let D=[], VIS=[], FILTRE=null;
+
+function progres(){
+  const w=Math.floor((avui()-INICI)/(7*DIA))+1;
+  document.querySelector(".prog i").style.width=Math.max(0,Math.min(100,w/TOTAL*100))+"%";
+}
+function portada(d){
+  const box=document.getElementById("heroPics");
+  const totes=[...new Map(d.flatMap(x=>x.s.fotos||[]).map(p=>[p.src,p])).values()];
+  if(!totes.length){box.remove();return}
+  for(let i=totes.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [totes[i],totes[j]]=[totes[j],totes[i]];
+  }
+  totes.slice(0,3).forEach((p,i)=>{
+    const f=$("figure","hp hp"+i),im=document.createElement("img");
+    im.src=p.src;im.alt=p.peu||"";f.appendChild(im);box.appendChild(f);
+  });
+}
+
+/* estadístiques */
+function etiquetes(d){
+  const m=new Map();
+  d.forEach(x=>(x.s.etiquetes||[]).forEach(t=>m.set(t,(m.get(t)||0)+1)));
+  return [...m].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],"ca"));
+}
+function stats(d){
+  const box=document.getElementById("stats");box.textContent="";
+  const add=(n,l)=>{const e=$("div","st");e.appendChild($("b",String(n).length>6?"long":"",n));e.appendChild($("span","",l));box.appendChild(e)};
+  add(d.length,"setmanes amb plans de les "+TOTAL+" del curs");
+  const fotos=d.reduce((a,x)=>a+(x.s.fotos||[]).length,0);
+  if(fotos)add(fotos,fotos===1?"foto guardada":"fotos guardades");
+  const hui=avui(),dies=Math.max(0,Math.min(Math.round((FI-INICI)/DIA)+1,Math.floor((hui-INICI)/DIA)+1));
+  add(dies,"dies de curs · en queden "+Math.max(0,Math.round((FI-hui)/DIA)));
+  const tg=etiquetes(d);
+  if(tg.length)add("#"+tg[0][0],"l’etiqueta estrella · "+tg[0][1]+(tg[0][1]===1?" setmana":" setmanes"));
+  const notes=d.reduce((a,x)=>a+(x.s.julia?1:0)+(x.s.erica?1:0),0);
+  if(notes)add(notes,notes===1?"nota escrita":"notes escrites");
+  if(PENDENTS.length)add(PENDENTS.filter(p=>p.fet).length+"/"+PENDENTS.length,"coses de la llista ja fetes");
+}
+
+/* filtre */
+function renderFiltre(){
+  const box=document.getElementById("filtre"),tg=etiquetes(D);
+  box.textContent="";
+  if(!tg.length){box.hidden=true;return}
+  box.hidden=false;
+  const btn=(txt,n,val)=>{
+    const b=$("button","f",txt);b.type="button";b.setAttribute("aria-pressed",String(FILTRE===val));
+    b.appendChild($("i","",n));
+    b.addEventListener("click",()=>{FILTRE=(FILTRE===val?null:val);renderFiltre();renderGrid()});
+    box.appendChild(b);
+  };
+  btn("Totes",D.length,null);
+  tg.forEach(([t,n])=>btn("#"+t,n,t));
+}
+
+/* quadrícula */
+function tile(x){
+  const s=x.s,fs=s.fotos||[],n=numSet(x.t),b=$("button","tile");
+  b.type="button";pinta_c(b,n);
+  b.setAttribute("aria-label","Obrir la setmana "+n+": "+s.titol);
+  const cv=$("span","cover");
+  if(fs.length){const im=document.createElement("img");im.src=fs[0].src;im.alt="";im.loading="lazy";cv.appendChild(im)}
+  else cv.appendChild($("span","nofoto",n));
+  cv.appendChild($("span","chip","Setmana "+n));
+  if(fs.length>1)cv.appendChild($("span","np","📷 "+fs.length));
+  b.appendChild(cv);
+  const tb=$("span","tb");
+  tb.appendChild($("span","tt",s.titol));
+  tb.appendChild($("span","dates",rang(x.t)));
+  const tg=s.etiquetes||[];
+  if(tg.length){const w=$("span","tg");tg.slice(0,3).forEach(t=>w.appendChild($("span","tag","#"+t)));tb.appendChild(w)}
+  b.appendChild(tb);
+  b.addEventListener("click",()=>obreSet(x,VIS));
+  return b;
+}
+function renderGrid(){
+  const L=document.getElementById("grid");L.textContent="";
+  VIS=D.filter(x=>!FILTRE||(x.s.etiquetes||[]).includes(FILTRE));
+  let mes="",cont=null;
+  [...VIS].reverse().forEach(x=>{
+    const dt=new Date(x.t+3*DIA),cl=dt.getUTCFullYear()+"-"+dt.getUTCMonth();
+    if(cl!==mes){mes=cl;L.appendChild($("h3","mh",MESOS[dt.getUTCMonth()]+" "+dt.getUTCFullYear()));cont=$("div","grid");L.appendChild(cont)}
+    cont.appendChild(tile(x));
+  });
+  if(!FILTRE&&D.length){
+    const nx=numSet(D[D.length-1].t)+1;
+    if(nx<=TOTAL)L.querySelector(".grid").prepend($("div","tnext","Aquí hi anirà la setmana "+nx));
+  }
+  if(!VIS.length&&!D.length)L.appendChild($("p","sub","Encara no hi ha cap setmana."));
+}
+
+/* detall d'una setmana */
+const dt=document.getElementById("dt");let NAV=[],ni=0;
+function detall(x){
+  const s=x.s,fs=s.fotos||[],n=numSet(x.t),a=$("article","card"+(s.fotos&&s.fotos.length?"":" sola"));
+  a.id="s-"+iso(x.t);pinta_c(a,n);
+  if(fs.length){
+    const mo=$("div","mosaic n"+Math.min(fs.length,4));
+    fs.slice(0,4).forEach((p,i)=>{
+      const b=$("button","ph"),im=document.createElement("img");
+      b.type="button";b.setAttribute("aria-label","Ampliar: "+(p.peu||s.titol));
+      im.src=p.src;im.alt=p.peu||s.titol;im.loading="lazy";b.appendChild(im);
+      if(i===3&&fs.length>4)b.appendChild($("span","more","+"+(fs.length-4)));
+      b.addEventListener("click",()=>obre(fs,i));mo.appendChild(b);
+    });
+    a.appendChild(mo);
+  }
+  const t=$("div","txt"),meta=$("div","meta");
+  meta.appendChild($("span","chip","Setmana "+n));
+  meta.appendChild($("span","dates",rang(x.t)));
+  t.appendChild(meta);t.appendChild($("h3","",s.titol));
+  if(s.text)t.appendChild($("p","",s.text));
+  const tg=s.etiquetes||[];
+  if(tg.length){
+    const w=$("div","tg");
+    tg.forEach(e=>{
+      const b=$("button","tag","#"+e);b.type="button";b.title="Filtrar per #"+e;
+      b.addEventListener("click",()=>{
+        tanca();FILTRE=e;renderFiltre();renderGrid();
+        document.getElementById("llista").scrollIntoView({behavior:"smooth"});
+      });
+      w.appendChild(b);
+    });
+    t.appendChild(w);
+  }
+  if(s.julia||s.erica){
+    const nt=$("div","notes");
+    [["julia","Júlia"],["erica","Erica"]].forEach(([k,nom])=>{
+      if(!s[k])return;
+      const e=$("div","nota "+k);e.appendChild($("b","",nom));e.appendChild($("span","",s[k]));nt.appendChild(e);
+    });
+    t.appendChild(nt);
+  }
+  a.appendChild(t);return a;
+}
+function mostraSet(){
+  const box=dt.querySelector(".dt-body");box.textContent="";box.appendChild(detall(NAV[ni]));
+  dt.querySelector(".pv2").disabled=ni<=0;
+  dt.querySelector(".nx2").disabled=ni>=NAV.length-1;
+  dt.scrollTop=0;
+}
+function obreSet(x,llista){
+  NAV=llista.includes(x)?llista:D;ni=Math.max(0,NAV.indexOf(x));
+  mostraSet();dt.classList.add("on");document.body.classList.add("modal");
+  dt.querySelector(".cl").focus();
+}
+function tanca(){dt.classList.remove("on");document.body.classList.remove("modal")}
+const movSet=d=>{const n=ni+d;if(n<0||n>=NAV.length)return;ni=n;mostraSet()};
+dt.querySelector(".cl").addEventListener("click",tanca);
+dt.querySelector(".pv2").addEventListener("click",()=>movSet(-1));
+dt.querySelector(".nx2").addEventListener("click",()=>movSet(1));
+dt.addEventListener("click",e=>{if(e.target===dt)tanca()});
+
+/* pendents */
+function pendents(){
+  const sec=document.getElementById("pend");
+  if(!PENDENTS.length){sec.hidden=true;return}
+  sec.hidden=false;
+  const f=PENDENTS.filter(p=>p.fet).length;
+  document.getElementById("pcnt").textContent=`${f} de ${PENDENTS.length} fetes`;
+  sec.querySelector(".bar i").style.width=(f/PENDENTS.length*100)+"%";
+  const ul=document.getElementById("pl");ul.textContent="";
+  PENDENTS.forEach(p=>{
+    const li=$("li","it"+(p.fet?" fet":""));
+    li.appendChild($("span","ck",p.fet?"✓":""));
+    const w=$("span","tx");w.appendChild($("span","t",p.text));
+    if(p.fet&&p.setmana){
+      const t=llegeix(p.setmana),x=D.find(y=>y.t===t);
+      if(x){const l=$("button","lk","Setmana "+numSet(t)+" →");l.type="button";l.addEventListener("click",()=>obreSet(x,D));w.appendChild(l)}
+    }
+    li.appendChild(w);ul.appendChild(li);
+  });
+}
+
+/* calendari */
+function calendari(MAP){
+  const cont=document.getElementById("months"),hoy=avui();
+  for(let k=0;k<10;k++){
+    const y=k<4?2026:2027,m=(8+k)%12,c=$("div","mc");
+    c.appendChild($("h3","",MESOS[m]+" "+y));
+    const wd=$("div","wd");wd.appendChild($("span","","set."));
+    ["dl","dt","dc","dj","dv","ds","dg"].forEach(x=>wd.appendChild($("span","",x)));c.appendChild(wd);
+    const off=(new Date(Date.UTC(y,m,1)).getUTCDay()+6)%7, n=new Date(Date.UTC(y,m+1,0)).getUTCDate();
+    const cel=Array(off).fill(0).concat(Array.from({length:n},(_,i)=>i+1));
+    while(cel.length%7)cel.push(0);
+    for(let r=0;r<cel.length;r+=7){
+      const fila=cel.slice(r,r+7),t0=lunes(Date.UTC(y,m,fila.find(Boolean))),key=iso(t0),x=MAP[key],num=numSet(t0);
+      const w=x?$("a","wk has"):$("div","wk");
+      if(x){
+        pinta_c(w,num);
+        w.href="#s-"+key;w.title="Setmana "+num+" · "+x.s.titol;
+        w.addEventListener("click",ev=>{ev.preventDefault();obreSet(x,D)});
+      }
+      w.appendChild($("span","wn",num>=1&&num<=TOTAL?num:""));
+      fila.forEach(d=>{const b=$("b","",d||"");if(d&&Date.UTC(y,m,d)===hoy)b.className="hoy";w.appendChild(b)});
+      const f=x&&(x.s.fotos||[])[0];
+      if(f){const im=document.createElement("img");im.className="th";im.src=f.src;im.alt="";im.loading="lazy";w.appendChild(im)}
+      c.appendChild(w);
+    }
+    cont.appendChild(c);
+  }
+}
+
+function pinta(){
+  const errs=[],MAP={};D=[];
+  SETMANES.forEach(s=>{const t=llegeix(s.inici);isNaN(t)?errs.push(s):D.push({s,t})});
+  D.sort((a,b)=>a.t-b.t);D.forEach(x=>MAP[iso(x.t)]=x);
+  const E=document.getElementById("errs");
+  errs.forEach(s=>E.appendChild($("p","err",`Revisa la data de «${s.titol}»: ha de ser any-mes-dia complet, per exemple 2026-10-26.`)));
+  progres();portada(D);stats(D);renderFiltre();renderGrid();pendents();calendari(MAP);
+}
+
+/* ampliar fotos */
+const lb=document.getElementById("lb");let G=[],gi=0;
+function mostra(){
+  const p=G[gi],im=lb.querySelector("img");
+  im.src=p.src;im.alt=p.peu||"";lb.querySelector("figcaption").textContent=p.peu||"";
+  lb.classList.toggle("single",G.length<2);
+}
+function obre(f,i){G=f;gi=i;mostra();lb.classList.add("on")}
+const mou=d=>{gi=(gi+d+G.length)%G.length;mostra()};
+lb.querySelector(".x").addEventListener("click",()=>lb.classList.remove("on"));
+lb.querySelector(".pv").addEventListener("click",()=>mou(-1));
+lb.querySelector(".nx").addEventListener("click",()=>mou(1));
+lb.addEventListener("click",e=>{if(e.target===lb)lb.classList.remove("on")});
+document.addEventListener("keydown",e=>{
+  if(lb.classList.contains("on")){
+    if(e.key==="Escape")lb.classList.remove("on");
+    if(e.key==="ArrowLeft")mou(-1);
+    if(e.key==="ArrowRight")mou(1);
+    return;
+  }
+  if(dt.classList.contains("on")){
+    if(e.key==="Escape")tanca();
+    if(e.key==="ArrowLeft")movSet(-1);
+    if(e.key==="ArrowRight")movSet(1);
+  }
+});
+
+/* entrada amb contrasenya */
+async function sha(t){
+  const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));
+  return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
+}
+async function entra(){
+  document.body.classList.remove("locked");
+  try{
+    const r=await fetch("setmanes.json?v="+Date.now());
+    if(!r.ok)throw new Error(r.status);
+    const j=await r.json();
+    if(Array.isArray(j))SETMANES=j;
+    else{SETMANES=j.setmanes||[];PENDENTS=j.pendents||[]}
+  }catch(e){
+    document.getElementById("errs").appendChild($("p","err","No he pogut carregar setmanes.json."));
+  }
+  pinta();
+}
+async function prova(){
+  const err=document.getElementById("gate-err");
+  try{
+    if(await sha(document.getElementById("pw").value.trim().toLowerCase())===HASH){
+      try{sessionStorage.setItem("ok","1")}catch(e){}
+      entra();
+    }else err.textContent="Contrasenya incorrecta, torna-ho a provar.";
+  }catch(e){err.textContent="El navegador no pot comprovar la contrasenya aquí."}
+}
+document.getElementById("enter").addEventListener("click",prova);
+document.getElementById("pw").addEventListener("keydown",e=>{if(e.key==="Enter")prova()});
+try{if(sessionStorage.getItem("ok")==="1")entra()}catch(e){}
+</script>
+</body>
+</html>
