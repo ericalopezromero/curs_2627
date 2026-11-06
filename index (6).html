@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El nostre curs 2026-2027 · Júlia i Erica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f5fc; --card:#fff; --ink:#26264d; --muted:#6d6c92; --line:#e6e4f4;
+  --ac:#6f6cf0; --ac-soft:#e9e8ff; --ac-ink:#3b38c9; --rose:#ff86a2; --rose-soft:#ffe4eb; --mint:#5fcfae;
+  --head:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --sh:0 1px 2px rgba(38,38,77,.06),0 10px 28px -10px rgba(38,38,77,.16);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.02rem/1.6 var(--body)}
+body.locked main{display:none}
+h1,h2,h3{font-family:var(--head);margin:0}
+:focus-visible{outline:3px solid var(--ac);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 1.2rem}
+
+/* contrasenya */
+#gate{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:1rem;background:var(--bg)}
+body:not(.locked) #gate{display:none}
+.gate-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:2rem;max-width:23rem;width:100%;text-align:center;box-shadow:var(--sh)}
+.gate-card h1{font-size:1.7rem;font-weight:800;line-height:1.15}
+.gate-card p{margin:.4rem 0 1.2rem;color:var(--muted)}
+.gate-card input{width:100%;font:inherit;padding:.75rem 1rem;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);text-align:center}
+.gate-card button{margin-top:.8rem;width:100%;font:700 1rem var(--body);padding:.75rem;border:0;border-radius:12px;background:var(--ac);color:#fff;cursor:pointer}
+.gate-card button:hover{background:#5d5ae0}
+#gate-err{min-height:1.4em;margin:.7rem 0 0;color:#c0384f;font-size:.92rem}
+
+/* portada */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;padding:3.5rem 0 2.5rem}
+.hero h1{font-size:clamp(2.7rem,7vw,4.7rem);font-weight:800;line-height:1;letter-spacing:-.03em}
+.hero h1 span{color:var(--ac)}
+.names{margin:1rem 0 0;font:600 1.3rem var(--head)}
+.lead{margin:.5rem 0 0;max-width:28rem;color:var(--muted)}
+.prog{margin-top:1.8rem;max-width:26rem}
+.bar{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--ac),var(--rose))}
+.prog p{margin:.5rem 0 0;font-size:.92rem;color:var(--muted)}
+.pics{position:relative;aspect-ratio:1/1;max-width:25rem;width:100%;margin-inline:auto}
+.hp{position:absolute;margin:0;width:54%;padding:6px;background:#fff;border-radius:18px;box-shadow:0 14px 34px -12px rgba(38,38,77,.35)}
+.hp img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:13px}
+.hp0{top:0;left:2%;transform:rotate(-5deg)}
+.hp1{top:20%;right:0;transform:rotate(4deg)}
+.hp2{bottom:0;left:24%;width:46%;transform:rotate(-2deg)}
+
+.sec{font-size:1.9rem;font-weight:800;letter-spacing:-.02em}
+.sub{margin:.2rem 0 1.4rem;color:var(--muted)}
+
+/* calendari */
+.cal{padding:1.5rem 0 2.5rem}
+.months{display:grid;grid-template-columns:repeat(auto-fill,minmax(17.5rem,1fr));gap:1rem}
+.mc{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:1rem 1rem .8rem;box-shadow:var(--sh)}
+.mc h3{margin:0 0 .6rem;font-size:1.1rem;font-weight:800}
+.wd,.wk{display:grid;grid-template-columns:1.7rem repeat(7,1fr) 2rem;text-align:center}
+.wd{font-size:.75rem;color:var(--muted);margin-bottom:.2rem}
+.wk{height:2.25rem;align-items:center;font-size:.88rem;border-radius:99px;color:var(--ink);text-decoration:none}
+.wk b{display:grid;place-items:center;width:1.7rem;height:1.7rem;margin:auto;font-weight:inherit}
+.wk.has{background:var(--cs,var(--ac-soft));color:var(--ci,var(--ac-ink));font-weight:700;transition:filter .15s}
+.wk.has:hover{filter:brightness(.94)}
+.wn{font-size:.68rem;font-weight:700;opacity:.65}
+.th{display:block;width:1.8rem;height:1.8rem;margin:auto;object-fit:cover;border-radius:9px}
+.wk b.hoy{background:var(--rose);color:#fff;border-radius:50%;font-weight:700}
+
+/* targetes */
+.llista{padding-bottom:5rem}
+.mes{display:flex;align-items:center;gap:1rem;margin:2.8rem 0 1.2rem;font-size:1.5rem;font-weight:800}
+.mes::after{content:"";flex:1;height:1px;background:var(--line)}
+.mes{cursor:pointer;list-style:none;user-select:none}
+.mes::-webkit-details-marker{display:none}
+.mes::before{content:"▸";color:var(--ac);transition:transform .2s}
+details[open]>.mes::before{transform:rotate(90deg)}
+.cnt{font:500 .9rem var(--body);color:var(--muted)}
+details.cal>summary{cursor:pointer;list-style:none;font-family:var(--head);margin-bottom:.4rem}
+details.cal>summary::-webkit-details-marker{display:none}
+details.cal>summary::before{content:"▸ ";color:var(--ac)}
+details.cal[open]>summary::before{content:"▾ "}
+.card{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:1.4rem;margin-bottom:1.4rem;padding:14px;
+  background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--sh);scroll-margin-top:1.5rem}
+.card:target{box-shadow:0 0 0 3px var(--ci,var(--ac)),var(--sh)}
+.mosaic{display:grid;gap:6px;aspect-ratio:4/3;align-self:start}
+.mosaic.n1{grid-template-columns:1fr}
+.mosaic.n2{grid-template-columns:1fr 1fr}
+.mosaic.n3{grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr}
+.mosaic.n3 .ph:first-child{grid-row:span 2}
+.mosaic.n4{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.ph{position:relative;padding:0;border:0;overflow:hidden;border-radius:16px;background:var(--line);cursor:zoom-in}
+.ph img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.ph:hover img{transform:scale(1.05)}
+.more{position:absolute;inset:0;display:grid;place-items:center;background:rgba(38,38,77,.55);color:#fff;font:800 1.6rem var(--head)}
+.txt{padding:.8rem .6rem .6rem 0;align-self:center}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin-bottom:.7rem}
+.chip{padding:.15rem .8rem;border-radius:99px;background:var(--cs,var(--ac-soft));color:var(--ci,var(--ac-ink));font-weight:700;font-size:.88rem}
+.dates{color:var(--muted);font-size:.95rem}
+.txt h3{font-size:1.75rem;font-weight:800;line-height:1.15;letter-spacing:-.01em}
+.txt p{margin:.6rem 0 0;color:#4a4a72;max-width:34rem}
+.next{margin-top:1rem;padding:1.6rem;text-align:center;color:var(--muted);border:2px dashed var(--line);border-radius:26px}
+.err{padding:.8rem 1rem;border-radius:12px;background:var(--rose-soft);color:#a12a44}
+
+/* ampliar foto */
+#lb{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;gap:.5rem;padding:1rem;background:rgba(38,38,77,.88)}
+#lb.on{display:flex}
+#lb figure{margin:0;text-align:center;max-width:min(88vw,980px)}
+#lb img{display:block;max-width:100%;max-height:78vh;border-radius:14px;margin:auto}
+#lb figcaption{margin-top:.7rem;color:#fff;font:600 1.1rem var(--head);min-height:1.5em}
+#lb button{flex:none;width:2.8rem;height:2.8rem;border:0;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;font-size:1.6rem;line-height:1;cursor:pointer}
+#lb button:hover{background:rgba(255,255,255,.3)}
+#lb .x{position:absolute;top:1rem;right:1rem}
+#lb.single .pv,#lb.single .nx{visibility:hidden}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;padding-top:2.2rem}
+  .card{grid-template-columns:1fr;gap:.6rem}
+  .txt{padding:.4rem .6rem .8rem}
+  #lb button.pv,#lb button.nx{position:absolute;bottom:1rem}
+  #lb .pv{left:1rem}#lb .nx{right:1rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body class="locked">
+
+<div id="gate">
+  <div class="gate-card">
+    <h1>Només per a nosaltres</h1>
+    <p>Escriu la contrasenya per entrar.</p>
+    <input id="pw" type="password" autocomplete="off" aria-label="Contrasenya">
+    <button id="enter" type="button">Entrar</button>
+    <p id="gate-err" role="alert"></p>
+  </div>
+</div>
+
+<main class="wrap">
+  <header class="hero">
+    <div>
+      <h1>El nostre curs <span>2026–2027</span></h1>
+      <p class="names">Júlia i Erica · juliquers</p>
+      <p class="lead">Els plans, les rialles i les fotos de cada setmana, tot en un sol lloc.</p>
+      <p><a href="#calBox" onclick="document.getElementById('calBox').open=true">Veure el calendari ↓</a></p>
+      <div class="prog"><div class="bar"><i></i></div><p></p></div>
+    </div>
+    <div class="pics" id="heroPics"></div>
+  </header>
+
+  <section class="llista" id="llista">
+    <h2 class="sec">Setmana a setmana</h2>
+  </section>
+
+<details class="cal" id="calBox">
+    <summary class="sec">Calendari</summary>
+    <p class="sub">Les setmanes marcades tenen plans guardats. Toca’n una per anar-hi.</p>
+    <div class="months" id="months"></div>
+  </details>
+  </main>
+
+<div id="lb" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button class="x" type="button" aria-label="Tancar">×</button>
+  <button class="pv" type="button" aria-label="Foto anterior">‹</button>
+  <figure><img alt=""><figcaption></figcaption></figure>
+  <button class="nx" type="button" aria-label="Foto següent">›</button>
+</div>
+
+<script>
+/* 1) CONTRASENYA (ara: juliquers). Per canviar-la, posa aquí el SHA-256 de la nova, en minúscules. */
+const HASH = "a37336662829cc50922b40b2ee6ee2fa3bd49d5d97b2699a4be9527034278be9";
+
+/* Les setmanes ja no es posen aquí: es generen soles a setmanes.json
+   a partir de les carpetes de setmanes/ (vegeu LLEGEIX-ME.md). */
+let SETMANES = [];
+
+
+/* ---------- a partir d'aquí no cal tocar res ---------- */
+const MESOS=["Gener","Febrer","Març","Abril","Maig","Juny","Juliol","Agost","Setembre","Octubre","Novembre","Desembre"];
+const DE=["de gener","de febrer","de març","d’abril","de maig","de juny","de juliol","d’agost","de setembre","d’octubre","de novembre","de desembre"];
+const DIA=864e5, INICI=Date.UTC(2026,7,31), FI=Date.UTC(2027,5,28), TOTAL=Math.round((FI-INICI)/(7*DIA))+1;
+/* colors per setmana: es van repetint en cicle ([fons suau, text]) */
+const PAL=[["#e9e8ff","#3b38c9"],["#ffe4eb","#c2294f"],["#d9f6ec","#17795c"],["#fff0d1","#9a5b00"],["#dff1ff","#14679e"],["#f1e3ff","#7b2fb8"]];
+const color=n=>PAL[((n-1)%PAL.length+PAL.length)%PAL.length];
+const numSet=t=>Math.round((t-INICI)/(7*DIA))+1;
+const $=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e};
+const lunes=t=>t-((new Date(t).getUTCDay()+6)%7)*DIA;
+const iso=t=>new Date(t).toISOString().slice(0,10);
+function llegeix(s){
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(s||""))return NaN;
+  const [y,m,d]=s.split("-").map(Number); return lunes(Date.UTC(y,m-1,d));
+}
+function rang(t){
+  const a=new Date(t),b=new Date(t+6*DIA),ma=a.getUTCMonth(),mb=b.getUTCMonth();
+  return ma===mb?`${a.getUTCDate()}–${b.getUTCDate()} ${DE[ma]}`:`${a.getUTCDate()} ${DE[ma]} – ${b.getUTCDate()} ${DE[mb]}`;
+}
+const avui=()=>{const h=new Date();return Date.UTC(h.getFullYear(),h.getMonth(),h.getDate())};
+
+function progres(){
+  const w=Math.floor((avui()-INICI)/(7*DIA))+1, p=document.querySelector(".prog");
+  p.querySelector("p").textContent = w<1?"El curs encara no ha començat":w>TOTAL?"Curs acabat. Quin curs!":`Setmana ${w} de ${TOTAL} del curs`;
+  p.querySelector("i").style.width=Math.max(0,Math.min(100,w/TOTAL*100))+"%";
+}
+function portada(d){
+  const box=document.getElementById("heroPics");
+  /* totes les fotos de totes les setmanes, sense repetir rutes */
+  const totes=[...new Map(d.flatMap(x=>x.s.fotos||[]).map(p=>[p.src,p])).values()];
+  if(!totes.length){box.remove();return}
+  /* barreja (Fisher-Yates) */
+  for(let i=totes.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [totes[i],totes[j]]=[totes[j],totes[i]];
+  }
+  totes.slice(0,3).forEach((p,i)=>{
+    const f=$("figure","hp hp"+i),im=document.createElement("img");
+    im.src=p.src;im.alt=p.peu||"";f.appendChild(im);box.appendChild(f);
+  });
+}
+function calendari(MAP){
+  const cont=document.getElementById("months"),hoy=avui();
+  for(let k=0;k<10;k++){
+    const y=k<4?2026:2027,m=(8+k)%12,c=$("div","mc");
+    c.appendChild($("h3","",MESOS[m]+" "+y));
+    const wd=$("div","wd");wd.appendChild($("span","","set."));
+    ["dl","dt","dc","dj","dv","ds","dg"].forEach(x=>wd.appendChild($("span","",x)));c.appendChild(wd);
+    const off=(new Date(Date.UTC(y,m,1)).getUTCDay()+6)%7, n=new Date(Date.UTC(y,m+1,0)).getUTCDate();
+    const cel=Array(off).fill(0).concat(Array.from({length:n},(_,i)=>i+1));
+    while(cel.length%7)cel.push(0);
+    for(let r=0;r<cel.length;r+=7){
+      const fila=cel.slice(r,r+7),t0=lunes(Date.UTC(y,m,fila.find(Boolean))),key=iso(t0),x=MAP[key],num=numSet(t0);
+      const w=x?$("a","wk has"):$("div","wk");
+      if(x){
+        const [cs,ci]=color(num);
+        w.style.setProperty("--cs",cs);w.style.setProperty("--ci",ci);
+        w.href="#s-"+key;w.title="Setmana "+num+" · "+x.s.titol;
+        w.addEventListener("click",ev=>{
+          ev.preventDefault();
+          const t=document.getElementById("s-"+key);
+          t.closest("details").open=true;          // obre el mes on és la setmana
+          t.scrollIntoView({behavior:"smooth",block:"start"});
+        });
+      }
+      w.appendChild($("span","wn",num>=1&&num<=TOTAL?num:""));
+      fila.forEach(d=>{const b=$("b","",d||"");if(d&&Date.UTC(y,m,d)===hoy)b.className="hoy";w.appendChild(b)});
+      const f=x&&(x.s.fotos||[])[0];
+      if(f){const im=document.createElement("img");im.className="th";im.src=f.src;im.alt="";im.loading="lazy";w.appendChild(im)}
+      c.appendChild(w);
+    }
+    cont.appendChild(c);
+  }
+}
+function targeta(x){
+  const s=x.s,fs=s.fotos||[],a=$("article","card");
+  a.id="s-"+iso(x.t);
+  {const [cs,ci]=color(numSet(x.t));a.style.setProperty("--cs",cs);a.style.setProperty("--ci",ci)}
+  if(fs.length){
+    const mo=$("div","mosaic n"+Math.min(fs.length,4));
+    fs.slice(0,4).forEach((p,i)=>{
+      const b=$("button","ph"),im=document.createElement("img");
+      b.type="button";b.setAttribute("aria-label","Ampliar: "+(p.peu||s.titol));
+      im.src=p.src;im.alt=p.peu||s.titol;im.loading="lazy";b.appendChild(im);
+      if(i===3&&fs.length>4)b.appendChild($("span","more","+"+(fs.length-4)));
+      b.addEventListener("click",()=>obre(fs,i));mo.appendChild(b);
+    });
+    a.appendChild(mo);
+  }
+  const t=$("div","txt"),meta=$("div","meta");
+  meta.appendChild($("span","chip","Setmana "+numSet(x.t)));
+  meta.appendChild($("span","dates",rang(x.t)));
+  t.appendChild(meta);t.appendChild($("h3","",s.titol));t.appendChild($("p","",s.text));
+  a.appendChild(t);return a;
+}
+function llista(d,errs){
+  const L=document.getElementById("llista");
+  errs.forEach(s=>L.appendChild($("p","err",`Revisa la data de «${s.titol}»: ha de ser any-mes-dia complet, per exemple 2026-10-26.`)));
+  let mes="",grup=null,n=0,grups=[];
+  d.forEach(x=>{
+    const dt=new Date(x.t+3*DIA),cl=dt.getUTCFullYear()+"-"+dt.getUTCMonth();
+    if(cl!==mes){
+      mes=cl;
+      grup=$("details","grup");
+      const s=$("summary","mes",MESOS[dt.getUTCMonth()]+" "+dt.getUTCFullYear());
+      s.appendChild($("span","cnt",""));
+      grup.appendChild(s);L.appendChild(grup);grups.push(grup);
+    }
+    grup.appendChild(targeta(x));
+    const c=grup.querySelector(".cnt"),k=grup.querySelectorAll(".card").length;
+    c.textContent=k+(k===1?" setmana":" setmanes");
+  });
+  if(grups.length)grups[grups.length-1].open=true;
+  L.appendChild($("div","next","Aquí hi anirà la propera setmana."));
+}
+function pinta(){
+  const d=[],errs=[],MAP={};
+  SETMANES.forEach(s=>{const t=llegeix(s.inici);isNaN(t)?errs.push(s):d.push({s,t})});
+  d.sort((a,b)=>a.t-b.t);d.forEach(x=>MAP[iso(x.t)]=x);
+  progres();portada(d);calendari(MAP);llista(d,errs);
+}
+
+/* ampliar fotos */
+const lb=document.getElementById("lb");let G=[],gi=0;
+function mostra(){
+  const p=G[gi],im=lb.querySelector("img");
+  im.src=p.src;im.alt=p.peu||"";lb.querySelector("figcaption").textContent=p.peu||"";
+  lb.classList.toggle("single",G.length<2);
+}
+function obre(f,i){G=f;gi=i;mostra();lb.classList.add("on")}
+const mou=d=>{gi=(gi+d+G.length)%G.length;mostra()};
+lb.querySelector(".x").addEventListener("click",()=>lb.classList.remove("on"));
+lb.querySelector(".pv").addEventListener("click",()=>mou(-1));
+lb.querySelector(".nx").addEventListener("click",()=>mou(1));
+lb.addEventListener("click",e=>{if(e.target===lb)lb.classList.remove("on")});
+document.addEventListener("keydown",e=>{
+  if(!lb.classList.contains("on"))return;
+  if(e.key==="Escape")lb.classList.remove("on");
+  if(e.key==="ArrowLeft")mou(-1);
+  if(e.key==="ArrowRight")mou(1);
+});
+
+/* entrada amb contrasenya */
+async function sha(t){
+  const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));
+  return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
+}
+async function entra(){
+  document.body.classList.remove("locked");
+  try{
+    const r=await fetch("setmanes.json?v="+Date.now());
+    if(!r.ok)throw new Error(r.status);
+    SETMANES=await r.json();
+  }catch(e){
+    document.getElementById("llista").appendChild($("p","err","No he pogut carregar setmanes.json."));
+  }
+  pinta();
+}
+async function prova(){
+  const err=document.getElementById("gate-err");
+  try{
+    if(await sha(document.getElementById("pw").value.trim().toLowerCase())===HASH){
+      try{sessionStorage.setItem("ok","1")}catch(e){}
+      entra();
+    }else err.textContent="Contrasenya incorrecta, torna-ho a provar.";
+  }catch(e){err.textContent="El navegador no pot comprovar la contrasenya aquí."}
+}
+document.getElementById("enter").addEventListener("click",prova);
+document.getElementById("pw").addEventListener("keydown",e=>{if(e.key==="Enter")prova()});
+try{if(sessionStorage.getItem("ok")==="1")entra()}catch(e){}
+</script>
+</body>
+</html>
