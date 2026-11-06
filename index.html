@@ -169,104 +169,10 @@ details.cal[open]>summary::before{content:"▾ "}
 /* 1) CONTRASENYA (ara: juliquers). Per canviar-la, posa aquí el SHA-256 de la nova, en minúscules. */
 const HASH = "a37336662829cc50922b40b2ee6ee2fa3bd49d5d97b2699a4be9527034278be9";
 
-/* 2) SETMANES — afegeix un bloc nou cada setmana.
-   inici: qualsevol dia de la setmana, en format ANY-MES-DIA complet (ex: "2026-10-26")
-   fotos: ruta + peu (el text que surt en ampliar la foto). Pots posar-ne les que vulguis. */
+/* Les setmanes ja no es posen aquí: es generen soles a setmanes.json
+   a partir de les carpetes de setmanes/ (vegeu LLEGEIX-ME.md). */
+let SETMANES = [];
 
-const SETMANES = [
-  {
-    inici: "2026-10-26",
-    titol: "Setmana de Halloween",
-    text: "Poble ple de banderoles, diademes de carbassa, un home llop pel carrer i hamburguesa amb nachos per recuperar forces.",
-    fotos: [
-      { src: "fotos/2026-10/1.jpg", peu: "Boo!" },
-      { src: "fotos/2026-10/2.jpg", peu: "Uuuh, un home llop!" },
-      { src: "fotos/2026-10/3.jpg", peu: "Recuperant forces" }
-    ]
-  },
-  /* ,{ inici: "2026-11-02", titol: "...", text: "...", fotos: [ { src: "fotos/2026-11/1.jpg", peu: "..." } ] } */
-  {
-    inici: "2026-10-19",
-    titol: "Setmana pre-halloween",
-    text: "Poble Espanyol (48 h Open House), i partit del Barça",
-    fotos: [
-      { src: "fotos/2026-10/4.jpg", peu: "?" },
-      { src: "fotos/2026-10/5.jpg", peu: "?" },
-      { src: "fotos/2026-10/6.jpg", peu: "?" }
-    ]
-  },
-  {
-    inici: "2026-10-12",
-    titol: "3",
-    text: "33333",
-    fotos: [
-      { src: "fotos/2026-10/4.jpg", peu: "?" },
-      { src: "fotos/2026-10/5.jpg", peu: "?" },
-      { src: "fotos/2026-10/6.jpg", peu: "?" }
-    ]
-  },
-   {
-    inici: "2026-10-05",
-    titol: "3",
-    text: "33333",
-    fotos: [
-      { src: "fotos/2026-10/4.jpg", peu: "?" },
-      { src: "fotos/2026-10/5.jpg", peu: "?" },
-      { src: "fotos/2026-10/6.jpg", peu: "?" }
-    ]
-  },
-  {
-    inici: "2026-09-28",
-    titol: "3",
-    text: "33333",
-    fotos: [
-      { src: "fotos/2026-10/4.jpg", peu: "?" },
-      { src: "fotos/2026-10/5.jpg", peu: "?" },
-      { src: "fotos/2026-10/6.jpg", peu: "?" }
-    ]
-  },
-    {
-    inici: "2026-09-21",
-    titol: "3",
-    text: "33333",
-    fotos: [
-      { src: "fotos/2026-10/4.jpg", peu: "?" },
-      { src: "fotos/2026-10/5.jpg", peu: "?" },
-      { src: "fotos/2026-10/6.jpg", peu: "?" }
-    ]
-  },
-     {
-    inici: "2026-09-14",
-    titol: "3",
-    text: "33333",
-    fotos: [
-      { src: "fotos/2026-10/4.jpg", peu: "?" },
-      { src: "fotos/2026-10/5.jpg", peu: "?" },
-      { src: "fotos/2026-10/6.jpg", peu: "?" }
-    ]
-  },
-     {
-    inici: "2026-09-07",
-    titol: "3",
-    text: "33333",
-    fotos: [
-      { src: "fotos/2026-10/4.jpg", peu: "?" },
-      { src: "fotos/2026-10/5.jpg", peu: "?" },
-      { src: "fotos/2026-10/6.jpg", peu: "?" }
-    ]
-  },
-      {
-    inici: "2026-09-01",
-    titol: "4",
-    text: "33333",
-    fotos: [
-      { src: "fotos/2026-10/4.jpg", peu: "?" },
-      { src: "fotos/2026-10/5.jpg", peu: "?" },
-      { src: "fotos/2026-10/6.jpg", peu: "?" }
-    ]
-  }
-];
-  
 
 /* ---------- a partir d'aquí no cal tocar res ---------- */
 const MESOS=["Gener","Febrer","Març","Abril","Maig","Juny","Juliol","Agost","Setembre","Octubre","Novembre","Desembre"];
@@ -404,7 +310,17 @@ async function sha(t){
   const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));
   return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
 }
-function entra(){document.body.classList.remove("locked");pinta()}
+async function entra(){
+  document.body.classList.remove("locked");
+  try{
+    const r=await fetch("setmanes.json?v="+Date.now());
+    if(!r.ok)throw new Error(r.status);
+    SETMANES=await r.json();
+  }catch(e){
+    document.getElementById("llista").appendChild($("p","err","No he pogut carregar setmanes.json."));
+  }
+  pinta();
+}
 async function prova(){
   const err=document.getElementById("gate-err");
   try{
