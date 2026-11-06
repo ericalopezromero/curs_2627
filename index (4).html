@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Neteja">
+<meta name="theme-color" content="#eef0ff">
+<title>Neteja de casa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef0ff; --dot:rgba(27,27,58,.08); --card:#fff; --soft:#f4f5ff; --ink:#1b1b3a; --mute:#6c6f91; --line:#dfe1f5;
+  --hero:#1b1b3a; --herotx:#fff;
+  --cuina:#ffc857; --menjador:#7fd8aa; --habitacions:#b9a6ff; --lavabo:#74c8ff;
+  --erica:#ff5d8f; --julia:#12b0a0;
+  --okc:#17794f; --okb:#dcf5e7; --migc:#8a5a00; --migb:#ffefc7; --altc:#b3261e; --altb:#ffe0dd;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#121228; --dot:rgba(255,255,255,.06); --card:#1e1e42; --soft:#27275a; --ink:#f1f2ff; --mute:#9d9fc6; --line:#33336a;
+    --hero:#2d2d6b; --erica:#ff7da6; --julia:#3fd2c2;
+    --okc:#7be0ab; --okb:#17382b; --migc:#f6c667; --migb:#3b2f10; --altc:#ff9a92; --altb:#432120}
+}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:"Bricolage Grotesque",system-ui,-apple-system,sans-serif;color:var(--ink);line-height:1.35;
+  background-color:var(--bg);background-image:radial-gradient(var(--dot) 1.3px,transparent 1.4px);background-size:22px 22px;
+  padding:max(20px,env(safe-area-inset-top)) 16px calc(110px + env(safe-area-inset-bottom))}
+main{max-width:600px;margin:0 auto}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+h1{font-size:clamp(2.4rem,11vw,3.4rem);font-weight:800;letter-spacing:-.035em;line-height:.95;margin:6px 0 20px}
+
+/* qui ets */
+.who{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.who button{display:flex;align-items:center;gap:10px;text-align:left;padding:10px 12px 10px 10px;border-radius:22px;
+  background:var(--card);border:2px solid transparent;box-shadow:0 2px 0 var(--line);transition:transform .15s,background .15s}
+.who button:active{transform:scale(.97)}
+.av{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--p);color:#fff;font-weight:800;font-size:1.3rem}
+.wt{display:flex;flex-direction:column;min-width:0}
+.wt b{font-size:1.1rem;font-weight:800}
+.wt small{font-size:.76rem;color:var(--mute);line-height:1.2}
+.who button[aria-pressed=true]{background:var(--p);box-shadow:0 6px 18px -6px var(--p)}
+.who button[aria-pressed=true] .av{background:#fff;color:var(--p)}
+.who button[aria-pressed=true] b,.who button[aria-pressed=true] small{color:#fff}
+
+/* resum */
+.hero{background:var(--hero);color:var(--herotx);border-radius:28px;padding:18px;margin-bottom:22px}
+.hero .top{display:flex;align-items:center;gap:16px}
+.hero .big{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.hero p{opacity:.75;font-size:.92rem;margin-top:3px}
+.hero .ring{color:#fff;flex:none}
+.cyc{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.18)}
+.dots{display:flex;gap:4px;margin-bottom:8px}
+.dots i{flex:1;height:8px;border-radius:99px;background:rgba(255,255,255,.18)}
+.dots i.on{background:rgba(255,255,255,.7)}
+.dots i.avui{background:#ffc857}
+.dots i:nth-child(7){margin-right:8px}
+.cyc small{opacity:.8;font-size:.82rem}
+
+/* estances */
+.room{background:var(--card);border-radius:30px;margin-bottom:20px;overflow:hidden;box-shadow:0 3px 0 var(--line)}
+.room .top{background:var(--c);color:#1b1b3a;padding:16px 16px 16px 16px;display:flex;align-items:center;gap:14px;
+  background-image:radial-gradient(rgba(255,255,255,.4) 1.5px,transparent 1.6px);background-size:14px 14px}
+.tile{flex:none;width:58px;height:58px;border-radius:20px;background:#fff;display:grid;place-items:center;font-size:1.9rem;transform:rotate(-5deg)}
+.room.done .tile{animation:bote .7s}
+.room .nom{flex:1;min-width:0}
+.room h2{font-size:1.9rem;font-weight:800;letter-spacing:-.03em;line-height:1}
+.tag{display:inline-block;font-size:.78rem;font-weight:800;padding:2px 10px;border-radius:99px;background:#1b1b3a;color:#fff;margin-bottom:5px}
+.res{font-size:.84rem;font-weight:600;margin-top:4px;opacity:.85}
+.room .ring{color:#1b1b3a;flex:none}
+ul{list-style:none;padding:12px 10px 8px}
+h3{font-size:.95rem;font-weight:800;padding:8px 10px 8px;color:var(--mute)}
+li{display:flex;align-items:center;gap:2px;background:var(--soft);border-radius:20px;margin-bottom:8px;transition:background .2s}
+li.on{background:color-mix(in srgb,var(--c) 24%,var(--card))}
+.bx{display:flex;padding:14px 3px;cursor:pointer}
+.bx:first-child{padding-left:12px}
+input{position:absolute;opacity:0;pointer-events:none}
+.box{flex:none;width:34px;height:34px;border-radius:50%;border:3px solid var(--mute);display:grid;place-items:center;
+  font-weight:800;line-height:1;transition:background .15s,border-color .15s}
+.box::before{content:attr(data-n);font-size:.78rem;color:var(--mute);opacity:.7}
+.box.cur{border-color:var(--ink)}
+input:checked+.box{background:var(--c);border-color:var(--c)}
+input:checked+.box::before{content:"✕";font-size:1.1rem;color:#1b1b3a;opacity:1}
+input:focus-visible+.box{outline:3px solid var(--ink);outline-offset:2px}
+.box.pop{animation:pop .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{0%{transform:scale(.7)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+@keyframes bote{0%,100%{transform:rotate(-5deg)}30%{transform:rotate(8deg) scale(1.15)}60%{transform:rotate(-12deg)}}
+.tx{flex:1;display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:11px 12px 11px 10px}
+.meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:5px}
+.t{font-size:1.06rem;font-weight:600;line-height:1.2}
+li.on .t{color:var(--mute);text-decoration:line-through;text-decoration-thickness:2px}
+.b{font-size:.74rem;font-weight:800;padding:1px 9px;border-radius:99px;display:inline-block}
+.b.ok{color:var(--okc);background:var(--okb)}.b.mig{color:var(--migc);background:var(--migb)}.b.alt{color:var(--altc);background:var(--altb)}
+.b.n{color:var(--mute);background:var(--line);font-weight:600}
+.min{border:0;background:var(--card);border-radius:99px;padding:1px 10px;font-size:.74rem;font-weight:800;color:var(--mute)}
+.min:active{transform:scale(.95)}
+
+/* historial */
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 14px;scrollbar-width:none}
+.chips button{flex:none;padding:10px 16px;border-radius:99px;border:0;background:var(--card);font-weight:800;box-shadow:0 2px 0 var(--line)}
+.chips button[aria-pressed=true]{background:var(--c);color:#1b1b3a}
+.cal{background:var(--card);border-radius:30px;padding:16px;margin-bottom:14px;box-shadow:0 3px 0 var(--line)}
+.calh{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.calh strong{font-size:1.5rem;font-weight:800;letter-spacing:-.03em;text-transform:capitalize}
+.nav{display:flex;gap:6px}
+.nav button{width:42px;height:42px;border-radius:50%;border:0;background:var(--soft);font-size:1.2rem;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center}
+.grid>span{font-size:.75rem;font-weight:700;color:var(--mute);padding-bottom:3px}
+.dia{aspect-ratio:1;border:0;border-radius:50%;background:transparent;position:relative;font-size:.95rem;font-weight:600}
+.dia.fet{background:var(--c);color:#1b1b3a;font-weight:800}
+.dia b{position:absolute;right:0;top:-2px;font-size:.62rem;background:#1b1b3a;color:#fff;border-radius:99px;min-width:16px;padding:1px 4px}
+.dia.avui{box-shadow:inset 0 0 0 2.5px var(--ink)}
+.dia.sel{outline:3px solid var(--c);outline-offset:2px}
+.panel{background:var(--card);border-radius:26px;padding:16px 18px;margin-bottom:14px;box-shadow:0 3px 0 var(--line)}
+.panel h4{font-size:1.1rem;font-weight:800;margin-bottom:8px;letter-spacing:-.01em}
+.panel p{color:var(--mute)}
+.panel ul{padding:0}
+.panel li{background:none;border-radius:0;margin:0;padding:7px 0;border-bottom:1px solid var(--line);justify-content:space-between;gap:10px}
+.panel li:last-child{border:0}
+.panel .ok{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--c);font-size:.7rem;font-weight:800;color:#1b1b3a;margin-right:8px}
+
+/* peu i dock */
+footer{color:var(--mute);font-size:.82rem;text-align:center;margin-top:6px}
+.leg{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+.leg .b{margin:0}
+#estat{display:inline-block;padding:3px 12px;border-radius:99px;background:var(--card);margin-top:10px}
+.dock{position:fixed;left:50%;transform:translateX(-50%);bottom:max(14px,env(safe-area-inset-bottom));display:flex;gap:4px;padding:5px;
+  border-radius:99px;background:color-mix(in srgb,var(--card) 85%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:0 10px 30px rgba(27,27,58,.2),0 0 0 1px var(--line);z-index:5}
+.dock button{border:0;background:transparent;padding:12px 22px;border-radius:99px;font-weight:800;color:var(--mute);transition:background .2s}
+.dock button[aria-selected=true]{background:var(--ink);color:var(--bg)}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Neteja de casa</h1>
+  <div class="who" id="who" role="group" aria-label="Qui ets?"></div>
+
+  <div id="vTasques">
+    <section class="hero" id="hero" aria-live="polite"></section>
+    <div id="rooms"></div>
+  </div>
+  <div id="vHist" hidden></div>
+
+  <footer>
+    <div class="leg"><span class="b ok">al dia</span><span class="b mig">s’acosta</span><span class="b alt">toca ja</span></div>
+    Cada tasca té dues caselles: la 1 és per a la setmana 1 i la 2 per a la setmana 2 (la segona és opcional).<br>Toca els minuts d’una tasca per canviar-los.<br>
+    <span id="estat"></span>
+  </footer>
+</main>
+
+<nav class="dock" role="tablist" aria-label="Vistes">
+  <button role="tab" data-v="tasques" aria-selected="true">🧽 Tasques</button>
+  <button role="tab" data-v="historial" aria-selected="false">📅 Historial</button>
+</nav>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+/* ============ 1) FIREBASE ============ */
+const firebaseConfig = {
+  apiKey: "AIzaSyAYxGOfyjRqNG-gvwJXbN1-hBSxHNFIG5c",
+  authDomain: "tasques-casa-cff62.firebaseapp.com",
+  projectId: "tasques-casa-cff62",
+  storageBucket: "tasques-casa-cff62.firebasestorage.app",
+  messagingSenderId: "745051195671",
+  appId: "1:745051195671:web:eda7432a388c1a29274f52"
+};
+
+/* ============ 2) ROTACIÓ ============
+   Dilluns de la setmana d'inici. Cicle 0: Erica = cuina + menjador, Júlia = lavabo + habitacions. */
+const INICI = new Date(2026, 10, 2); // 2 nov 2026 (mes de 0 a 11)
+
+/* ============ 3) TASQUES ============
+   [clau, nom, minuts estimats, cada quants dies hauria de fer-se] */
+const R = (id, nom, emoji, c, grup, files) => {
+  let h = "";
+  const rows = files.map(f => {
+    if (typeof f === "string") { h = f; return {h: f}; }
+    const [k, n, min, fr] = f;
+    return {id: id + "_" + k, nom: n, nl: h ? `${n} (${h.toLowerCase()})` : n, min, f: fr};
+  });
+  return {id, nom, emoji, c, grup, rows, tasks: rows.filter(x => x.id)};
+};
+const ESTANCIES = [
+  R("cuina", "Cuina", "🍳", "var(--cuina)", 0, [
+    ["fogons","Fogons",15,7], ["nevera","Nevera",15,30], ["airfryer","Airfryer",10,14],
+    ["escombrar","Terra (escombrar)",5,7], ["fregar","Terra (fregar)",10,7],
+    ["pica","Pica + encimera",10,7], ["microones","Microones",5,14], ["escuraplats","Escuraplats",5,14]]),
+  R("menjador", "Menjador", "🛋️", "var(--menjador)", 0, [
+    ["pols","Pols",10,7], ["ordenar","Ordenar",10,7],
+    ["escombrar","Terra (escombrar)",5,7], ["fregar","Terra (fregar)",10,7]]),
+  R("habitacions", "Habitacions", "🛏️", "var(--habitacions)", 1, [
+    "Habitació petita",
+    ["p_pols","Pols",5,7], ["p_escombrar","Terra (escombrar)",5,7], ["p_fregar","Terra (fregar)",5,7], ["p_ordenar","Ordenar",10,7],
+    "Habitació gran",
+    ["g_pols","Pols",10,7], ["g_escombrar","Terra (escombrar)",5,7], ["g_fregar","Terra (fregar)",10,7], ["g_ordenar","Ordenar",10,7]]),
+  R("lavabo", "Lavabo", "🚿", "var(--lavabo)", 1, [
+    ["vater","Vàter",10,7], ["mirall","Mirall",5,14], ["pica","Pica",5,7],
+    ["escombrar","Terra (escombrar)",5,7], ["fregar","Terra (fregar)",5,7], ["dutxa","Dutxa",15,7]])
+];
+const PERSONES = [["Erica","var(--erica)"], ["Júlia","var(--julia)"]];
+
+/* ---------- dates ---------- */
+const DIA = 864e5;
+const MESOS = ["gener","febrer","març","abril","maig","juny","juliol","agost","setembre","octubre","novembre","desembre"];
+const pad = n => String(n).padStart(2, "0");
+const ymd = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parse = s => { const [y,m,d] = s.split("-").map(Number); return new Date(y, m-1, d); };
+const avui = new Date(); avui.setHours(0,0,0,0);
+const cicleDe = d => Math.floor(Math.round((d - INICI) / DIA) / 14);
+const cicle = cicleDe(avui), kc = "cicle-" + cicle;
+const diaCicle = (((Math.round((avui - INICI) / DIA)) % 14) + 14) % 14;
+const resp = (g, c = cicle) => (g === 0) === (((c % 2) + 2) % 2 === 0) ? "Erica" : "Júlia";
+
+/* ---------- estat ---------- */
+let cicles = {}, temps = {}, popId = null;
+let jo = localStorage.getItem("jo") || "";
+let vista = "tasques", histRoom = "cuina", mes = new Date(avui.getFullYear(), avui.getMonth(), 1), diaSel = ymd(avui);
+const estat = document.getElementById("estat");
+const minuts = t => (typeof temps[t.id] === "number" ? temps[t.id] : t.min);
+const fmt = m => m >= 60 ? `${Math.floor(m/60)} h${m % 60 ? " " + (m % 60) + " min" : ""}` : `${m} min`;
+const ring = (p, s = 60, w = 7) => {
+  const r = (s - w) / 2, c = 2 * Math.PI * r, h = s / 2;
+  return `<svg class="ring" width="${s}" height="${s}" viewBox="0 0 ${s} ${s}" role="img" aria-label="${p}%">
+    <circle cx="${h}" cy="${h}" r="${r}" fill="none" stroke="currentColor" stroke-opacity=".2" stroke-width="${w}"/>
+    <circle cx="${h}" cy="${h}" r="${r}" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-dasharray="${c * p / 100} ${c}" transform="rotate(-90 ${h} ${h})"/>
+    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="${s * .26}" font-weight="800" fill="currentColor">${p}%</text></svg>`;
+};
+
+/* ---------- sincronització ---------- */
+const configurat = !Object.values(firebaseConfig).some(v => String(v).startsWith("POSA"));
+let col = null;
+const guardaLocal = () => localStorage.setItem("neteja-v2", JSON.stringify({cicles, temps}));
+
+if (configurat && window.firebase) {
+  firebase.initializeApp(firebaseConfig);
+  col = firebase.firestore().collection("neteja");
+  col.onSnapshot(
+    qs => {
+      cicles = {}; temps = {};
+      qs.forEach(d => { if (d.id === "temps") temps = d.data(); else cicles[d.id] = d.data(); });
+      estat.textContent = "Sincronitzat ✓"; pinta();
+    },
+    () => { estat.textContent = "Sense connexió amb la base de dades"; }
+  );
+} else {
+  try { ({cicles, temps} = JSON.parse(localStorage.getItem("neteja-v2")) || {cicles: {}, temps: {}}); } catch {}
+  cicles = cicles || {}; temps = temps || {};
+  estat.textContent = "Mode local (sense sincronitzar)";
+}
+
+function marca(id, on) {
+  const v = ymd(avui);
+  cicles[kc] = cicles[kc] || {};
+  if (on) cicles[kc][id] = v; else delete cicles[kc][id];
+  if (col) col.doc(kc).set({[id]: on ? v : firebase.firestore.FieldValue.delete()}, {merge: true});
+  else guardaLocal();
+  popId = on ? id : null; setTimeout(() => popId = null, 600);
+  pinta();
+}
+function posaTemps(id, m) {
+  temps[id] = m;
+  if (col) col.doc("temps").set({[id]: m}, {merge: true}); else guardaLocal();
+  pinta();
+}
+
+/* ---------- càlculs ---------- */
+function ultima(id) {
+  let m = "";
+  for (const c in cicles) for (const k of [id, id + "__2"]) { const v = cicles[c][k]; if (typeof v === "string" && v > m) m = v; }
+  return m;
+}
+function badge(t) {
+  const u = ultima(t.id);
+  if (!u) return {txt: "sense registre", cls: "n"};
+  const d = Math.round((avui - parse(u)) / DIA), r = d / t.f;
+  return {txt: d === 0 ? "avui" : d === 1 ? "ahir" : `fa ${d} dies`, cls: r < .75 ? "ok" : r < 1 ? "mig" : "alt"};
+}
+
+/* ---------- pintar ---------- */
+function pinta() {
+  document.getElementById("who").innerHTML = PERSONES.map(([p, c]) => {
+    const rooms = ESTANCIES.filter(e => resp(e.grup) === p).map(e => e.nom.toLowerCase()).join(" + ");
+    return `<button data-p="${p}" style="--p:${c}" aria-pressed="${p === jo}"><span class="av">${p[0]}</span>
+      <span class="wt"><b>${p}</b><small>${rooms}</small></span></button>`;
+  }).join("");
+  document.querySelectorAll(".dock button").forEach(b => b.setAttribute("aria-selected", b.dataset.v === vista));
+  document.getElementById("vTasques").hidden = vista !== "tasques";
+  document.getElementById("vHist").hidden = vista !== "historial";
+  if (vista === "tasques") pintaTasques(); else pintaHist();
+}
+
+function pintaTasques() {
+  const cur = cicles[kc] || {};
+  const vis = ESTANCIES.filter(e => !jo || resp(e.grup) === jo);
+  let total = 0, fetes = 0, resta = 0;
+  document.getElementById("rooms").innerHTML = vis.map(e => {
+    let n = 0, f = 0, rest = 0, html = "";
+    e.rows.forEach(r => {
+      if (r.h) { html += `<h3>${r.h}</h3>`; return; }
+      const ks = [r.id, r.id + "__2"], ck = ks.map(k => typeof cur[k] === "string"), on = ck[0] || ck[1];
+      const m = minuts(r), b = badge(r), sw = diaCicle < 7 ? 0 : 1;
+      n++; if (on) f++; else rest += m;
+      html += `<li class="${on ? "on" : ""}">` + ks.map((k, i) =>
+        `<label class="bx"><input type="checkbox" data-id="${k}" ${ck[i] ? "checked" : ""} aria-label="${r.nom}, setmana ${i + 1}"><span class="box ${k === popId ? "pop" : ""} ${i === sw ? "cur" : ""}" data-n="${i + 1}" aria-hidden="true"></span></label>`).join("") +
+        `<div class="tx"><span class="t">${r.nom}</span><span class="meta"><span class="b ${b.cls}">${b.txt}</span><button class="min" data-t="${r.id}" aria-label="Minuts de ${r.nom}">⏱ ${m} min</button></span></div></li>`;
+    });
+    total += n; fetes += f; resta += rest;
+    return `<section class="room ${f === n ? "done" : ""}" style="--c:${e.c}">
+      <div class="top"><span class="tile" aria-hidden="true">${e.emoji}</span>
+        <div class="nom"><span class="tag">${resp(e.grup)}</span><h2>${e.nom}</h2>
+        <p class="res">${f === n ? "Feta! ✓" : `${f} de ${n} · queden ${fmt(rest)}`}</p></div>
+        ${ring(Math.round(f / n * 100), 62, 7)}</div>
+      <ul>${html}</ul></section>`;
+  }).join("");
+
+  const pct = total ? Math.round(fetes / total * 100) : 0, resten = 14 - diaCicle;
+  document.getElementById("hero").innerHTML = `
+    <div class="top">${ring(pct, 84, 9)}
+      <div><div class="big">${jo ? "El teu torn" : "Tota la casa"}</div>
+      <p>${fetes} de ${total} tasques fetes</p>
+      <p>${resta ? `Queden ${fmt(resta)}` : "Tot llest! 🎉"}</p></div></div>
+    <div class="cyc"><div class="dots">${Array.from({length: 14}, (_, i) => `<i class="${i === diaCicle ? "avui" : i < diaCicle ? "on" : ""}"></i>`).join("")}</div>
+      <small>Setmana ${Math.floor(diaCicle / 7) + 1} de 2 · canvi de torn d’aquí a ${resten} ${resten === 1 ? "dia" : "dies"}</small></div>`;
+}
+
+function pintaHist() {
+  const e = ESTANCIES.find(x => x.id === histRoom);
+  const perDia = {};
+  for (const c in cicles) for (const id in cicles[c]) {
+    const v = cicles[c][id], t = e.tasks.find(x => x.id === id.replace(/__2$/, ""));
+    if (t && typeof v === "string" && !(perDia[v] || []).includes(t)) (perDia[v] = perDia[v] || []).push(t);
+  }
+  const y = mes.getFullYear(), m = mes.getMonth();
+  const buit = (new Date(y, m, 1).getDay() + 6) % 7, nd = new Date(y, m + 1, 0).getDate();
+  let cel = ["dl","dt","dc","dj","dv","ds","dg"].map(d => `<span>${d}</span>`).join("") + "<span></span>".repeat(buit);
+  for (let d = 1; d <= nd; d++) {
+    const k = ymd(new Date(y, m, d)), n = (perDia[k] || []).length;
+    cel += `<button class="dia ${n ? "fet" : ""} ${k === ymd(avui) ? "avui" : ""} ${k === diaSel ? "sel" : ""}" data-d="${k}">${d}${n ? `<b>${n}</b>` : ""}</button>`;
+  }
+  const dets = perDia[diaSel] || [], dd = parse(diaSel), quan = `${dd.getDate()} de ${MESOS[dd.getMonth()]}`;
+  const det = dets.length
+    ? `<h4>${quan} · ${resp(e.grup, cicleDe(dd))}</h4><ul>${dets.map(t => `<li><span><span class="ok">✕</span>${t.nl}</span></li>`).join("")}</ul>`
+    : `<h4>${quan}</h4><p>Cap tasca de ${e.nom.toLowerCase()} aquest dia.</p>`;
+  document.getElementById("vHist").innerHTML = `
+    <div class="chips" role="group" aria-label="Estança">${ESTANCIES.map(x =>
+      `<button data-r="${x.id}" style="--c:${x.c}" aria-pressed="${x.id === histRoom}">${x.emoji} ${x.nom}</button>`).join("")}</div>
+    <div class="cal" style="--c:${e.c}">
+      <div class="calh"><strong>${MESOS[m]} ${y}</strong>
+        <div class="nav"><button data-m="-1" aria-label="Mes anterior">‹</button><button data-m="1" aria-label="Mes següent">›</button></div></div>
+      <div class="grid">${cel}</div></div>
+    <div class="panel" style="--c:${e.c}">${det}</div>
+    <div class="panel"><h4>Última vegada: ${e.nom.toLowerCase()}</h4><ul>${e.tasks.map(t => {
+      const b = badge(t); return `<li><span>${t.nl}</span><span class="b ${b.cls}" style="margin:0">${b.txt}</span></li>`; }).join("")}</ul></div>`;
+}
+
+/* ---------- events ---------- */
+document.getElementById("rooms").addEventListener("change", e => {
+  if (e.target.dataset.id) marca(e.target.dataset.id, e.target.checked);
+});
+document.getElementById("rooms").addEventListener("click", e => {
+  const b = e.target.closest(".min"); if (!b) return;
+  const t = ESTANCIES.flatMap(x => x.tasks).find(x => x.id === b.dataset.t);
+  const r = prompt(`Quants minuts es tarda a fer «${t.nom}»?`, minuts(t));
+  const n = r === null ? NaN : parseInt(r, 10);
+  if (n >= 0 && n <= 600) posaTemps(t.id, n);
+});
+document.getElementById("who").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  jo = jo === b.dataset.p ? "" : b.dataset.p;
+  localStorage.setItem("jo", jo);
+  if (jo) histRoom = ESTANCIES.find(x => resp(x.grup) === jo).id;
+  pinta();
+});
+document.querySelector(".dock").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (b) { vista = b.dataset.v; scrollTo(0, 0); pinta(); }
+});
+document.getElementById("vHist").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  if (b.dataset.r) histRoom = b.dataset.r;
+  if (b.dataset.m) mes = new Date(mes.getFullYear(), mes.getMonth() + Number(b.dataset.m), 1);
+  if (b.dataset.d) diaSel = b.dataset.d;
+  pinta();
+});
+
+if (jo) histRoom = (ESTANCIES.find(x => resp(x.grup) === jo) || ESTANCIES[0]).id;
+pinta();
+</script>
+</body>
+</html>
