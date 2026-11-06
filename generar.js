@@ -31,7 +31,7 @@ if (fs.existsSync(ARREL)) {
       .filter(f => EXT.test(f))
       .sort((a, b) => a.localeCompare(b, "ca", { numeric: true }))
       .map(f => ({
-        src: encodeURI(`${ARREL}/${nom}/${f}`),
+        src: [ARREL, nom, f].map(encodeURIComponent).join("/"),
         peu: f.replace(EXT, "").replace(/^\d+[\s._-]*/, "").trim()
       }));
     out.push({ inici: nom, titol, text, fotos });
