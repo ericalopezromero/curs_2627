@@ -178,5 +178,16 @@
       ]
     }
   ],
-  "pendents": []
+  "pendents": [
+    {
+      "text": "Anar al Tibidabo",
+      "fet": false,
+      "setmana": ""
+    },
+    {
+      "text": "Veure un partit del Barça",
+      "fet": true,
+      "setmana": "2026-10-19"
+    }
+  ]
 }
