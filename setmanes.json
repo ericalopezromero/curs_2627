@@ -9,7 +9,20 @@
     "inici": "2026-10-26",
     "titol": "Setmana de Halloween",
     "text": "Poble ple de banderoles, diademes de carbassa, un home llop pel carrer i hamburguesa amb nachos per recuperar forces.",
-    "fotos": []
+    "fotos": [
+      {
+        "src": "setmanes/2026-10-26/IMG_1392.JPG",
+        "peu": "IMG_1392"
+      },
+      {
+        "src": "setmanes/2026-10-26/IMG_1433%20(1).JPG",
+        "peu": "IMG_1433 (1)"
+      },
+      {
+        "src": "setmanes/2026-10-26/IMG_1447.JPG",
+        "peu": "IMG_1447"
+      }
+    ]
   },
   {
     "inici": "2026-10-19",
