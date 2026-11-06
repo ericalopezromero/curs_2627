@@ -13,9 +13,12 @@
       "inici": "2026-10-26",
       "titol": "I a la fi... Halloween",
       "text": "Panellets a casa (el més bons de taronja-xocolata), i Hallowen (castanyada) a Pratdip amb el Dip espantant",
-      "etiquetes": [],
-      "julia": "",
-      "erica": "",
+      "etiquetes": [
+        "halloween",
+        "menjar"
+      ],
+      "julia": "provant?",
+      "erica": "els nachos nose?",
       "fotos": [
         {
           "src": "setmanes/2026-10-26/IMG_1392.JPG",
