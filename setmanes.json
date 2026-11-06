@@ -118,6 +118,15 @@
     "inici": "2026-08-31",
     "titol": "Setmana 1",
     "text": "",
-    "fotos": []
+    "fotos": [
+      {
+        "src": "setmanes/2026-08-31/IMG_7194.JPG",
+        "peu": "IMG_7194"
+      },
+      {
+        "src": "setmanes/2026-08-31/IMG_7236.JPG",
+        "peu": "IMG_7236"
+      }
+    ]
   }
 ]
