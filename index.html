@@ -333,7 +333,7 @@ function llista(d,errs){
   errs.forEach(s=>L.appendChild($("p","err",`Revisa la data de «${s.titol}»: ha de ser any-mes-dia complet, per exemple 2026-10-26.`)));
   let mes="";
   d.forEach(x=>{
-    const dt=new Date(x.t),cl=dt.getUTCFullYear()+"-"+dt.getUTCMonth();
+    const dt=new Date(x.t+3*DIA),cl=dt.getUTCFullYear()+"-"+dt.getUTCMonth();
     if(cl!==mes){mes=cl;L.appendChild($("h2","mes",MESOS[dt.getUTCMonth()]+" "+dt.getUTCFullYear()))}
     L.appendChild(targeta(x));
   });
