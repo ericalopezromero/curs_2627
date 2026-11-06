@@ -40,7 +40,12 @@
     "inici": "2026-10-05",
     "titol": "Setmana 6",
     "text": "",
-    "fotos": []
+    "fotos": [
+      {
+        "src": "setmanes/2026-10-05/IMG_7738.JPG",
+        "peu": "IMG_7738"
+      }
+    ]
   },
   {
     "inici": "2026-09-28",
