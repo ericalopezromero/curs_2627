@@ -71,6 +71,15 @@ body:not(.locked) #gate{display:none}
 .llista{padding-bottom:5rem}
 .mes{display:flex;align-items:center;gap:1rem;margin:2.8rem 0 1.2rem;font-size:1.5rem;font-weight:800}
 .mes::after{content:"";flex:1;height:1px;background:var(--line)}
+.mes{cursor:pointer;list-style:none;user-select:none}
+.mes::-webkit-details-marker{display:none}
+.mes::before{content:"▸";color:var(--ac);transition:transform .2s}
+details[open]>.mes::before{transform:rotate(90deg)}
+.cnt{font:500 .9rem var(--body);color:var(--muted)}
+details.cal>summary{cursor:pointer;list-style:none;font-family:var(--head);margin-bottom:.4rem}
+details.cal>summary::-webkit-details-marker{display:none}
+details.cal>summary::before{content:"▸ ";color:var(--ac)}
+details.cal[open]>summary::before{content:"▾ "}
 .card{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:1.4rem;margin-bottom:1.4rem;padding:14px;
   background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--sh);scroll-margin-top:1.5rem}
 .card:target{box-shadow:0 0 0 3px var(--ac),var(--sh)}
@@ -132,21 +141,22 @@ body:not(.locked) #gate{display:none}
       <h1>El nostre curs <span>2026–2027</span></h1>
       <p class="names">Júlia i Erica · juliquers</p>
       <p class="lead">Els plans, les rialles i les fotos de cada setmana, tot en un sol lloc.</p>
+      <p><a href="#calBox" onclick="document.getElementById('calBox').open=true">Veure el calendari ↓</a></p>
       <div class="prog"><div class="bar"><i></i></div><p></p></div>
     </div>
     <div class="pics" id="heroPics"></div>
   </header>
 
-  <section class="cal">
-    <h2 class="sec">Calendari</h2>
-    <p class="sub">Les setmanes marcades tenen plans guardats. Toca’n una per anar-hi.</p>
-    <div class="months" id="months"></div>
-  </section>
-
   <section class="llista" id="llista">
     <h2 class="sec">Setmana a setmana</h2>
   </section>
-</main>
+
+<details class="cal" id="calBox">
+    <summary class="sec">Calendari</summary>
+    <p class="sub">Les setmanes marcades tenen plans guardats. Toca’n una per anar-hi.</p>
+    <div class="months" id="months"></div>
+  </details>
+  </main>
 
 <div id="lb" role="dialog" aria-modal="true" aria-label="Foto ampliada">
   <button class="x" type="button" aria-label="Tancar">×</button>
@@ -307,7 +317,15 @@ function calendari(MAP){
     for(let r=0;r<cel.length;r+=7){
       const fila=cel.slice(r,r+7),key=iso(lunes(Date.UTC(y,m,fila.find(Boolean))));
       const w=MAP[key]?$("a","wk has"):$("div","wk");
-      if(MAP[key]){w.href="#s-"+key;w.title="Veure aquesta setmana"}
+      if(MAP[key]){
+        w.href="#s-"+key;w.title="Veure aquesta setmana";
+        w.addEventListener("click",ev=>{
+          ev.preventDefault();
+          const t=document.getElementById("s-"+key);
+          t.closest("details").open=true;          // obre el mes on és la setmana
+          t.scrollIntoView({behavior:"smooth",block:"start"});
+        });
+      }      
       fila.forEach(d=>{const b=$("b","",d||"");if(d&&Date.UTC(y,m,d)===hoy)b.className="hoy";w.appendChild(b)});
       c.appendChild(w);
     }
@@ -337,12 +355,21 @@ function targeta(x){
 function llista(d,errs){
   const L=document.getElementById("llista");
   errs.forEach(s=>L.appendChild($("p","err",`Revisa la data de «${s.titol}»: ha de ser any-mes-dia complet, per exemple 2026-10-26.`)));
-  let mes="";
+  let mes="",grup=null,n=0,grups=[];
   d.forEach(x=>{
     const dt=new Date(x.t+3*DIA),cl=dt.getUTCFullYear()+"-"+dt.getUTCMonth();
-    if(cl!==mes){mes=cl;L.appendChild($("h2","mes",MESOS[dt.getUTCMonth()]+" "+dt.getUTCFullYear()))}
-    L.appendChild(targeta(x));
+    if(cl!==mes){
+      mes=cl;
+      grup=$("details","grup");
+      const s=$("summary","mes",MESOS[dt.getUTCMonth()]+" "+dt.getUTCFullYear());
+      s.appendChild($("span","cnt",""));
+      grup.appendChild(s);L.appendChild(grup);grups.push(grup);
+    }
+    grup.appendChild(targeta(x));
+    const c=grup.querySelector(".cnt"),k=grup.querySelectorAll(".card").length;
+    c.textContent=k+(k===1?" setmana":" setmanes");
   });
+  if(grups.length)grups[grups.length-1].open=true;
   L.appendChild($("div","next","Aquí hi anirà la propera setmana."));
 }
 function pinta(){
