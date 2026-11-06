@@ -282,9 +282,15 @@ function progres(){
 }
 function portada(d){
   const box=document.getElementById("heroPics");
-  const ult=[...d].reverse().find(x=>(x.s.fotos||[]).length);
-  if(!ult){box.remove();return}
-  ult.s.fotos.slice(0,3).forEach((p,i)=>{
+  /* totes les fotos de totes les setmanes, sense repetir rutes */
+  const totes=[...new Map(d.flatMap(x=>x.s.fotos||[]).map(p=>[p.src,p])).values()];
+  if(!totes.length){box.remove();return}
+  /* barreja (Fisher-Yates) */
+  for(let i=totes.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [totes[i],totes[j]]=[totes[j],totes[i]];
+  }
+  totes.slice(0,3).forEach((p,i)=>{
     const f=$("figure","hp hp"+i),im=document.createElement("img");
     im.src=p.src;im.alt=p.peu||"";f.appendChild(im);box.appendChild(f);
   });
