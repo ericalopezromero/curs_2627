@@ -73,7 +73,20 @@
     "inici": "2026-09-21",
     "titol": "Setmana 4",
     "text": "",
-    "fotos": []
+    "fotos": [
+      {
+        "src": "setmanes/2026-09-21/43CCBD68-A09F-42CC-8054-38D3DF57CF70.JPG",
+        "peu": "CCBD68-A09F-42CC-8054-38D3DF57CF70"
+      },
+      {
+        "src": "setmanes/2026-09-21/4688A25C-ECAB-465D-9CCD-5B145B368FAB.JPG",
+        "peu": "A25C-ECAB-465D-9CCD-5B145B368FAB"
+      },
+      {
+        "src": "setmanes/2026-09-21/IMG_7436.jpg",
+        "peu": "IMG_7436"
+      }
+    ]
   },
   {
     "inici": "2026-09-14",
