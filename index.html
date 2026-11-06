@@ -144,7 +144,7 @@ details.cal[open]>summary::before{content:"▾ "}
       <p class="names">Júlia i Erica · juliquers</p>
       <p class="lead">Els plans, les rialles i les fotos de cada setmana, tot en un sol lloc.</p>
       <p><a href="#calBox" onclick="document.getElementById('calBox').open=true">Veure el calendari ↓</a></p>
-      <div class="prog"><div class="bar"><i></i></div><p></p></div>
+      <div class="prog"><div class="bar"><i></i></div></div>
     </div>
     <div class="pics" id="heroPics"></div>
   </header>
@@ -199,7 +199,6 @@ const avui=()=>{const h=new Date();return Date.UTC(h.getFullYear(),h.getMonth(),
 
 function progres(){
   const w=Math.floor((avui()-INICI)/(7*DIA))+1, p=document.querySelector(".prog");
-  p.querySelector("p").textContent = w<1?"El curs encara no ha començat":w>TOTAL?"Curs acabat. Quin curs!":`Setmana ${w} de ${TOTAL} del curs`;
   p.querySelector("i").style.width=Math.max(0,Math.min(100,w/TOTAL*100))+"%";
 }
 function portada(d){
@@ -288,7 +287,6 @@ function llista(d,errs){
     const c=grup.querySelector(".cnt"),k=grup.querySelectorAll(".card").length;
     c.textContent=k+(k===1?" setmana":" setmanes");
   });
-  if(grups.length)grups[grups.length-1].open=true;
   L.appendChild($("div","next","Aquí hi anirà la propera setmana."));
 }
 function pinta(){
