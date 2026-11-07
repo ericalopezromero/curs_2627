@@ -4,3 +4,4 @@
 # Exemples (esborra'ls i posa els teus):
 - [ ] Anar al Tibidabo
 - [x] Veure un partit del Barça | 2026-10-19
+- [ ] Fer el finde en caravana
