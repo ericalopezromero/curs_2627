@@ -133,7 +133,20 @@
       "etiquetes": [],
       "julia": "",
       "erica": "",
-      "fotos": []
+      "fotos": [
+        {
+          "src": "setmanes/2026-09-28/WhatsApp%20Image%202026-11-13%20at%2020.17.47.jpeg",
+          "peu": "WhatsApp Image 2026-11-13 at 20.17.47"
+        },
+        {
+          "src": "setmanes/2026-09-28/WhatsApp%20Image%202026-11-13%20at%2020.17.472.jpeg",
+          "peu": "WhatsApp Image 2026-11-13 at 20.17.472"
+        },
+        {
+          "src": "setmanes/2026-09-28/WhatsApp%20Image%202026-11-13%20at%2020.17.4822.jpeg",
+          "peu": "WhatsApp Image 2026-11-13 at 20.17.4822"
+        }
+      ]
     },
     {
       "inici": "2026-09-21",
