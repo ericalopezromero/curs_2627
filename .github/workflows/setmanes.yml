@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - "setmanes/**"
+      - "jocs/**"
+      - "restaurants/**"
       - "generar.js"
   workflow_dispatch:
 permissions:
