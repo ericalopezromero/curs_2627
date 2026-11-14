@@ -1,0 +1,7 @@
+Illa Prohibida
+Estat: tenim
+Jugadors: 2-4
+Durada: 30 min
+Júlia: 8
+Erica: 7
+Aquí va el comentari.
