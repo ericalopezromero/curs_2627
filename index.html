@@ -229,7 +229,7 @@ details[open] .pt::after{content:"▴"}
     <div>
       <h1>El nostre curs <span>2026–2027</span></h1>
       <p class="names">Júlia i Erica · juliquers</p>
-      <p class="lead">Tots els plans a un sol lloc.</p>
+      <p class="lead">Els plans, les rialles i les fotos de cada setmana, tot en un sol lloc.</p>
       <p><a href="#" id="vcal">Veure el calendari →</a></p>
       <div class="prog"><div class="bar"><i></i></div></div>
     </div>
@@ -290,8 +290,6 @@ details[open] .pt::after{content:"▴"}
 
 <script>
 /* CONTRASENYA (ara: juliquers). Per canviar-la, posa aquí el SHA-256 de la nova, en minúscules. */
-/* PORTA: true = demana contrasenya dins la web. Posa-ho a false quan la protegeixis amb Cloudflare Access (vegeu LLEGEIX-ME.md). */
-const PORTA = true;
 const HASH = "a37336662829cc50922b40b2ee6ee2fa3bd49d5d97b2699a4be9527034278be9";
 
 /* Les setmanes i els pendents ja no es posen aquí: es generen soles a setmanes.json
@@ -366,7 +364,7 @@ function portada(d){
   }
   totes.slice(0,3).forEach((p,i)=>{
     const f=$("figure","hp hp"+i),im=document.createElement("img");
-    im.src=p.th||p.src;im.alt=p.peu||"";f.appendChild(im);box.appendChild(f);
+    im.onerror=()=>{im.onerror=null;im.src=p.src};im.src=p.th||p.src;im.alt=p.peu||"";f.appendChild(im);box.appendChild(f);
   });
 }
 
@@ -427,7 +425,7 @@ function setmana(x){
     fs.slice(0,v).forEach((p,i)=>{
       const b=$("button","ph"),im=document.createElement("img");
       b.type="button";b.setAttribute("aria-label","Ampliar: "+(p.peu||s.titol));
-      im.src=p.th||p.src;im.alt=p.peu||s.titol;im.loading="lazy";im.decoding="async";b.appendChild(im);
+      im.onerror=()=>{im.onerror=null;im.src=p.src};im.src=p.th||p.src;im.alt=p.peu||s.titol;im.loading="lazy";im.decoding="async";b.appendChild(im);
       if(i===v-1&&fs.length>v)b.appendChild($("span","more","+"+(fs.length-v)));
       b.addEventListener("click",()=>obre(fs,i));mo.appendChild(b);
     });
@@ -565,7 +563,7 @@ function calendari(MAP){
       c.addEventListener("click",ev=>{ev.preventDefault();anaA(x)});
       if(esborrany(x.s))c.classList.add("bor");
       const f=(x.s.fotos||[])[0];
-      if(f){const im=document.createElement("img");im.src=f.th||f.src;im.alt="";im.loading="lazy";c.classList.add("foto");c.appendChild(im)}
+      if(f){const im=document.createElement("img");im.onerror=()=>{im.onerror=null;im.src=f.src};im.src=f.th||f.src;im.alt="";im.loading="lazy";c.classList.add("foto");c.appendChild(im)}
     }
     c.appendChild($("b","",n));c.appendChild($("span","",rang(t)));
     if(nou)c.appendChild($("em","mm",MESOS[dt.getUTCMonth()]));
@@ -587,7 +585,7 @@ function pinta(){
 const lb=document.getElementById("lb");let G=[],gi=0;
 function mostra(){
   const p=G[gi],im=lb.querySelector("img");
-  im.src=p.md||p.src;im.alt=p.peu||"";G[(gi+1)%G.length]&&(new Image().src=G[(gi+1)%G.length].md||G[(gi+1)%G.length].src);lb.querySelector("figcaption").textContent=p.peu||"";
+  im.onerror=()=>{im.onerror=null;im.src=p.src};im.src=p.md||p.src;im.alt=p.peu||"";G[(gi+1)%G.length]&&(new Image().src=G[(gi+1)%G.length].md||G[(gi+1)%G.length].src);lb.querySelector("figcaption").textContent=p.peu||"";
   lb.classList.toggle("single",G.length<2);
 }
 function obre(f,i){G=f;gi=i;mostra();lb.classList.add("on")}
@@ -651,8 +649,7 @@ async function prova(){
 }
 document.getElementById("enter").addEventListener("click",prova);
 document.getElementById("pw").addEventListener("keydown",e=>{if(e.key==="Enter")prova()});
-if(!PORTA){document.getElementById("gate").remove();entra()}
-else try{if(sessionStorage.getItem("ok")==="1")entra()}catch(e){}
+try{if(sessionStorage.getItem("ok")==="1")entra()}catch(e){}
 </script>
 </body>
 </html>

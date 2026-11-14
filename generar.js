@@ -88,8 +88,8 @@ if (fs.existsSync(ARREL)) {
 
 const pendents = llegeixPendents();
 
-// Miniatures (opcional): amb 'sharp' crea setmanes/<setmana>/_min/<foto>-t.webp (640 px, targetes)
-// i -m.webp (1600 px, visor). Els originals no es toquen. Si canvies una foto, esborra la seva _min.
+// Miniatures (opcional): amb 'sharp' crea setmanes/<setmana>/min/<foto>-t.webp (640 px, targetes)
+// i -m.webp (1600 px, visor). Els originals no es toquen. Si canvies una foto, esborra la seva min.
 let sharp = null;
 try { sharp = require("sharp"); } catch (e) { console.warn("Avís: no hi ha 'sharp', no es fan miniatures (npm install sharp)."); }
 async function miniatures() {
@@ -98,12 +98,12 @@ async function miniatures() {
     const nomFoto = decodeURIComponent(f.src.split("/").pop());
     const orig = path.join(ARREL, s.inici, nomFoto), base = nomFoto.replace(/\.[^.]+$/, "");
     for (const [suf, ample, q, clau] of [["t", 640, 72, "th"], ["m", 1600, 80, "md"]]) {
-      const fitxer = `${base}-${suf}.webp`, sortida = path.join(ARREL, s.inici, "_min", fitxer);
+      const fitxer = `${base}-${suf}.webp`, sortida = path.join(ARREL, s.inici, "min", fitxer);
       if (!fs.existsSync(sortida)) {
         fs.mkdirSync(path.dirname(sortida), { recursive: true });
         await sharp(orig).rotate().resize({ width: ample, withoutEnlargement: true }).webp({ quality: q }).toFile(sortida);
       }
-      f[clau] = [ARREL, s.inici, "_min", fitxer].map(encodeURIComponent).join("/");
+      f[clau] = [ARREL, s.inici, "min", fitxer].map(encodeURIComponent).join("/");
     }
   }
 }
