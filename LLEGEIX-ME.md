@@ -70,6 +70,6 @@ Aquí va el comentari (pot ser de diverses línies).
 - Si no poses `Estat`, es considera «el volem» / «hi volem anar».
 - Es mostren per ordre alfabètic del nom de la carpeta. Les miniatures es creen soles, com a les setmanes.
 
-## Llista de pendents i fotos més vistes
+## Fotos del calendari
 
-Els canvis que fas a la llista «Tenim pendent» a la web (marcar, afegir, treure) i el recompte de fotos més vistes del calendari es guarden només al navegador de cada dispositiu. Perquè una cosa sigui per a tothom, escriu-la a `setmanes/pendents.txt`.
+La foto que es mostra de cada setmana al calendari és la que més has obert a l'ampliació. El recompte es guarda només al navegador de cada dispositiu.

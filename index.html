@@ -154,11 +154,7 @@ details[open] .pt::after{content:"▴"}
 .pl{list-style:none;margin:.9rem 0 0;padding:0;display:grid;gap:.5rem}
 .it{display:flex;align-items:flex-start;gap:.7rem;padding:.55rem .75rem;background:var(--bg);border:1px solid var(--line);border-radius:14px}
 .ck{flex:none;display:grid;place-items:center;width:1.4rem;height:1.4rem;margin-top:.1rem;border:2px solid var(--ac);border-radius:8px;color:#fff;font:800 .85rem/1 var(--body)}
-.ck{padding:0;background:transparent;cursor:pointer}
 .it.fet .ck{background:var(--ac)}
-.it .t{cursor:pointer}.it .x{margin-left:auto;border:0;background:none;color:var(--muted);font-size:1.1rem;line-height:1;cursor:pointer}
-.padd{display:flex;gap:.4rem;margin-top:.7rem}
-.padd input{flex:1;min-width:0;font:inherit;font-size:.9rem;padding:.4rem .8rem;border:1px solid var(--line);border-radius:99px;background:var(--card);color:var(--ink)}
 #fj,#fr{justify-content:flex-start;margin-bottom:1rem}
 .llista{display:grid;grid-template-columns:repeat(auto-fill,minmax(17rem,1fr));gap:1rem;align-items:start}
 .llista .ph.pf{width:100%;aspect-ratio:4/3}
@@ -253,8 +249,6 @@ details[open] .pt::after{content:"▴"}
         <summary><span class="pt">Tenim pendent:</span><span class="pc" id="pcnt"></span></summary>
         <div class="bar" id="pbar"><i></i></div>
         <ul class="pl" id="pl"></ul>
-        <div class="padd"><input id="pnou" type="text" placeholder="Afegeix una cosa…" aria-label="Nova cosa pendent" autocomplete="off"><button class="f" id="padd" type="button">+</button></div>
-        <p class="buit">Els canvis es guarden en aquest dispositiu.</p>
         <p class="buit" id="pbuit" hidden>Encara no hi ha res a la llista. Afegeix-hi coses a <code>setmanes/pendents.txt</code>, una per línia: <code>- [ ] Anar al Tibidabo</code></p>
       </details>
     </aside>
@@ -555,35 +549,23 @@ function anaA(x){
 
 /* pendents (barra lateral) */
 function pendents(){
-  const ov=ls.get("pend")||{},nous=ls.get("pendNous")||[];
-  const L=[...PENDENTS.map(p=>({...p,fet:p.text in ov?ov[p.text]:p.fet})),...nous.map((p,i)=>({...p,nou:i}))];
-  const f=L.filter(p=>p.fet).length,n=L.length;
+  const f=PENDENTS.filter(p=>p.fet).length,n=PENDENTS.length;
   document.getElementById("pcnt").textContent=n?`${f}/${n}`:"";
   document.getElementById("pbar").hidden=!n;
   document.getElementById("pbuit").hidden=n>0;
   if(n)document.querySelector("#pbar i").style.width=(f/n*100)+"%";
   const ul=document.getElementById("pl");ul.textContent="";
-  L.forEach(p=>{
-    const li=$("li","it"+(p.fet?" fet":"")),ck=$("button","ck",p.fet?"✓":""),w=$("span","tx"),t=$("span","t",p.text);
-    const tog=()=>{if(p.nou!==undefined){nous[p.nou].fet=!p.fet;ls.set("pendNous",nous)}else{ov[p.text]=!p.fet;ls.set("pend",ov)}pendents()};
-    ck.type="button";ck.setAttribute("aria-pressed",String(!!p.fet));ck.setAttribute("aria-label","Marcar «"+p.text+"»");
-    ck.addEventListener("click",tog);t.addEventListener("click",tog);
-    li.appendChild(ck);w.appendChild(t);
-    if(p.fet&&p.setmana&&p.nou===undefined){
-      const t2=llegeix(p.setmana),x=D.find(y=>y.t===t2);
-      if(x){const l=$("button","lk","Setmana "+numSet(t2)+" →");l.type="button";l.addEventListener("click",()=>anaA(x));w.appendChild(l)}
+  PENDENTS.forEach(p=>{
+    const li=$("li","it"+(p.fet?" fet":""));
+    li.appendChild($("span","ck",p.fet?"✓":""));
+    const w=$("span","tx");w.appendChild($("span","t",p.text));
+    if(p.fet&&p.setmana){
+      const t=llegeix(p.setmana),x=D.find(y=>y.t===t);
+      if(x){const l=$("button","lk","Setmana "+numSet(t)+" →");l.type="button";l.addEventListener("click",()=>anaA(x));w.appendChild(l)}
     }
-    li.appendChild(w);
-    if(p.nou!==undefined){const d=$("button","x","×");d.type="button";d.title="Treure";d.addEventListener("click",()=>{nous.splice(p.nou,1);ls.set("pendNous",nous);pendents()});li.appendChild(d)}
-    ul.appendChild(li);
+    li.appendChild(w);ul.appendChild(li);
   });
 }
-function afegeixPendent(){
-  const i=document.getElementById("pnou"),v=i.value.trim();if(!v)return;
-  const nous=ls.get("pendNous")||[];nous.push({text:v,fet:false});ls.set("pendNous",nous);i.value="";pendents();
-}
-document.getElementById("padd").addEventListener("click",afegeixPendent);
-document.getElementById("pnou").addEventListener("keydown",e=>{if(e.key==="Enter")afegeixPendent()});
 
 /* jocs de taula i restaurants */
 const LL={
