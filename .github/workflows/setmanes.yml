@@ -15,10 +15,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - run: npm install --no-save sharp
       - run: node generar.js
       - name: Desa els canvis
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add setmanes.json
+          git add -A setmanes.json setmanes
           git diff --staged --quiet || (git commit -m "Actualitza setmanes.json" && git push)
