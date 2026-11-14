@@ -92,7 +92,8 @@ details[open]>.mh::before{transform:rotate(90deg)}
 .cnt{font:500 .9rem var(--body);color:var(--muted);order:2}
 
 /* targetes de setmana */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(20rem,1fr));gap:1.1rem;align-items:start}
+.grid{display:flex;gap:1.1rem;align-items:flex-start}
+.grid>.col{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:1.1rem}
 .wc{display:flex;flex-direction:column;gap:.9rem;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:24px;
   box-shadow:var(--sh);scroll-margin-top:1rem;transition:box-shadow .3s}
 .wc.ressalta{box-shadow:0 0 0 3px var(--ci,var(--ac)),var(--sh)}
@@ -113,16 +114,16 @@ details[open]>.mh::before{transform:rotate(90deg)}
 .tnext{display:grid;place-items:center;min-height:8rem;padding:1rem;text-align:center;color:var(--muted);border:2px dashed var(--line);border-radius:24px}
 .err{padding:.8rem 1rem;border-radius:12px;background:var(--rose-soft);color:#a12a44}
 
-.mosaic{display:grid;gap:5px;aspect-ratio:4/3}
+.mosaic{display:grid;gap:5px;aspect-ratio:4/3;grid-template-rows:minmax(0,1fr)}
 .mosaic.n1{grid-template-columns:1fr}
 .mosaic.n2{grid-template-columns:1fr 1fr}
-.mosaic.n3{grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr}
+.mosaic.n3{grid-template-columns:2fr 1fr;grid-template-rows:repeat(2,minmax(0,1fr))}
 .mosaic.n3 .ph:first-child{grid-row:span 2}
-.mosaic.n4{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
-.mosaic.n5{grid-template-columns:repeat(6,1fr);grid-template-rows:1fr 1fr}
+.mosaic.n4{grid-template-columns:1fr 1fr;grid-template-rows:repeat(2,minmax(0,1fr))}
+.mosaic.n5{grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(2,minmax(0,1fr))}
 .mosaic.n5 .ph{grid-column:span 2}
 .mosaic.n5 .ph:nth-child(1){grid-column:span 4}
-.mosaic.n6{grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr}
+.mosaic.n6{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,minmax(0,1fr))}
 .ph{position:relative;min-width:0;min-height:0;padding:0;border:0;overflow:hidden;border-radius:14px;background:var(--line);cursor:zoom-in}
 .ph img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
 .ph:hover img{transform:scale(1.05)}
@@ -190,7 +191,6 @@ details[open] .pt::after{content:"▴"}
 
 @media (max-width:760px){
   .hero{grid-template-columns:1fr;padding-top:2rem}
-  .grid{grid-template-columns:minmax(0,1fr)}
   #lb button.pv,#lb button.nx{position:absolute;bottom:1rem}
   #lb .pv{left:1rem}#lb .nx{right:1rem}
 }
@@ -436,6 +436,24 @@ function setmana(x){
   a.appendChild(t);return a;
 }
 
+/* masonry: reparteix les targetes en columnes, cadascuna a la columna més baixa (sense forats i mantenint l'ordre) */
+function masonry(g){
+  if(!g._it)g._it=[...g.children].filter(e=>!e.classList.contains("col"));
+  const w=g.clientWidth;if(!w)return;
+  const rem=parseFloat(getComputedStyle(document.documentElement).fontSize)||16,gap=1.1*rem;
+  const n=Math.max(1,Math.floor((w+gap)/(20*rem+gap)));
+  const cols=Array.from({length:n},()=>$("div","col")),h=new Array(n).fill(0);
+  g.replaceChildren(...cols);
+  g._it.forEach(it=>{
+    const k=h.indexOf(Math.min(...h));
+    cols[k].appendChild(it);h[k]+=it.offsetHeight+gap;
+  });
+}
+function masonryTots(){document.querySelectorAll("#grid details[open] .grid").forEach(masonry)}
+let _mq=0;
+addEventListener("resize",()=>{cancelAnimationFrame(_mq);_mq=requestAnimationFrame(masonryTots)});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(masonryTots);
+
 /* quadrícula per mesos (plegables) */
 function botoPlega(){
   const ds=[...document.querySelectorAll("#grid details")],b=document.getElementById("plega");
@@ -458,13 +476,14 @@ function renderGrid(){
     det.appendChild(sm);
     const cont=$("div","grid");g.xs.forEach(x=>cont.appendChild(setmana(x)));
     det.appendChild(cont);L.appendChild(det);
-    det.addEventListener("toggle",()=>{det.open?TANCATS.delete(cl):TANCATS.add(cl);botoPlega()});
+    det.addEventListener("toggle",()=>{det.open?TANCATS.delete(cl):TANCATS.add(cl);if(det.open)masonry(cont);botoPlega()});
   });
   if(!FILTRE&&D.length){
     const nx=numSet(D[D.length-1].t)+1;
     if(nx<=TOTAL)L.querySelector(".grid").prepend($("div","tnext","Aquí hi anirà la setmana "+nx));
   }
   if(!D.length)L.appendChild($("p","sub","Encara no hi ha cap setmana."));
+  masonryTots();
   botoPlega();
 }
 document.getElementById("plega").addEventListener("click",()=>{
