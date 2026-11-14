@@ -1,0 +1,3 @@
+# Jocs de taula. Una línia per joc. Exemple (treu el # del davant):
+# - [x] Catan | jugadors: 3-4 | durada: 60 min | Júlia: 8 | Erica: 7 | foto: catan.jpg | Ens encanta
+# - [ ] Wingspan | jugadors: 1-5

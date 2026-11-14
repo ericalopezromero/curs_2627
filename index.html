@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>El nostre curs 2026-2027 · Júlia i Erica</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E❤️%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -153,7 +154,16 @@ details[open] .pt::after{content:"▴"}
 .pl{list-style:none;margin:.9rem 0 0;padding:0;display:grid;gap:.5rem}
 .it{display:flex;align-items:flex-start;gap:.7rem;padding:.55rem .75rem;background:var(--bg);border:1px solid var(--line);border-radius:14px}
 .ck{flex:none;display:grid;place-items:center;width:1.4rem;height:1.4rem;margin-top:.1rem;border:2px solid var(--ac);border-radius:8px;color:#fff;font:800 .85rem/1 var(--body)}
+.ck{padding:0;background:transparent;cursor:pointer}
 .it.fet .ck{background:var(--ac)}
+.it .t{cursor:pointer}.it .x{margin-left:auto;border:0;background:none;color:var(--muted);font-size:1.1rem;line-height:1;cursor:pointer}
+.padd{display:flex;gap:.4rem;margin-top:.7rem}
+.padd input{flex:1;min-width:0;font:inherit;font-size:.9rem;padding:.4rem .8rem;border:1px solid var(--line);border-radius:99px;background:var(--card);color:var(--ink)}
+#fj,#fr{justify-content:flex-start;margin-bottom:1rem}
+.llista{display:grid;grid-template-columns:repeat(auto-fill,minmax(17rem,1fr));gap:1rem;align-items:start}
+.llista .ph.pf{width:100%;aspect-ratio:4/3}
+.llista .lk{display:inline-block;margin:.6rem .8rem 0 0}
+.chip.vol{background:transparent;border:1px dashed var(--ci,var(--ac));color:var(--ac-ink)}
 .it.fet .t{color:var(--muted);text-decoration:line-through}
 .lk{display:block;margin-top:.1rem;padding:0;border:0;background:none;color:var(--ac-ink);font:600 .82rem var(--body);text-decoration:underline;cursor:pointer}
 .buit{margin:.9rem 0 0;font-size:.9rem;color:var(--muted)}
@@ -242,6 +252,8 @@ details[open] .pt::after{content:"▴"}
         <summary><span class="pt">Tenim pendent:</span><span class="pc" id="pcnt"></span></summary>
         <div class="bar" id="pbar"><i></i></div>
         <ul class="pl" id="pl"></ul>
+        <div class="padd"><input id="pnou" type="text" placeholder="Afegeix una cosa…" aria-label="Nova cosa pendent" autocomplete="off"><button class="f" id="padd" type="button">+</button></div>
+        <p class="buit">Els canvis es guarden en aquest dispositiu.</p>
         <p class="buit" id="pbuit" hidden>Encara no hi ha res a la llista. Afegeix-hi coses a <code>setmanes/pendents.txt</code>, una per línia: <code>- [ ] Anar al Tibidabo</code></p>
       </details>
     </aside>
@@ -250,6 +262,8 @@ details[open] .pt::after{content:"▴"}
       <nav class="tabs" role="tablist" aria-label="Seccions">
         <button class="tab" role="tab" type="button" data-v="setmanes" aria-selected="true">Setmanes</button>
         <button class="tab" role="tab" type="button" data-v="calendari" aria-selected="false">Calendari</button>
+        <button class="tab" role="tab" type="button" data-v="jocs" aria-selected="false">Jocs de taula</button>
+        <button class="tab" role="tab" type="button" data-v="rest" aria-selected="false">Restaurants</button>
       </nav>
 
       <section class="vista" id="v-setmanes" role="tabpanel">
@@ -277,6 +291,16 @@ details[open] .pt::after{content:"▴"}
         <div class="months" id="months"></div>
       </section>
 
+      <section class="vista" id="v-jocs" role="tabpanel" hidden>
+        <div class="tools" id="fj"></div>
+        <div class="llista" id="jocs"></div>
+      </section>
+
+      <section class="vista" id="v-rest" role="tabpanel" hidden>
+        <div class="tools" id="fr"></div>
+        <div class="llista" id="rest"></div>
+      </section>
+
     </div>
   </div>
 </main>
@@ -294,7 +318,7 @@ const HASH = "a37336662829cc50922b40b2ee6ee2fa3bd49d5d97b2699a4be9527034278be9";
 
 /* Les setmanes i els pendents ja no es posen aquí: es generen soles a setmanes.json
    a partir de la carpeta setmanes/ (vegeu LLEGEIX-ME.md). */
-let SETMANES = [], PENDENTS = [];
+let SETMANES = [], PENDENTS = [], JOCS = [], REST = [];
 
 /* ---------- a partir d'aquí no cal tocar res ---------- */
 const MESOS=["Gener","Febrer","Març","Abril","Maig","Juny","Juliol","Agost","Setembre","Octubre","Novembre","Desembre"];
@@ -306,6 +330,7 @@ const PAL=[["#e9e8ff","#3b38c9"],["#ffe4eb","#c2294f"],["#d9f6ec","#17795c"],["#
 const color=n=>PAL[((n-1)%PAL.length+PAL.length)%PAL.length];
 const numSet=t=>Math.round((t-INICI)/(7*DIA))+1;
 const $=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e};
+const ls={get:k=>{try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const lunes=t=>t-((new Date(t).getUTCDay()+6)%7)*DIA;
 const iso=t=>new Date(t).toISOString().slice(0,10);
 function llegeix(s){
@@ -336,13 +361,14 @@ let D=[], VIS=[], FILTRE=null;
 const TANCATS=new Set();
 
 /* pestanyes */
-const VISTES=["setmanes","calendari"];
-let BUSCA="",CUR=null;
+const VISTES=["setmanes","calendari","jocs","rest"];
+let BUSCA="",CUR=null,MAPG=null;
 const nz=t=>(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
 const esborrany=s=>!(s.fotos||[]).length&&!s.julia&&!s.erica&&!(s.etiquetes||[]).length&&!(s.text||"").replace(/[?\s]/g,"");
 function vista(n){
   VISTES.forEach(v=>{document.getElementById("v-"+v).hidden=v!==n});
   document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.v===n)));
+  if(n==="calendari"&&MAPG)calendari(MAPG);
 }
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>vista(b.dataset.v)));
 document.getElementById("vcal").addEventListener("click",e=>{
@@ -528,22 +554,75 @@ function anaA(x){
 
 /* pendents (barra lateral) */
 function pendents(){
-  const f=PENDENTS.filter(p=>p.fet).length,n=PENDENTS.length;
+  const ov=ls.get("pend")||{},nous=ls.get("pendNous")||[];
+  const L=[...PENDENTS.map(p=>({...p,fet:p.text in ov?ov[p.text]:p.fet})),...nous.map((p,i)=>({...p,nou:i}))];
+  const f=L.filter(p=>p.fet).length,n=L.length;
   document.getElementById("pcnt").textContent=n?`${f}/${n}`:"";
   document.getElementById("pbar").hidden=!n;
   document.getElementById("pbuit").hidden=n>0;
   if(n)document.querySelector("#pbar i").style.width=(f/n*100)+"%";
   const ul=document.getElementById("pl");ul.textContent="";
-  PENDENTS.forEach(p=>{
-    const li=$("li","it"+(p.fet?" fet":""));
-    li.appendChild($("span","ck",p.fet?"✓":""));
-    const w=$("span","tx");w.appendChild($("span","t",p.text));
-    if(p.fet&&p.setmana){
-      const t=llegeix(p.setmana),x=D.find(y=>y.t===t);
-      if(x){const l=$("button","lk","Setmana "+numSet(t)+" →");l.type="button";l.addEventListener("click",()=>anaA(x));w.appendChild(l)}
+  L.forEach(p=>{
+    const li=$("li","it"+(p.fet?" fet":"")),ck=$("button","ck",p.fet?"✓":""),w=$("span","tx"),t=$("span","t",p.text);
+    const tog=()=>{if(p.nou!==undefined){nous[p.nou].fet=!p.fet;ls.set("pendNous",nous)}else{ov[p.text]=!p.fet;ls.set("pend",ov)}pendents()};
+    ck.type="button";ck.setAttribute("aria-pressed",String(!!p.fet));ck.setAttribute("aria-label","Marcar «"+p.text+"»");
+    ck.addEventListener("click",tog);t.addEventListener("click",tog);
+    li.appendChild(ck);w.appendChild(t);
+    if(p.fet&&p.setmana&&p.nou===undefined){
+      const t2=llegeix(p.setmana),x=D.find(y=>y.t===t2);
+      if(x){const l=$("button","lk","Setmana "+numSet(t2)+" →");l.type="button";l.addEventListener("click",()=>anaA(x));w.appendChild(l)}
     }
-    li.appendChild(w);ul.appendChild(li);
+    li.appendChild(w);
+    if(p.nou!==undefined){const d=$("button","x","×");d.type="button";d.title="Treure";d.addEventListener("click",()=>{nous.splice(p.nou,1);ls.set("pendNous",nous);pendents()});li.appendChild(d)}
+    ul.appendChild(li);
   });
+}
+function afegeixPendent(){
+  const i=document.getElementById("pnou"),v=i.value.trim();if(!v)return;
+  const nous=ls.get("pendNous")||[];nous.push({text:v,fet:false});ls.set("pendNous",nous);i.value="";pendents();
+}
+document.getElementById("padd").addEventListener("click",afegeixPendent);
+document.getElementById("pnou").addEventListener("keydown",e=>{if(e.key==="Enter")afegeixPendent()});
+
+/* jocs de taula i restaurants */
+const LL={
+  jocs:{fb:"fj",id:"jocs",si:"Ja el tenim",no:"El volem",f:"setmanes/jocs.txt",ex:"- [x] Catan | jugadors: 3-4 | durada: 60 min | Júlia: 8 | Erica: 7 | foto: catan.jpg | Ens encanta"},
+  rest:{fb:"fr",id:"rest",si:"Hi hem anat",no:"Hi volem anar",f:"setmanes/restaurants.txt",ex:"- [x] Nom | cuina: italiana | zona: Gràcia | preu: 25 € | data: 2026-10-24 | mapa: https://maps.app.goo.gl/… | Júlia: 9 | Erica: 8 | foto: nom.jpg | Comentari"}
+};
+const FL={jocs:"",rest:""};
+function renderLlista(k){
+  const c=LL[k],xs=k==="jocs"?JOCS:REST,fb=document.getElementById(c.fb),box=document.getElementById(c.id);
+  fb.textContent="";box.textContent="";
+  if(!xs.length){box.appendChild($("p","sub","Encara no hi ha res. Afegeix-ho a "+c.f+", una línia per cosa. Exemple: "+c.ex));return}
+  [["","Tots"],["si",c.si],["no",c.no]].forEach(([v,t])=>{
+    const b=$("button","f",t);b.type="button";b.setAttribute("aria-pressed",String(FL[k]===v));
+    b.addEventListener("click",()=>{FL[k]=v;renderLlista(k)});fb.appendChild(b);
+  });
+  xs.filter(x=>!FL[k]||(FL[k]==="si")===!!x.fet).forEach(x=>box.appendChild(targeta(x,c)));
+}
+function targeta(x,c){
+  const a=$("article","wc"),t=$("div","wb"),m=$("div","meta");
+  if(x.foto){
+    const b=$("button","ph pf"),im=document.createElement("img");
+    b.type="button";im.src=x.foto;im.alt=x.nom;im.loading="lazy";im.decoding="async";b.appendChild(im);
+    b.addEventListener("click",()=>obre([{src:x.foto,peu:x.nom}],0));a.appendChild(b);
+  }
+  m.appendChild($("span","chip"+(x.fet?"":" vol"),x.fet?c.si:c.no));
+  const d=[x.jugadors&&x.jugadors+" jugadors",x.durada,x.cuina,x.zona,x.preu,x.data].filter(Boolean).join(" · ");
+  if(d)m.appendChild($("span","dates",d));
+  t.appendChild(m);t.appendChild($("h3","",x.nom));
+  if(x.text)t.appendChild($("p","",x.text));
+  if(x.julia||x.erica){
+    const nt=$("div","notes");
+    [["julia","Júlia"],["erica","Erica"]].forEach(([k,nom])=>{if(!x[k])return;const e=$("div","nota "+k);e.appendChild($("b","",nom));e.appendChild($("span","",x[k]));nt.appendChild(e)});
+    t.appendChild(nt);
+  }
+  if(x.mapa){const l=$("a","lk","Veure al mapa →");l.href=x.mapa;l.target="_blank";l.rel="noopener";t.appendChild(l)}
+  if(x.setmana){
+    const tt=llegeix(x.setmana),y=D.find(z=>z.t===tt);
+    if(y){const l=$("button","lk","Setmana "+numSet(tt)+" →");l.type="button";l.addEventListener("click",()=>anaA(y));t.appendChild(l)}
+  }
+  a.appendChild(t);return a;
 }
 /* a l'ordinador la barra lateral sempre és oberta; al mòbil es pot plegar */
 const pdet=document.getElementById("pdet"),mq=matchMedia("(min-width:1000px)");
@@ -562,7 +641,7 @@ function calendari(MAP){
       pinta_c(c,n);c.href="#s-"+iso(t);c.title="Setmana "+n+" · "+x.s.titol;
       c.addEventListener("click",ev=>{ev.preventDefault();anaA(x)});
       if(esborrany(x.s))c.classList.add("bor");
-      const f=(x.s.fotos||[])[0];
+      const cl=ls.get("clics")||{},f=(x.s.fotos||[]).reduce((b,p)=>b&&(cl[b.src]||0)>=(cl[p.src]||0)?b:p,null);
       if(f){const im=document.createElement("img");im.onerror=()=>{im.onerror=null;im.src=f.src};im.src=f.th||f.src;im.alt="";im.loading="lazy";c.classList.add("foto");c.appendChild(im)}
     }
     c.appendChild($("b","",n));c.appendChild($("span","",rang(t)));
@@ -577,7 +656,7 @@ function pinta(){
   D.sort((a,b)=>a.t-b.t);D.forEach(x=>MAP[iso(x.t)]=x);
   const E=document.getElementById("errs");
   errs.forEach(s=>E.appendChild($("p","err",`Revisa la data de «${s.titol}»: ha de ser any-mes-dia complet, per exemple 2026-10-26.`)));
-  progres();portada(D);stats(D);renderTags();renderFiltre();renderGrid();pendents();calendari(MAP);
+  progres();portada(D);stats(D);renderTags();renderFiltre();renderGrid();pendents();MAPG=MAP;calendari(MAP);renderLlista("jocs");renderLlista("rest");
   CUR=D.find(x=>x.t===lunes(avui()))||null;document.getElementById("ara").hidden=!CUR;
 }
 
@@ -585,6 +664,7 @@ function pinta(){
 const lb=document.getElementById("lb");let G=[],gi=0;
 function mostra(){
   const p=G[gi],im=lb.querySelector("img");
+  {const cl=ls.get("clics")||{};cl[p.src]=(cl[p.src]||0)+1;ls.set("clics",cl)}
   im.onerror=()=>{im.onerror=null;im.src=p.src};im.src=p.md||p.src;im.alt=p.peu||"";G[(gi+1)%G.length]&&(new Image().src=G[(gi+1)%G.length].md||G[(gi+1)%G.length].src);lb.querySelector("figcaption").textContent=p.peu||"";
   lb.classList.toggle("single",G.length<2);
 }
@@ -632,7 +712,7 @@ async function entra(){
     if(!r.ok)throw new Error(r.status);
     const j=await r.json();
     if(Array.isArray(j))SETMANES=j;
-    else{SETMANES=j.setmanes||[];PENDENTS=j.pendents||[]}
+    else{SETMANES=j.setmanes||[];PENDENTS=j.pendents||[];JOCS=j.jocs||[];REST=j.restaurants||[]}
   }catch(e){
     document.getElementById("errs").appendChild($("p","err","No he pogut carregar setmanes.json."));
   }

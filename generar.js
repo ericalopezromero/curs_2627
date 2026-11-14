@@ -86,6 +86,28 @@ if (fs.existsSync(ARREL)) {
   }
 }
 
+// Jocs de taula i restaurants: setmanes/jocs.txt i setmanes/restaurants.txt, una línia per cosa:
+//   - [x] Nom | clau: valor | clau: valor | comentari lliure      ([x] = ja el tenim / hi hem anat; [ ] = el volem / hi volem anar)
+//   Claus: jugadors, durada, cuina, zona, preu, data, mapa, setmana (2026-10-24), Júlia, Erica, foto (fitxer dins setmanes/jocs/ o setmanes/restaurants/)
+const CLAUS2 = { jugadors: "jugadors", durada: "durada", cuina: "cuina", zona: "zona", preu: "preu", data: "data", mapa: "mapa", maps: "mapa", enllac: "mapa", setmana: "setmana", julia: "julia", erica: "erica", foto: "foto" };
+function llegeixLlista(nom) {
+  const f = path.join(ARREL, nom + ".txt");
+  if (!fs.existsSync(f)) return [];
+  const res = [];
+  for (const brut of fs.readFileSync(f, "utf8").replace(/^\uFEFF/, "").split(/\r?\n/)) {
+    const m = brut.trim().match(/^[-*]\s*\[( |x|X)?\]\s*(.+)$/);
+    if (!m) continue;
+    const [titol, ...resta] = m[2].split("|").map(t => t.trim());
+    const o = { nom: titol, fet: /x/i.test(m[1] || ""), text: "" };
+    for (const t of resta) {
+      const k = t.match(/^([^:]{1,15}):\s*(.+)$/), clau = k && CLAUS2[net(k[1])];
+      if (clau) o[clau] = k[2].trim(); else o.text = o.text ? o.text + " " + t : t;
+    }
+    if (o.foto) o.foto = [ARREL, nom, o.foto].map(encodeURIComponent).join("/");
+    res.push(o);
+  }
+  return res;
+}
 const pendents = llegeixPendents();
 
 // Miniatures (opcional): amb 'sharp' crea setmanes/<setmana>/min/<foto>-t.webp (640 px, targetes)
@@ -108,6 +130,6 @@ async function miniatures() {
   }
 }
 miniatures().then(() => {
-  fs.writeFileSync("setmanes.json", JSON.stringify({ setmanes, pendents }, null, 2) + "\n");
+  fs.writeFileSync("setmanes.json", JSON.stringify({ setmanes, pendents, jocs: llegeixLlista("jocs"), restaurants: llegeixLlista("restaurants") }, null, 2) + "\n");
   console.log(`setmanes.json: ${setmanes.length} setmanes, ${pendents.length} pendents`);
 });

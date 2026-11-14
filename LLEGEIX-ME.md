@@ -43,3 +43,19 @@ setmanes/
 ## Miniatures
 
 `generar.js` crea sol miniatures a `setmanes/<setmana>/min/` (cal `sharp`; l'acció de GitHub ja l'instal·la). Si canvies una foto, esborra'n la carpeta `min`.
+
+## Jocs de taula i restaurants
+
+Dos fitxers: `setmanes/jocs.txt` i `setmanes/restaurants.txt`. Una línia per cosa:
+
+```
+- [x] Catan | jugadors: 3-4 | durada: 60 min | Júlia: 8 | Erica: 7 | foto: catan.jpg | Ens encanta
+- [ ] Wingspan | jugadors: 1-5
+- [x] Nom del lloc | cuina: italiana | zona: Gràcia | preu: 25 € | data: octubre | mapa: https://maps.app.goo.gl/… | setmana: 2026-10-26 | Júlia: 9 | Erica: 8 | foto: lloc.jpg | Comentari lliure
+```
+
+`[x]` = ja el tenim / hi hem anat; `[ ]` = el volem / hi volem anar. Només el nom és obligatori; l'ordre de la resta no importa. Les fotos van dins `setmanes/jocs/` o `setmanes/restaurants/` (millor si ja són petites, aquestes no es redueixen soles). Les línies que comencen per `#` s'ignoren.
+
+## Llista de pendents i fotos més vistes
+
+Els canvis que fas a la llista «Tenim pendent» a la web (marcar, afegir, treure) i el recompte de fotos més vistes del calendari es guarden només al navegador de cada dispositiu. Perquè una cosa sigui per a tothom, escriu-la a `setmanes/pendents.txt`.
