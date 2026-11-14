@@ -377,6 +377,29 @@
       "setmana": ""
     }
   ],
-  "jocs": [],
-  "restaurants": []
+  "jocs": [
+    {
+      "carpeta": "Illa Prohibida",
+      "nom": "Illa Prohibida",
+      "text": "",
+      "fet": false,
+      "fotos": [
+        {
+          "src": "setmanes/jocs/Illa%20Prohibida/Illa%20Prohibida.jpg",
+          "peu": "Illa Prohibida",
+          "th": "setmanes/jocs/Illa%20Prohibida/min/Illa%20Prohibida-t.webp",
+          "md": "setmanes/jocs/Illa%20Prohibida/min/Illa%20Prohibida-m.webp"
+        }
+      ]
+    }
+  ],
+  "restaurants": [
+    {
+      "carpeta": "Pipa6",
+      "nom": "Pipa6",
+      "text": "",
+      "fet": false,
+      "fotos": []
+    }
+  ]
 }
