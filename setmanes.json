@@ -381,8 +381,12 @@
     {
       "carpeta": "Illa Prohibida",
       "nom": "Illa Prohibida",
-      "text": "",
-      "fet": false,
+      "text": "Aquí va el comentari.",
+      "jugadors": "2-4",
+      "durada": "30 min",
+      "julia": "8",
+      "erica": "7",
+      "fet": true,
       "fotos": [
         {
           "src": "jocs/Illa%20Prohibida/Illa%20Prohibida.jpg",
@@ -391,6 +395,13 @@
           "md": "jocs/Illa%20Prohibida/min/Illa%20Prohibida-m.webp"
         }
       ]
+    },
+    {
+      "carpeta": "Jaipur",
+      "nom": "Jaipur",
+      "text": "",
+      "fet": false,
+      "fotos": []
     }
   ],
   "restaurants": [
