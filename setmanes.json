@@ -385,10 +385,10 @@
       "fet": false,
       "fotos": [
         {
-          "src": "setmanes/jocs/Illa%20Prohibida/Illa%20Prohibida.jpg",
+          "src": "jocs/Illa%20Prohibida/Illa%20Prohibida.jpg",
           "peu": "Illa Prohibida",
-          "th": "setmanes/jocs/Illa%20Prohibida/min/Illa%20Prohibida-t.webp",
-          "md": "setmanes/jocs/Illa%20Prohibida/min/Illa%20Prohibida-m.webp"
+          "th": "jocs/Illa%20Prohibida/min/Illa%20Prohibida-t.webp",
+          "md": "jocs/Illa%20Prohibida/min/Illa%20Prohibida-m.webp"
         }
       ]
     }
