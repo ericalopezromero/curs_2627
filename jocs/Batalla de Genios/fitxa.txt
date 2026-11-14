@@ -1,0 +1,4 @@
+Batalla de Genios
+Estat: tenim
+Jugadors:
+Durada:

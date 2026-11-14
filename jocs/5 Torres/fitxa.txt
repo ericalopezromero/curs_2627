@@ -1,0 +1,4 @@
+5 Torres
+Estat: tenim
+Jugadors:
+Durada:

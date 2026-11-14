@@ -1,0 +1,4 @@
+Azul
+Estat: tenim
+Jugadors:
+Durada:

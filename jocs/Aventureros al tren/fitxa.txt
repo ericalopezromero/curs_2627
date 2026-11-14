@@ -1,0 +1,4 @@
+Aventureros al tren
+Estat: volem
+Jugadors:
+Durada:

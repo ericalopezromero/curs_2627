@@ -1,0 +1,4 @@
+Ensalada de puntos
+Estat: tenim
+Jugadors:
+Durada:
