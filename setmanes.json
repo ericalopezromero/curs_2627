@@ -379,8 +379,120 @@
   ],
   "jocs": [
     {
-      "carpeta": "Illa Prohibida",
-      "nom": "Illa Prohibida",
+      "carpeta": "5 Torres",
+      "nom": "5 Torres",
+      "text": "",
+      "jugadors": "",
+      "durada": "",
+      "fet": true,
+      "fotos": [
+        {
+          "src": "jocs/5%20Torres/5torres3.jpg",
+          "peu": "torres3",
+          "th": "jocs/5%20Torres/min/5torres3-t.webp",
+          "md": "jocs/5%20Torres/min/5torres3-m.webp"
+        }
+      ]
+    },
+    {
+      "carpeta": "Aventureros al tren",
+      "nom": "Aventureros al tren",
+      "text": "",
+      "jugadors": "",
+      "durada": "",
+      "fet": false,
+      "fotos": [
+        {
+          "src": "jocs/Aventureros%20al%20tren/AVENTUREROSALTREN.jpg",
+          "peu": "AVENTUREROSALTREN",
+          "th": "jocs/Aventureros%20al%20tren/min/AVENTUREROSALTREN-t.webp",
+          "md": "jocs/Aventureros%20al%20tren/min/AVENTUREROSALTREN-m.webp"
+        }
+      ]
+    },
+    {
+      "carpeta": "Azul",
+      "nom": "Azul",
+      "text": "",
+      "jugadors": "",
+      "durada": "",
+      "fet": true,
+      "fotos": [
+        {
+          "src": "jocs/Azul/azul-mini-juego.jpg",
+          "peu": "azul-mini-juego",
+          "th": "jocs/Azul/min/azul-mini-juego-t.webp",
+          "md": "jocs/Azul/min/azul-mini-juego-m.webp"
+        }
+      ]
+    },
+    {
+      "carpeta": "Batalla de Genios",
+      "nom": "Batalla de Genios",
+      "text": "",
+      "jugadors": "",
+      "durada": "",
+      "fet": true,
+      "fotos": [
+        {
+          "src": "jocs/Batalla%20de%20Genios/EAN_8436536808001-3-2.jpg",
+          "peu": "EAN_8436536808001-3-2",
+          "th": "jocs/Batalla%20de%20Genios/min/EAN_8436536808001-3-2-t.webp",
+          "md": "jocs/Batalla%20de%20Genios/min/EAN_8436536808001-3-2-m.webp"
+        }
+      ]
+    },
+    {
+      "carpeta": "Claim",
+      "nom": "Claim",
+      "text": "",
+      "jugadors": "",
+      "durada": "",
+      "fet": true,
+      "fotos": [
+        {
+          "src": "jocs/Claim/claim-juego-de-cartas.jpg",
+          "peu": "claim-juego-de-cartas",
+          "th": "jocs/Claim/min/claim-juego-de-cartas-t.webp",
+          "md": "jocs/Claim/min/claim-juego-de-cartas-m.webp"
+        }
+      ]
+    },
+    {
+      "carpeta": "Ensalada de puntos",
+      "nom": "Ensalada de puntos",
+      "text": "",
+      "jugadors": "",
+      "durada": "",
+      "fet": true,
+      "fotos": [
+        {
+          "src": "jocs/Ensalada%20de%20puntos/Ensalada-de-Puntos.jpg",
+          "peu": "Ensalada-de-Puntos",
+          "th": "jocs/Ensalada%20de%20puntos/min/Ensalada-de-Puntos-t.webp",
+          "md": "jocs/Ensalada%20de%20puntos/min/Ensalada-de-Puntos-m.webp"
+        }
+      ]
+    },
+    {
+      "carpeta": "Jaipur",
+      "nom": "Jaipur",
+      "text": "",
+      "jugadors": "",
+      "durada": "",
+      "fet": true,
+      "fotos": [
+        {
+          "src": "jocs/Jaipur/juego-de-mesa-jaipur.jpg",
+          "peu": "juego-de-mesa-jaipur",
+          "th": "jocs/Jaipur/min/juego-de-mesa-jaipur-t.webp",
+          "md": "jocs/Jaipur/min/juego-de-mesa-jaipur-m.webp"
+        }
+      ]
+    },
+    {
+      "carpeta": "L'Illa Prohibida",
+      "nom": "L'Illa Prohibida",
       "text": "Aquí va el comentari.",
       "jugadors": "2-4",
       "durada": "30 min",
@@ -389,19 +501,60 @@
       "fet": true,
       "fotos": [
         {
-          "src": "jocs/Illa%20Prohibida/Illa%20Prohibida.jpg",
-          "peu": "Illa Prohibida",
-          "th": "jocs/Illa%20Prohibida/min/Illa%20Prohibida-t.webp",
-          "md": "jocs/Illa%20Prohibida/min/Illa%20Prohibida-m.webp"
+          "src": "jocs/L'Illa%20Prohibida/L'Illa%20Prohibida.jpg",
+          "peu": "L'Illa Prohibida",
+          "th": "jocs/L'Illa%20Prohibida/min/L'Illa%20Prohibida-t.webp",
+          "md": "jocs/L'Illa%20Prohibida/min/L'Illa%20Prohibida-m.webp"
         }
       ]
     },
     {
-      "carpeta": "Jaipur",
-      "nom": "Jaipur",
+      "carpeta": "Onirim",
+      "nom": "Onirim",
       "text": "",
-      "fet": false,
-      "fotos": []
+      "jugadors": "",
+      "durada": "",
+      "fet": true,
+      "fotos": [
+        {
+          "src": "jocs/Onirim/Onirim-GoblinTrader-900x621.jpg",
+          "peu": "Onirim-GoblinTrader-900x621",
+          "th": "jocs/Onirim/min/Onirim-GoblinTrader-900x621-t.webp",
+          "md": "jocs/Onirim/min/Onirim-GoblinTrader-900x621-m.webp"
+        }
+      ]
+    },
+    {
+      "carpeta": "Roll to the top",
+      "nom": "Roll to the top",
+      "text": "",
+      "jugadors": "",
+      "durada": "",
+      "fet": true,
+      "fotos": [
+        {
+          "src": "jocs/Roll%20to%20the%20top/roll_9-1.jpg",
+          "peu": "roll_9-1",
+          "th": "jocs/Roll%20to%20the%20top/min/roll_9-1-t.webp",
+          "md": "jocs/Roll%20to%20the%20top/min/roll_9-1-m.webp"
+        }
+      ]
+    },
+    {
+      "carpeta": "Songbirds",
+      "nom": "Songbirds",
+      "text": "",
+      "jugadors": "",
+      "durada": "",
+      "fet": true,
+      "fotos": [
+        {
+          "src": "jocs/Songbirds/81lIoJRtOIL.jpg",
+          "peu": "lIoJRtOIL",
+          "th": "jocs/Songbirds/min/81lIoJRtOIL-t.webp",
+          "md": "jocs/Songbirds/min/81lIoJRtOIL-m.webp"
+        }
+      ]
     }
   ],
   "restaurants": [
