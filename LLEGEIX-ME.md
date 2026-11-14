@@ -46,15 +46,29 @@ setmanes/
 
 ## Jocs de taula i restaurants
 
-Dos fitxers: `setmanes/jocs.txt` i `setmanes/restaurants.txt`. Una línia per cosa:
+Cada joc i cada restaurant té la seva carpeta, igual que les setmanes:
 
 ```
-- [x] Catan | jugadors: 3-4 | durada: 60 min | Júlia: 8 | Erica: 7 | foto: catan.jpg | Ens encanta
-- [ ] Wingspan | jugadors: 1-5
-- [x] Nom del lloc | cuina: italiana | zona: Gràcia | preu: 25 € | data: octubre | mapa: https://maps.app.goo.gl/… | setmana: 2026-10-26 | Júlia: 9 | Erica: 8 | foto: lloc.jpg | Comentari lliure
+setmanes/jocs/catan/fitxa.txt          + les fotos (la 1a és la portada)
+setmanes/restaurants/can-joan/fitxa.txt + les fotos
 ```
 
-`[x]` = ja el tenim / hi hem anat; `[ ]` = el volem / hi volem anar. Només el nom és obligatori; l'ordre de la resta no importa. Les fotos van dins `setmanes/jocs/` o `setmanes/restaurants/` (millor si ja són petites, aquestes no es redueixen soles). Les línies que comencen per `#` s'ignoren.
+Format de `fitxa.txt` (només el nom, a la 1a línia, és obligatori):
+
+```
+Catan
+Estat: tenim
+Jugadors: 3-4
+Durada: 60 min
+Júlia: 8
+Erica: 7
+Aquí va el comentari (pot ser de diverses línies).
+```
+
+- **Jocs:** `Estat: tenim` o `Estat: volem`. Camps: Jugadors, Durada, Júlia, Erica.
+- **Restaurants:** `Estat: hi hem anat` o `Estat: volem anar`. Camps: Cuina, Zona, Preu, Data, Mapa (enllaç), Setmana (`2026-10-26`, crea un enllaç a aquella setmana), Júlia, Erica.
+- Si no poses `Estat`, es considera «el volem» / «hi volem anar».
+- Es mostren per ordre alfabètic del nom de la carpeta. Les miniatures es creen soles, com a les setmanes.
 
 ## Llista de pendents i fotos més vistes
 

@@ -86,50 +86,62 @@ if (fs.existsSync(ARREL)) {
   }
 }
 
-// Jocs de taula i restaurants: setmanes/jocs.txt i setmanes/restaurants.txt, una línia per cosa:
-//   - [x] Nom | clau: valor | clau: valor | comentari lliure      ([x] = ja el tenim / hi hem anat; [ ] = el volem / hi volem anar)
-//   Claus: jugadors, durada, cuina, zona, preu, data, mapa, setmana (2026-10-24), Júlia, Erica, foto (fitxer dins setmanes/jocs/ o setmanes/restaurants/)
-const CLAUS2 = { jugadors: "jugadors", durada: "durada", cuina: "cuina", zona: "zona", preu: "preu", data: "data", mapa: "mapa", maps: "mapa", enllac: "mapa", setmana: "setmana", julia: "julia", erica: "erica", foto: "foto" };
-function llegeixLlista(nom) {
-  const f = path.join(ARREL, nom + ".txt");
-  if (!fs.existsSync(f)) return [];
-  const res = [];
-  for (const brut of fs.readFileSync(f, "utf8").replace(/^\uFEFF/, "").split(/\r?\n/)) {
-    const m = brut.trim().match(/^[-*]\s*\[( |x|X)?\]\s*(.+)$/);
-    if (!m) continue;
-    const [titol, ...resta] = m[2].split("|").map(t => t.trim());
-    const o = { nom: titol, fet: /x/i.test(m[1] || ""), text: "" };
-    for (const t of resta) {
-      const k = t.match(/^([^:]{1,15}):\s*(.+)$/), clau = k && CLAUS2[net(k[1])];
-      if (clau) o[clau] = k[2].trim(); else o.text = o.text ? o.text + " " + t : t;
-    }
-    if (o.foto) o.foto = [ARREL, nom, o.foto].map(encodeURIComponent).join("/");
-    res.push(o);
+// Jocs de taula i restaurants: una carpeta per cosa, igual que les setmanes:
+//   setmanes/jocs/catan/fitxa.txt + fotos        setmanes/restaurants/can-joan/fitxa.txt + fotos
+//   fitxa.txt -> 1a línia = nom. Després, opcionalment (una per línia):
+//     Estat: tenim   (jocs: tenim / volem)   |   Estat: hi hem anat   (restaurants: hi hem anat / volem anar)
+//     Jugadors, Durada, Cuina, Zona, Preu, Data, Mapa (enllaç), Setmana (2026-10-26), Júlia, Erica
+//   Tota la resta de línies és el comentari. La 1a foto és la portada.
+const CLAUS2 = { estat: "estat", jugadors: "jugadors", durada: "durada", cuina: "cuina", zona: "zona", preu: "preu", data: "data", mapa: "mapa", maps: "mapa", enllac: "mapa", setmana: "setmana", julia: "julia", erica: "erica" };
+function llegeixFitxa(fitxer, carpeta) {
+  const linies = fs.readFileSync(fitxer, "utf8").replace(/^\uFEFF/, "").split(/\r?\n/);
+  const nom = (linies.shift() || "").trim() || carpeta, text = [], o = {};
+  for (const l of linies) {
+    const m = l.match(/^\s*([^:]{1,20}):\s*(.*)$/), clau = m && CLAUS2[net(m[1])];
+    if (clau) o[clau] = m[2].trim(); else text.push(l);
   }
-  return res;
+  return { nom, text: text.join("\n").trim(), ...o };
+}
+function llegeixFitxes(tipus) {
+  const arrel = path.join(ARREL, tipus);
+  if (!fs.existsSync(arrel)) return [];
+  const ordre = (a, b) => a.localeCompare(b, "ca", { numeric: true });
+  return fs.readdirSync(arrel, { withFileTypes: true }).filter(d => d.isDirectory()).map(d => d.name).sort(ordre).map(carpeta => {
+    const dir = path.join(arrel, carpeta), txt = path.join(dir, "fitxa.txt");
+    const info = fs.existsSync(txt) ? llegeixFitxa(txt, carpeta) : { nom: carpeta, text: "" };
+    const fet = /^(tenim|fet|fets|si|x|ja|hi hem anat|anat)/.test(net(info.estat || ""));
+    delete info.estat;
+    const fotos = fs.readdirSync(dir).filter(f => EXT.test(f)).sort(ordre).map(f => ({
+      src: [ARREL, tipus, carpeta, f].map(encodeURIComponent).join("/"),
+      peu: f.replace(EXT, "").replace(/^\d+[\s._-]*/, "").trim()
+    }));
+    return { carpeta, ...info, fet, fotos };
+  });
 }
 const pendents = llegeixPendents();
+const jocs = llegeixFitxes("jocs"), restaurants = llegeixFitxes("restaurants");
 
-// Miniatures (opcional): amb 'sharp' crea setmanes/<setmana>/min/<foto>-t.webp (640 px, targetes)
-// i -m.webp (1600 px, visor). Els originals no es toquen. Si canvies una foto, esborra la seva min.
+// Miniatures (opcional): amb 'sharp' crea min/<foto>-t.webp (640 px, targetes) i -m.webp (1600 px, visor)
+// dins de cada carpeta. Els originals no es toquen. Si canvies una foto, esborra la carpeta min.
 let sharp = null;
 try { sharp = require("sharp"); } catch (e) { console.warn("Avís: no hi ha 'sharp', no es fan miniatures (npm install sharp)."); }
 async function miniatures() {
   if (!sharp) return;
-  for (const s of setmanes) for (const f of s.fotos) {
+  const llocs = [...setmanes.map(s => [[s.inici], s.fotos]), ...jocs.map(x => [["jocs", x.carpeta], x.fotos]), ...restaurants.map(x => [["restaurants", x.carpeta], x.fotos])];
+  for (const [segs, fotos] of llocs) for (const f of fotos) {
     const nomFoto = decodeURIComponent(f.src.split("/").pop());
-    const orig = path.join(ARREL, s.inici, nomFoto), base = nomFoto.replace(/\.[^.]+$/, "");
+    const base = nomFoto.replace(/\.[^.]+$/, ""), dir = [ARREL, ...segs];
     for (const [suf, ample, q, clau] of [["t", 640, 72, "th"], ["m", 1600, 80, "md"]]) {
-      const fitxer = `${base}-${suf}.webp`, sortida = path.join(ARREL, s.inici, "min", fitxer);
+      const fitxer = `${base}-${suf}.webp`, sortida = path.join(...dir, "min", fitxer);
       if (!fs.existsSync(sortida)) {
         fs.mkdirSync(path.dirname(sortida), { recursive: true });
-        await sharp(orig).rotate().resize({ width: ample, withoutEnlargement: true }).webp({ quality: q }).toFile(sortida);
+        await sharp(path.join(...dir, nomFoto)).rotate().resize({ width: ample, withoutEnlargement: true }).webp({ quality: q }).toFile(sortida);
       }
-      f[clau] = [ARREL, s.inici, "min", fitxer].map(encodeURIComponent).join("/");
+      f[clau] = [...dir, "min", fitxer].map(encodeURIComponent).join("/");
     }
   }
 }
 miniatures().then(() => {
-  fs.writeFileSync("setmanes.json", JSON.stringify({ setmanes, pendents, jocs: llegeixLlista("jocs"), restaurants: llegeixLlista("restaurants") }, null, 2) + "\n");
-  console.log(`setmanes.json: ${setmanes.length} setmanes, ${pendents.length} pendents`);
+  fs.writeFileSync("setmanes.json", JSON.stringify({ setmanes, pendents, jocs, restaurants }, null, 2) + "\n");
+  console.log(`setmanes.json: ${setmanes.length} setmanes, ${pendents.length} pendents, ${jocs.length} jocs, ${restaurants.length} restaurants`);
 });

@@ -162,6 +162,7 @@ details[open] .pt::after{content:"▴"}
 #fj,#fr{justify-content:flex-start;margin-bottom:1rem}
 .llista{display:grid;grid-template-columns:repeat(auto-fill,minmax(17rem,1fr));gap:1rem;align-items:start}
 .llista .ph.pf{width:100%;aspect-ratio:4/3}
+.pf .nf{position:absolute;right:.5rem;bottom:.5rem;padding:.1rem .6rem;border-radius:99px;background:rgba(38,38,77,.65);color:#fff;font:700 .8rem var(--body)}
 .llista .lk{display:inline-block;margin:.6rem .8rem 0 0}
 .chip.vol{background:transparent;border:1px dashed var(--ci,var(--ac));color:var(--ac-ink)}
 .it.fet .t{color:var(--muted);text-decoration:line-through}
@@ -586,14 +587,14 @@ document.getElementById("pnou").addEventListener("keydown",e=>{if(e.key==="Enter
 
 /* jocs de taula i restaurants */
 const LL={
-  jocs:{fb:"fj",id:"jocs",si:"Ja el tenim",no:"El volem",f:"setmanes/jocs.txt",ex:"- [x] Catan | jugadors: 3-4 | durada: 60 min | Júlia: 8 | Erica: 7 | foto: catan.jpg | Ens encanta"},
-  rest:{fb:"fr",id:"rest",si:"Hi hem anat",no:"Hi volem anar",f:"setmanes/restaurants.txt",ex:"- [x] Nom | cuina: italiana | zona: Gràcia | preu: 25 € | data: 2026-10-24 | mapa: https://maps.app.goo.gl/… | Júlia: 9 | Erica: 8 | foto: nom.jpg | Comentari"}
+  jocs:{fb:"fj",id:"jocs",si:"Ja el tenim",no:"El volem",f:"setmanes/jocs/"},
+  rest:{fb:"fr",id:"rest",si:"Hi hem anat",no:"Hi volem anar",f:"setmanes/restaurants/"}
 };
 const FL={jocs:"",rest:""};
 function renderLlista(k){
   const c=LL[k],xs=k==="jocs"?JOCS:REST,fb=document.getElementById(c.fb),box=document.getElementById(c.id);
   fb.textContent="";box.textContent="";
-  if(!xs.length){box.appendChild($("p","sub","Encara no hi ha res. Afegeix-ho a "+c.f+", una línia per cosa. Exemple: "+c.ex));return}
+  if(!xs.length){box.appendChild($("p","sub","Encara no hi ha res. Crea una carpeta per cada cosa dins de "+c.f+" amb un fitxa.txt i les fotos (mira LLEGEIX-ME.md)."));return}
   [["","Tots"],["si",c.si],["no",c.no]].forEach(([v,t])=>{
     const b=$("button","f",t);b.type="button";b.setAttribute("aria-pressed",String(FL[k]===v));
     b.addEventListener("click",()=>{FL[k]=v;renderLlista(k)});fb.appendChild(b);
@@ -602,10 +603,12 @@ function renderLlista(k){
 }
 function targeta(x,c){
   const a=$("article","wc"),t=$("div","wb"),m=$("div","meta");
-  if(x.foto){
-    const b=$("button","ph pf"),im=document.createElement("img");
-    b.type="button";im.src=x.foto;im.alt=x.nom;im.loading="lazy";im.decoding="async";b.appendChild(im);
-    b.addEventListener("click",()=>obre([{src:x.foto,peu:x.nom}],0));a.appendChild(b);
+  const fs=(x.fotos||[]).map(p=>({...p,peu:p.peu||x.nom}));
+  if(fs.length){
+    const b=$("button","ph pf"),im=document.createElement("img"),p=fs[0];
+    b.type="button";im.onerror=()=>{im.onerror=null;im.src=p.src};im.src=p.th||p.src;im.alt=x.nom;im.loading="lazy";im.decoding="async";b.appendChild(im);
+    if(fs.length>1)b.appendChild($("span","nf","+"+(fs.length-1)));
+    b.addEventListener("click",()=>obre(fs,0));a.appendChild(b);
   }
   m.appendChild($("span","chip"+(x.fet?"":" vol"),x.fet?c.si:c.no));
   const d=[x.jugadors&&x.jugadors+" jugadors",x.durada,x.cuina,x.zona,x.preu,x.data].filter(Boolean).join(" · ");
