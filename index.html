@@ -30,7 +30,7 @@ body.locked main{display:none}
 h1,h2,h3{font-family:var(--head);margin:0}
 a{color:var(--ac-ink)}
 :focus-visible{outline:3px solid var(--ac);outline-offset:3px}
-.wrap{max-width:1240px;margin:0 auto;padding:0 1.2rem}
+.wrap{max-width:1720px;margin:0 auto;padding:0 1.2rem}
 
 /* contrasenya */
 #gate{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:1rem;background:var(--bg)}
@@ -44,15 +44,15 @@ body:not(.locked) #gate{display:none}
 #gate-err{min-height:1.4em;margin:.7rem 0 0;color:#c0384f;font-size:.92rem}
 
 /* portada */
-.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;padding:3rem 0 2rem}
-.hero h1{font-size:clamp(2.7rem,7vw,4.7rem);font-weight:800;line-height:1;letter-spacing:-.03em}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;padding:1.6rem 0 1rem}
+.hero h1{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:800;line-height:1;letter-spacing:-.03em}
 .hero h1 span{color:var(--ac)}
 .names{margin:1rem 0 0;font:600 1.3rem var(--head)}
 .lead{margin:.5rem 0 0;max-width:28rem;color:var(--muted)}
-.prog{margin-top:1.6rem;max-width:26rem}
+.prog{margin-top:1rem;max-width:26rem}
 .bar{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
 .bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--ac),var(--g2))}
-.pics{position:relative;aspect-ratio:1/1;max-width:22rem;width:100%;margin-inline:auto}
+.pics{position:relative;aspect-ratio:1/1;max-width:15rem;width:100%;margin-inline:auto}
 .hp{position:absolute;margin:0;width:54%;padding:6px;background:#fff;border-radius:18px;box-shadow:0 14px 34px -12px rgba(38,38,77,.35)}
 .hp img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:13px}
 .hp0{top:0;left:2%;transform:rotate(-5deg)}
@@ -163,20 +163,35 @@ details[open] .pt::after{content:"▴"}
   .pt::after{display:none}
 }
 
-/* calendari */
-.months{display:grid;grid-template-columns:minmax(0,1fr);gap:1rem;max-width:34rem;margin:0 auto}
-@container (min-width:640px){.months{grid-template-columns:repeat(2,minmax(0,1fr));max-width:none}}
-.mc{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:1rem 1rem .8rem;box-shadow:var(--sh)}
-.mc h3{margin:0 0 .6rem;font-size:1.1rem;font-weight:800}
-.wd,.wk{display:grid;grid-template-columns:1.7rem repeat(7,1fr) 2rem;text-align:center}
-.wd{font-size:.75rem;color:var(--muted);margin-bottom:.2rem}
-.wk{height:2.25rem;align-items:center;font-size:.88rem;border-radius:99px;color:var(--ink);text-decoration:none}
-.wk b{display:grid;place-items:center;width:1.7rem;height:1.7rem;margin:auto;font-weight:inherit}
-.wk.has{background:var(--cs,var(--ac-soft));color:var(--ci,var(--ac-ink));font-weight:700;transition:filter .15s}
-.wk.has:hover{filter:brightness(.94)}
-.wn{font-size:.68rem;font-weight:700;opacity:.65}
-.th{display:block;width:1.8rem;height:1.8rem;margin:auto;object-fit:cover;border-radius:9px}
-.wk b.hoy{background:var(--rose);color:#fff;border-radius:50%;font-weight:700}
+/* calendari: una casella per setmana */
+#months{display:grid;grid-template-columns:repeat(auto-fill,minmax(8rem,1fr));gap:.8rem}
+.swm{grid-column:1/-1;font:800 1.15rem var(--head);margin:.8rem 0 -.2rem}
+.sw{position:relative;display:flex;flex-direction:column;justify-content:space-between;aspect-ratio:1;padding:.55rem .7rem;border-radius:18px;overflow:hidden;text-decoration:none;color:var(--muted);border:2px dashed var(--line);font-size:.74rem;line-height:1.25}
+.sw b{font:800 1.4rem var(--head)}
+.sw>b,.sw>span{position:relative;z-index:1}
+.sw.has{border:0;background:var(--cs,var(--ac-soft));color:var(--ci,var(--ac-ink));box-shadow:var(--sh);transition:transform .15s}
+.sw.has:hover{transform:translateY(-3px)}
+.sw.has.bor{border:2px dashed var(--ci,var(--ac));background:transparent;box-shadow:none;opacity:.75}
+.sw img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sw.foto{color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.sw.foto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45),transparent 45%,transparent 55%,rgba(0,0,0,.5))}
+.mm{position:absolute;top:.5rem;right:.55rem;z-index:1;padding:.05rem .55rem;border-radius:99px;background:rgba(255,255,255,.9);color:var(--ink);font:800 .66rem var(--head);font-style:normal;text-transform:uppercase;letter-spacing:.06em;text-shadow:none}
+.sw.hoy{outline:3px solid var(--ac);outline-offset:2px}
+
+/* cerca, desplegables, setmana actual, esborranys */
+.cerca{flex:1 1 14rem;max-width:24rem;font:inherit;font-size:.95rem;padding:.45rem 1rem;border:1px solid var(--line);border-radius:99px;background:var(--card);color:var(--ink)}
+.dd{margin:.2rem 0 .8rem;padding:.1rem 1.1rem .2rem;background:var(--card);border:1px solid var(--line);border-radius:20px}
+.dd summary{display:flex;align-items:center;gap:.6rem;padding:.6rem 0;cursor:pointer;list-style:none;font:800 1.05rem var(--head)}
+.dd summary::-webkit-details-marker{display:none}
+.dd summary::before{content:"▸";color:var(--ac);transition:transform .2s}
+.dd[open] summary::before{transform:rotate(90deg)}
+.dd .stats{padding-bottom:1rem}.dd .cloud{padding-bottom:1rem}
+.dd .st b{font-size:1.7rem}
+.wc.ara{box-shadow:0 0 0 3px var(--ac),var(--sh)}
+.chip.now{background:var(--ac);color:#fff}
+.wc.bor{gap:0;padding:10px;background:transparent;border:2px dashed var(--line);box-shadow:none;opacity:.8}
+.wc.bor .wb{padding:0 .4rem .3rem}.wc.bor h3{font-size:1.05rem;color:var(--muted)}.wc.bor .wb p{display:none}
+#lb figure{touch-action:none}
 
 /* ampliar foto */
 #lb{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;gap:.5rem;padding:1rem;background:rgba(38,38,77,.88)}
@@ -235,17 +250,26 @@ details[open] .pt::after{content:"▴"}
       <nav class="tabs" role="tablist" aria-label="Seccions">
         <button class="tab" role="tab" type="button" data-v="setmanes" aria-selected="true">Setmanes</button>
         <button class="tab" role="tab" type="button" data-v="calendari" aria-selected="false">Calendari</button>
-        <button class="tab" role="tab" type="button" data-v="stats" aria-selected="false">Estadístiques</button>
-        <button class="tab" role="tab" type="button" data-v="tags" aria-selected="false">Etiquetes</button>
       </nav>
 
       <section class="vista" id="v-setmanes" role="tabpanel">
         <div class="tools">
+          <input id="cerca" class="cerca" type="search" placeholder="Cerca setmanes…" aria-label="Cerca setmanes" autocomplete="off">
           <div id="fact"></div>
+          <button class="f" id="ara" type="button" hidden>Anar a aquesta setmana</button>
           <button class="f" id="plega" type="button" hidden>Plegar tots els mesos</button>
         </div>
+        <details class="dd" id="dtags">
+          <summary>Etiquetes</summary>
+          <p class="sub">Toca una etiqueta per veure només les setmanes que la tenen.</p>
+          <div class="cloud" id="tags"></div>
+        </details>
         <div id="errs"></div>
         <div id="grid"></div>
+        <details class="dd" id="dstats">
+          <summary>Estadístiques</summary>
+          <div class="stats" id="stats"></div>
+        </details>
       </section>
 
       <section class="vista" id="v-calendari" role="tabpanel" hidden>
@@ -253,14 +277,6 @@ details[open] .pt::after{content:"▴"}
         <div class="months" id="months"></div>
       </section>
 
-      <section class="vista" id="v-stats" role="tabpanel" hidden>
-        <div class="stats" id="stats"></div>
-      </section>
-
-      <section class="vista" id="v-tags" role="tabpanel" hidden>
-        <p class="sub">Toca una etiqueta per veure només les setmanes que la tenen.</p>
-        <div class="cloud" id="tags"></div>
-      </section>
     </div>
   </div>
 </main>
@@ -274,6 +290,8 @@ details[open] .pt::after{content:"▴"}
 
 <script>
 /* CONTRASENYA (ara: juliquers). Per canviar-la, posa aquí el SHA-256 de la nova, en minúscules. */
+/* PORTA: true = demana contrasenya dins la web. Posa-ho a false quan la protegeixis amb Cloudflare Access (vegeu LLEGEIX-ME.md). */
+const PORTA = true;
 const HASH = "a37336662829cc50922b40b2ee6ee2fa3bd49d5d97b2699a4be9527034278be9";
 
 /* Les setmanes i els pendents ja no es posen aquí: es generen soles a setmanes.json
@@ -320,7 +338,10 @@ let D=[], VIS=[], FILTRE=null;
 const TANCATS=new Set();
 
 /* pestanyes */
-const VISTES=["setmanes","calendari","stats","tags"];
+const VISTES=["setmanes","calendari"];
+let BUSCA="",CUR=null;
+const nz=t=>(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+const esborrany=s=>!(s.fotos||[]).length&&!s.julia&&!s.erica&&!(s.etiquetes||[]).length&&!(s.text||"").replace(/[?\s]/g,"");
 function vista(n){
   VISTES.forEach(v=>{document.getElementById("v-"+v).hidden=v!==n});
   document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.v===n)));
@@ -345,7 +366,7 @@ function portada(d){
   }
   totes.slice(0,3).forEach((p,i)=>{
     const f=$("figure","hp hp"+i),im=document.createElement("img");
-    im.src=p.src;im.alt=p.peu||"";f.appendChild(im);box.appendChild(f);
+    im.src=p.th||p.src;im.alt=p.peu||"";f.appendChild(im);box.appendChild(f);
   });
 }
 
@@ -399,12 +420,14 @@ function filtraPer(t){
 function setmana(x){
   const s=x.s,fs=s.fotos||[],n=numSet(x.t),a=$("article","wc");
   a.id="s-"+iso(x.t);pinta_c(a,n);
+  if(esborrany(s))a.classList.add("bor");
+  if(x.t===lunes(avui()))a.classList.add("ara");
   if(fs.length){
     const v=Math.min(fs.length,MAXFOTOS),mo=$("div","mosaic n"+v);
     fs.slice(0,v).forEach((p,i)=>{
       const b=$("button","ph"),im=document.createElement("img");
       b.type="button";b.setAttribute("aria-label","Ampliar: "+(p.peu||s.titol));
-      im.src=p.src;im.alt=p.peu||s.titol;im.loading="lazy";b.appendChild(im);
+      im.src=p.th||p.src;im.alt=p.peu||s.titol;im.loading="lazy";im.decoding="async";b.appendChild(im);
       if(i===v-1&&fs.length>v)b.appendChild($("span","more","+"+(fs.length-v)));
       b.addEventListener("click",()=>obre(fs,i));mo.appendChild(b);
     });
@@ -412,6 +435,7 @@ function setmana(x){
   }
   const t=$("div","wb"),meta=$("div","meta");
   meta.appendChild($("span","chip","Setmana "+n));
+  if(x.t===lunes(avui()))meta.appendChild($("span","chip now","Aquesta setmana"));
   meta.appendChild($("span","dates",rang(x.t)));
   t.appendChild(meta);t.appendChild($("h3","",s.titol));
   if(s.text)t.appendChild($("p","",s.text));
@@ -441,7 +465,7 @@ function masonry(g){
   if(!g._it)g._it=[...g.children].filter(e=>!e.classList.contains("col"));
   const w=g.clientWidth;if(!w)return;
   const rem=parseFloat(getComputedStyle(document.documentElement).fontSize)||16,gap=1.1*rem;
-  const n=Math.max(1,Math.floor((w+gap)/(20*rem+gap)));
+  const n=Math.max(1,Math.floor((w+gap)/(22*rem+gap)));
   const cols=Array.from({length:n},()=>$("div","col")),h=new Array(n).fill(0);
   g.replaceChildren(...cols);
   g._it.forEach(it=>{
@@ -462,7 +486,7 @@ function botoPlega(){
 }
 function renderGrid(){
   const L=document.getElementById("grid");L.textContent="";
-  VIS=D.filter(x=>!FILTRE||(x.s.etiquetes||[]).includes(FILTRE));
+  VIS=D.filter(x=>(!FILTRE||(x.s.etiquetes||[]).includes(FILTRE))&&(!BUSCA||nz([x.s.titol,x.s.text,x.s.julia,x.s.erica,...(x.s.etiquetes||[])].join(" ")).includes(BUSCA)));
   const grups=new Map();
   [...VIS].reverse().forEach(x=>{
     const dt=new Date(x.t+3*DIA),cl=dt.getUTCFullYear()+"-"+dt.getUTCMonth();
@@ -471,21 +495,24 @@ function renderGrid(){
   });
   grups.forEach((g,cl)=>{
     const det=$("details","mes"),sm=$("summary","mh",g.nom);
-    det.open=!TANCATS.has(cl);
+    det.open=!TANCATS.has(cl)||!!BUSCA;
     sm.appendChild($("span","cnt",g.xs.length+(g.xs.length===1?" setmana":" setmanes")));
     det.appendChild(sm);
     const cont=$("div","grid");g.xs.forEach(x=>cont.appendChild(setmana(x)));
     det.appendChild(cont);L.appendChild(det);
     det.addEventListener("toggle",()=>{det.open?TANCATS.delete(cl):TANCATS.add(cl);if(det.open)masonry(cont);botoPlega()});
   });
-  if(!FILTRE&&D.length){
+  if(!FILTRE&&!BUSCA&&D.length){
     const nx=numSet(D[D.length-1].t)+1;
     if(nx<=TOTAL)L.querySelector(".grid").prepend($("div","tnext","Aquí hi anirà la setmana "+nx));
   }
   if(!D.length)L.appendChild($("p","sub","Encara no hi ha cap setmana."));
+  else if(!VIS.length)L.appendChild($("p","sub","Cap setmana coincideix amb la cerca."));
   masonryTots();
   botoPlega();
 }
+document.getElementById("cerca").addEventListener("input",e=>{BUSCA=nz(e.target.value.trim());renderGrid()});
+document.getElementById("ara").addEventListener("click",()=>CUR&&anaA(CUR));
 document.getElementById("plega").addEventListener("click",()=>{
   const ds=[...document.querySelectorAll("#grid details")],obrir=!ds.every(d=>d.open);
   ds.forEach(d=>{d.open=obrir});botoPlega();
@@ -493,7 +520,7 @@ document.getElementById("plega").addEventListener("click",()=>{
 
 /* anar a una setmana (des del calendari o dels pendents) */
 function anaA(x){
-  if(FILTRE&&!(x.s.etiquetes||[]).includes(FILTRE)){FILTRE=null;renderFiltre();renderGrid()}
+  if(!VIS.includes(x)){FILTRE=null;BUSCA="";document.getElementById("cerca").value="";renderFiltre();renderGrid()}
   vista("setmanes");
   const el=document.getElementById("s-"+iso(x.t));if(!el)return;
   const det=el.closest("details");if(det)det.open=true;
@@ -527,30 +554,21 @@ mq.addEventListener("change",ajustaP);pdet.addEventListener("toggle",ajustaP);aj
 
 /* calendari */
 function calendari(MAP){
-  const cont=document.getElementById("months"),hoy=avui();
-  cont.textContent="";
-  for(let k=0;k<10;k++){
-    const y=k<4?2026:2027,m=(8+k)%12,c=$("div","mc");
-    c.appendChild($("h3","",MESOS[m]+" "+y));
-    const wd=$("div","wd");wd.appendChild($("span","","set."));
-    ["dl","dt","dc","dj","dv","ds","dg"].forEach(x=>wd.appendChild($("span","",x)));c.appendChild(wd);
-    const off=(new Date(Date.UTC(y,m,1)).getUTCDay()+6)%7, n=new Date(Date.UTC(y,m+1,0)).getUTCDate();
-    const cel=Array(off).fill(0).concat(Array.from({length:n},(_,i)=>i+1));
-    while(cel.length%7)cel.push(0);
-    for(let r=0;r<cel.length;r+=7){
-      const fila=cel.slice(r,r+7),t0=lunes(Date.UTC(y,m,fila.find(Boolean))),key=iso(t0),x=MAP[key],num=numSet(t0);
-      const w=x?$("a","wk has"):$("div","wk");
-      if(x){
-        pinta_c(w,num);
-        w.href="#s-"+key;w.title="Setmana "+num+" · "+x.s.titol;
-        w.addEventListener("click",ev=>{ev.preventDefault();anaA(x)});
-      }
-      w.appendChild($("span","wn",num>=1&&num<=TOTAL?num:""));
-      fila.forEach(d=>{const b=$("b","",d||"");if(d&&Date.UTC(y,m,d)===hoy)b.className="hoy";w.appendChild(b)});
-      const f=x&&(x.s.fotos||[])[0];
-      if(f){const im=document.createElement("img");im.className="th";im.src=f.src;im.alt="";im.loading="lazy";w.appendChild(im)}
-      c.appendChild(w);
+  const cont=document.getElementById("months"),hoy=lunes(avui());cont.textContent="";let mes=-1;
+  for(let n=1;n<=TOTAL;n++){
+    const t=INICI+(n-1)*7*DIA,x=MAP[iso(t)],dt=new Date(t+3*DIA),m=dt.getUTCFullYear()*12+dt.getUTCMonth();
+    const nou=m!==mes;mes=m;
+    const c=x?$("a","sw has"):$("div","sw");
+    if(t===hoy)c.classList.add("hoy");
+    if(x){
+      pinta_c(c,n);c.href="#s-"+iso(t);c.title="Setmana "+n+" · "+x.s.titol;
+      c.addEventListener("click",ev=>{ev.preventDefault();anaA(x)});
+      if(esborrany(x.s))c.classList.add("bor");
+      const f=(x.s.fotos||[])[0];
+      if(f){const im=document.createElement("img");im.src=f.th||f.src;im.alt="";im.loading="lazy";c.classList.add("foto");c.appendChild(im)}
     }
+    c.appendChild($("b","",n));c.appendChild($("span","",rang(t)));
+    if(nou)c.appendChild($("em","mm",MESOS[dt.getUTCMonth()]));
     cont.appendChild(c);
   }
 }
@@ -562,13 +580,14 @@ function pinta(){
   const E=document.getElementById("errs");
   errs.forEach(s=>E.appendChild($("p","err",`Revisa la data de «${s.titol}»: ha de ser any-mes-dia complet, per exemple 2026-10-26.`)));
   progres();portada(D);stats(D);renderTags();renderFiltre();renderGrid();pendents();calendari(MAP);
+  CUR=D.find(x=>x.t===lunes(avui()))||null;document.getElementById("ara").hidden=!CUR;
 }
 
 /* ampliar fotos */
 const lb=document.getElementById("lb");let G=[],gi=0;
 function mostra(){
   const p=G[gi],im=lb.querySelector("img");
-  im.src=p.src;im.alt=p.peu||"";lb.querySelector("figcaption").textContent=p.peu||"";
+  im.src=p.md||p.src;im.alt=p.peu||"";G[(gi+1)%G.length]&&(new Image().src=G[(gi+1)%G.length].md||G[(gi+1)%G.length].src);lb.querySelector("figcaption").textContent=p.peu||"";
   lb.classList.toggle("single",G.length<2);
 }
 function obre(f,i){G=f;gi=i;mostra();lb.classList.add("on")}
@@ -583,6 +602,25 @@ document.addEventListener("keydown",e=>{
   if(e.key==="ArrowLeft")mou(-1);
   if(e.key==="ArrowRight")mou(1);
 });
+
+/* gestos del visor: lliscar de costat = canvia de foto, lliscar cap avall = tanca */
+const fig=lb.querySelector("figure");let gs=null;
+lb.querySelector("img").draggable=false;
+fig.addEventListener("pointerdown",e=>{gs={x:e.clientX,y:e.clientY,dx:0,dy:0,m:""};fig.setPointerCapture(e.pointerId)});
+fig.addEventListener("pointermove",e=>{
+  if(!gs)return;gs.dx=e.clientX-gs.x;gs.dy=e.clientY-gs.y;
+  if(!gs.m){if(Math.hypot(gs.dx,gs.dy)<8)return;gs.m=Math.abs(gs.dx)>Math.abs(gs.dy)?"h":"v"}
+  fig.style.transition="none";
+  if(gs.m==="h")fig.style.transform="translateX("+gs.dx+"px)";
+  else{const d=Math.max(0,gs.dy);fig.style.transform="translateY("+d+"px)";fig.style.opacity=1-Math.min(.7,d/400)}
+});
+const fiGest=()=>{
+  if(!gs)return;const {m,dx,dy}=gs;gs=null;
+  fig.style.transition="transform .2s,opacity .2s";fig.style.transform="";fig.style.opacity="";
+  if(m==="h"&&Math.abs(dx)>60&&G.length>1)mou(dx<0?1:-1);
+  else if(m==="v"&&dy>90)lb.classList.remove("on");
+};
+fig.addEventListener("pointerup",fiGest);fig.addEventListener("pointercancel",fiGest);
 
 /* entrada amb contrasenya */
 async function sha(t){
@@ -613,7 +651,8 @@ async function prova(){
 }
 document.getElementById("enter").addEventListener("click",prova);
 document.getElementById("pw").addEventListener("keydown",e=>{if(e.key==="Enter")prova()});
-try{if(sessionStorage.getItem("ok")==="1")entra()}catch(e){}
+if(!PORTA){document.getElementById("gate").remove();entra()}
+else try{if(sessionStorage.getItem("ok")==="1")entra()}catch(e){}
 </script>
 </body>
 </html>

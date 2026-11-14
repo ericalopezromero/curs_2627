@@ -38,3 +38,19 @@ setmanes/
     setmana.txt
     1 Boo!.jpg
 ```
+
+
+## Protegir la web de debò (Cloudflare Access)
+
+La contrasenya de dins la web és només un filtre suau: qui tingui l'adreça d'una foto la pot veure. Per protegir-ho de veritat:
+
+1. A Cloudflare: **Workers & Pages → Create → Pages → Connect to Git** i tria aquest repositori (pot ser privat). Sense comanda de build; carpeta de sortida: `/`.
+2. A **Zero Trust → Access → Applications → Add an application → Self-hosted**: posa l'adreça `….pages.dev`, crea una política *Allow* amb els correus teus i de l'Erica i el mètode *One-time PIN*.
+3. A `index.html` canvia `const PORTA = true;` per `const PORTA = false;` (així ja no demana la contrasenya de dins).
+4. Desactiva GitHub Pages (o fes el repositori privat), perquè l'adreça antiga no quedi oberta.
+
+(Els noms dels menús de Cloudflare poden haver canviat una mica.)
+
+## Miniatures
+
+`generar.js` crea sol miniatures a `setmanes/<setmana>/_min/` (cal `sharp`; l'acció de GitHub ja l'instal·la). Si canvies una foto, esborra'n la carpeta `_min`.
