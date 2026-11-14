@@ -46,11 +46,11 @@ setmanes/
 
 ## Jocs de taula i restaurants
 
-Cada joc i cada restaurant té la seva carpeta, igual que les setmanes:
+Cada joc i cada restaurant té la seva carpeta, a l'arrel del projecte, al costat de `setmanes/` (si ja les tens dins de `setmanes/jocs/` i `setmanes/restaurants/`, també funcionen):
 
 ```
-setmanes/jocs/catan/fitxa.txt          + les fotos (la 1a és la portada)
-setmanes/restaurants/can-joan/fitxa.txt + les fotos
+jocs/catan/fitxa.txt                + les fotos (la 1a és la portada)
+restaurants/can-joan/fitxa.txt      + les fotos
 ```
 
 Format de `fitxa.txt` (només el nom, a la 1a línia, és obligatori):

@@ -87,7 +87,7 @@ if (fs.existsSync(ARREL)) {
 }
 
 // Jocs de taula i restaurants: una carpeta per cosa, igual que les setmanes:
-//   setmanes/jocs/catan/fitxa.txt + fotos        setmanes/restaurants/can-joan/fitxa.txt + fotos
+//   jocs/catan/fitxa.txt + fotos        restaurants/can-joan/fitxa.txt + fotos   (també val dins de setmanes/)
 //   fitxa.txt -> 1a línia = nom. Després, opcionalment (una per línia):
 //     Estat: tenim   (jocs: tenim / volem)   |   Estat: hi hem anat   (restaurants: hi hem anat / volem anar)
 //     Jugadors, Durada, Cuina, Zona, Preu, Data, Mapa (enllaç), Setmana (2026-10-26), Júlia, Erica
@@ -102,17 +102,21 @@ function llegeixFitxa(fitxer, carpeta) {
   }
   return { nom, text: text.join("\n").trim(), ...o };
 }
+// Les carpetes poden ser jocs/ i restaurants/ (a l'arrel) o, si no hi són, setmanes/jocs/ i setmanes/restaurants/
+const arrelDe = tipus => fs.existsSync(tipus) ? tipus : path.join(ARREL, tipus);
 function llegeixFitxes(tipus) {
-  const arrel = path.join(ARREL, tipus);
+  const arrel = arrelDe(tipus);
   if (!fs.existsSync(arrel)) return [];
   const ordre = (a, b) => a.localeCompare(b, "ca", { numeric: true });
   return fs.readdirSync(arrel, { withFileTypes: true }).filter(d => d.isDirectory()).map(d => d.name).sort(ordre).map(carpeta => {
-    const dir = path.join(arrel, carpeta), txt = path.join(dir, "fitxa.txt");
-    const info = fs.existsSync(txt) ? llegeixFitxa(txt, carpeta) : { nom: carpeta, text: "" };
-    const fet = /^(tenim|fet|fets|si|x|ja|hi hem anat|anat)/.test(net(info.estat || ""));
+    const dir = path.join(arrel, carpeta), txts = fs.readdirSync(dir).filter(f => /\.txt$/i.test(f));
+    const txt = txts.find(f => net(f) === "fitxa.txt") || txts[0];   // qualsevol .txt de la carpeta serveix
+    if (!txt) console.warn(`Avís: ${dir} no té cap fitxer .txt (fitxa.txt)`);
+    const info = txt ? llegeixFitxa(path.join(dir, txt), carpeta) : { nom: carpeta, text: "" };
+    const fet = /^(tenim|el tenim|ja el tenim|fet|fets|si|x|ja|hi hem anat|hem anat|anat|vam anar)/.test(net(info.estat || ""));
     delete info.estat;
     const fotos = fs.readdirSync(dir).filter(f => EXT.test(f)).sort(ordre).map(f => ({
-      src: [ARREL, tipus, carpeta, f].map(encodeURIComponent).join("/"),
+      src: [...arrel.split(path.sep), carpeta, f].map(encodeURIComponent).join("/"),
       peu: f.replace(EXT, "").replace(/^\d+[\s._-]*/, "").trim()
     }));
     return { carpeta, ...info, fet, fotos };
@@ -127,10 +131,10 @@ let sharp = null;
 try { sharp = require("sharp"); } catch (e) { console.warn("Avís: no hi ha 'sharp', no es fan miniatures (npm install sharp)."); }
 async function miniatures() {
   if (!sharp) return;
-  const llocs = [...setmanes.map(s => [[s.inici], s.fotos]), ...jocs.map(x => [["jocs", x.carpeta], x.fotos]), ...restaurants.map(x => [["restaurants", x.carpeta], x.fotos])];
+  const llocs = [...setmanes.map(s => [[ARREL, s.inici], s.fotos]), ...jocs.map(x => [[...arrelDe("jocs").split(path.sep), x.carpeta], x.fotos]), ...restaurants.map(x => [[...arrelDe("restaurants").split(path.sep), x.carpeta], x.fotos])];
   for (const [segs, fotos] of llocs) for (const f of fotos) {
     const nomFoto = decodeURIComponent(f.src.split("/").pop());
-    const base = nomFoto.replace(/\.[^.]+$/, ""), dir = [ARREL, ...segs];
+    const base = nomFoto.replace(/\.[^.]+$/, ""), dir = segs;
     for (const [suf, ample, q, clau] of [["t", 640, 72, "th"], ["m", 1600, 80, "md"]]) {
       const fitxer = `${base}-${suf}.webp`, sortida = path.join(...dir, "min", fitxer);
       if (!fs.existsSync(sortida)) {
