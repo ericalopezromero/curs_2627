@@ -318,6 +318,30 @@
       "erica": "",
       "fotos": [
         {
+          "src": "setmanes/2026-09-07/A%20Sants%20esperant%20l'AVE.jpeg",
+          "peu": "A Sants esperant l'AVE",
+          "th": "setmanes/2026-09-07/min/A%20Sants%20esperant%20l'AVE-t.webp",
+          "md": "setmanes/2026-09-07/min/A%20Sants%20esperant%20l'AVE-m.webp"
+        },
+        {
+          "src": "setmanes/2026-09-07/Fent%20tonteries%20al%20Decathlon%20de%20Vila-seca.jpeg",
+          "peu": "Fent tonteries al Decathlon de Vila-seca",
+          "th": "setmanes/2026-09-07/min/Fent%20tonteries%20al%20Decathlon%20de%20Vila-seca-t.webp",
+          "md": "setmanes/2026-09-07/min/Fent%20tonteries%20al%20Decathlon%20de%20Vila-seca-m.webp"
+        },
+        {
+          "src": "setmanes/2026-09-07/Geocatching%20trobat!.jpeg",
+          "peu": "Geocatching trobat!",
+          "th": "setmanes/2026-09-07/min/Geocatching%20trobat!-t.webp",
+          "md": "setmanes/2026-09-07/min/Geocatching%20trobat!-m.webp"
+        },
+        {
+          "src": "setmanes/2026-09-07/la%20patata%20barbuda!!!!.jpeg",
+          "peu": "la patata barbuda!!!!",
+          "th": "setmanes/2026-09-07/min/la%20patata%20barbuda!!!!-t.webp",
+          "md": "setmanes/2026-09-07/min/la%20patata%20barbuda!!!!-m.webp"
+        },
+        {
           "src": "setmanes/2026-09-07/Liberaci%C3%B3%20total%20(de%20la%20feina).JPG",
           "peu": "Liberació total (de la feina)",
           "th": "setmanes/2026-09-07/min/Liberaci%C3%B3%20total%20(de%20la%20feina)-t.webp",
@@ -328,6 +352,12 @@
           "peu": "Pa amb oli a casa",
           "th": "setmanes/2026-09-07/min/Pa%20amb%20oli%20a%20casa-t.webp",
           "md": "setmanes/2026-09-07/min/Pa%20amb%20oli%20a%20casa-m.webp"
+        },
+        {
+          "src": "setmanes/2026-09-07/Passegem%20per%20Mont-roig.jpeg",
+          "peu": "Passegem per Mont-roig",
+          "th": "setmanes/2026-09-07/min/Passegem%20per%20Mont-roig-t.webp",
+          "md": "setmanes/2026-09-07/min/Passegem%20per%20Mont-roig-m.webp"
         }
       ]
     },
