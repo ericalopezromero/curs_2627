@@ -302,10 +302,34 @@
       "erica": "",
       "fotos": [
         {
+          "src": "setmanes/2026-09-14/Aquarius%20post-gym%20al%20Forn%20de%20pa%20'Risue%C3%B1o'.jpeg",
+          "peu": "Aquarius post-gym al Forn de pa 'Risueño'",
+          "th": "setmanes/2026-09-14/min/Aquarius%20post-gym%20al%20Forn%20de%20pa%20'Risue%C3%B1o'-t.webp",
+          "md": "setmanes/2026-09-14/min/Aquarius%20post-gym%20al%20Forn%20de%20pa%20'Risue%C3%B1o'-m.webp"
+        },
+        {
+          "src": "setmanes/2026-09-14/Arriba%20l'Ebook%20(ens%20encanta).jpeg",
+          "peu": "Arriba l'Ebook (ens encanta)",
+          "th": "setmanes/2026-09-14/min/Arriba%20l'Ebook%20(ens%20encanta)-t.webp",
+          "md": "setmanes/2026-09-14/min/Arriba%20l'Ebook%20(ens%20encanta)-m.webp"
+        },
+        {
+          "src": "setmanes/2026-09-14/Dies%20de%20gym%20a%20Vivagym%20Bruc.jpeg",
+          "peu": "Dies de gym a Vivagym Bruc",
+          "th": "setmanes/2026-09-14/min/Dies%20de%20gym%20a%20Vivagym%20Bruc-t.webp",
+          "md": "setmanes/2026-09-14/min/Dies%20de%20gym%20a%20Vivagym%20Bruc-m.webp"
+        },
+        {
           "src": "setmanes/2026-09-14/Entre%20C.%20d'en%20Prim%20i%20C.%20Santiago%20Rusi%C3%B1ol%20(Badalona).JPG",
           "peu": "Entre C. d'en Prim i C. Santiago Rusiñol (Badalona)",
           "th": "setmanes/2026-09-14/min/Entre%20C.%20d'en%20Prim%20i%20C.%20Santiago%20Rusi%C3%B1ol%20(Badalona)-t.webp",
           "md": "setmanes/2026-09-14/min/Entre%20C.%20d'en%20Prim%20i%20C.%20Santiago%20Rusi%C3%B1ol%20(Badalona)-m.webp"
+        },
+        {
+          "src": "setmanes/2026-09-14/J%C3%BAlia%20dinant%20amb%20l'%C3%A0via%20Olguets%20al%20SAONA.jpeg",
+          "peu": "Júlia dinant amb l'àvia Olguets al SAONA",
+          "th": "setmanes/2026-09-14/min/J%C3%BAlia%20dinant%20amb%20l'%C3%A0via%20Olguets%20al%20SAONA-t.webp",
+          "md": "setmanes/2026-09-14/min/J%C3%BAlia%20dinant%20amb%20l'%C3%A0via%20Olguets%20al%20SAONA-m.webp"
         }
       ]
     },
