@@ -370,6 +370,36 @@
       "erica": "",
       "fotos": [
         {
+          "src": "setmanes/2026-08-31/Agafant%20figues%20a%20l'Aix%C3%A0viga%20(ruta%20des%20de%20Mont-ral).jpeg",
+          "peu": "Agafant figues a l'Aixàviga (ruta des de Mont-ral)",
+          "th": "setmanes/2026-08-31/min/Agafant%20figues%20a%20l'Aix%C3%A0viga%20(ruta%20des%20de%20Mont-ral)-t.webp",
+          "md": "setmanes/2026-08-31/min/Agafant%20figues%20a%20l'Aix%C3%A0viga%20(ruta%20des%20de%20Mont-ral)-m.webp"
+        },
+        {
+          "src": "setmanes/2026-08-31/Dinar%20bo%20a%20Prades.jpeg",
+          "peu": "Dinar bo a Prades",
+          "th": "setmanes/2026-08-31/min/Dinar%20bo%20a%20Prades-t.webp",
+          "md": "setmanes/2026-08-31/min/Dinar%20bo%20a%20Prades-m.webp"
+        },
+        {
+          "src": "setmanes/2026-08-31/Dinar%20cumple%20J%C3%BAlia%20a%20Vilanova%20d'Escornalbou.jpeg",
+          "peu": "Dinar cumple Júlia a Vilanova d'Escornalbou",
+          "th": "setmanes/2026-08-31/min/Dinar%20cumple%20J%C3%BAlia%20a%20Vilanova%20d'Escornalbou-t.webp",
+          "md": "setmanes/2026-08-31/min/Dinar%20cumple%20J%C3%BAlia%20a%20Vilanova%20d'Escornalbou-m.webp"
+        },
+        {
+          "src": "setmanes/2026-08-31/Estrenant%20sabatetes%20al%20Vivagym%20Verneda.jpeg",
+          "peu": "Estrenant sabatetes al Vivagym Verneda",
+          "th": "setmanes/2026-08-31/min/Estrenant%20sabatetes%20al%20Vivagym%20Verneda-t.webp",
+          "md": "setmanes/2026-08-31/min/Estrenant%20sabatetes%20al%20Vivagym%20Verneda-m.webp"
+        },
+        {
+          "src": "setmanes/2026-08-31/J%C3%BAlia%20al%20Toll%20de%20la%20Manugra.jpeg",
+          "peu": "Júlia al Toll de la Manugra",
+          "th": "setmanes/2026-08-31/min/J%C3%BAlia%20al%20Toll%20de%20la%20Manugra-t.webp",
+          "md": "setmanes/2026-08-31/min/J%C3%BAlia%20al%20Toll%20de%20la%20Manugra-m.webp"
+        },
+        {
           "src": "setmanes/2026-08-31/J%C3%BAlia%20bufant%20les%20espelmes.JPG",
           "peu": "Júlia bufant les espelmes",
           "th": "setmanes/2026-08-31/min/J%C3%BAlia%20bufant%20les%20espelmes-t.webp",
@@ -380,6 +410,12 @@
           "peu": "Mercat de la Plaça Gran (Mataró)",
           "th": "setmanes/2026-08-31/min/Mercat%20de%20la%20Pla%C3%A7a%20Gran%20(Matar%C3%B3)-t.webp",
           "md": "setmanes/2026-08-31/min/Mercat%20de%20la%20Pla%C3%A7a%20Gran%20(Matar%C3%B3)-m.webp"
+        },
+        {
+          "src": "setmanes/2026-08-31/Toll%20de%20la%20Manugra%20(Capafonts).jpeg",
+          "peu": "Toll de la Manugra (Capafonts)",
+          "th": "setmanes/2026-08-31/min/Toll%20de%20la%20Manugra%20(Capafonts)-t.webp",
+          "md": "setmanes/2026-08-31/min/Toll%20de%20la%20Manugra%20(Capafonts)-m.webp"
         }
       ]
     }
