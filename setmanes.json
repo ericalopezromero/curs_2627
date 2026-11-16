@@ -51,10 +51,16 @@
           "md": "setmanes/2026-11-09/min/Erica%20a%20la%20n%C3%B2ria-m.webp"
         },
         {
-          "src": "setmanes/2026-11-09/Esgl%C3%A8sia%20Sagrat%20Cor.JPG",
-          "peu": "Esglèsia Sagrat Cor",
-          "th": "setmanes/2026-11-09/min/Esgl%C3%A8sia%20Sagrat%20Cor-t.webp",
-          "md": "setmanes/2026-11-09/min/Esgl%C3%A8sia%20Sagrat%20Cor-m.webp"
+          "src": "setmanes/2026-11-09/Esmorzant%20al%20costat%20de%20la%20feina%20de%20la%20J%C3%BAlia.jpeg",
+          "peu": "Esmorzant al costat de la feina de la Júlia",
+          "th": "setmanes/2026-11-09/min/Esmorzant%20al%20costat%20de%20la%20feina%20de%20la%20J%C3%BAlia-t.webp",
+          "md": "setmanes/2026-11-09/min/Esmorzant%20al%20costat%20de%20la%20feina%20de%20la%20J%C3%BAlia-m.webp"
+        },
+        {
+          "src": "setmanes/2026-11-09/J%C3%BAlia%20corre%20pel%20Pg%20mar%C3%ADtim%20de%20Badalona.jpeg",
+          "peu": "Júlia corre pel Pg marítim de Badalona",
+          "th": "setmanes/2026-11-09/min/J%C3%BAlia%20corre%20pel%20Pg%20mar%C3%ADtim%20de%20Badalona-t.webp",
+          "md": "setmanes/2026-11-09/min/J%C3%BAlia%20corre%20pel%20Pg%20mar%C3%ADtim%20de%20Badalona-m.webp"
         },
         {
           "src": "setmanes/2026-11-09/L'embruixa-bruixes.JPG",
@@ -139,10 +145,10 @@
           "md": "setmanes/2026-11-02/min/Locura%20al%20acabar%20la%20cursa-m.webp"
         },
         {
-          "src": "setmanes/2026-11-02/Recuperant%20forces%20post-cursa%20(pl%C3%A0tan%20i%20aquarius).jpeg",
-          "peu": "Recuperant forces post-cursa (plàtan i aquarius)",
-          "th": "setmanes/2026-11-02/min/Recuperant%20forces%20post-cursa%20(pl%C3%A0tan%20i%20aquarius)-t.webp",
-          "md": "setmanes/2026-11-02/min/Recuperant%20forces%20post-cursa%20(pl%C3%A0tan%20i%20aquarius)-m.webp"
+          "src": "setmanes/2026-11-02/Per%20fi%20ha%20arribat%20l'album%20de%20Guatemala.jpeg",
+          "peu": "Per fi ha arribat l'album de Guatemala",
+          "th": "setmanes/2026-11-02/min/Per%20fi%20ha%20arribat%20l'album%20de%20Guatemala-t.webp",
+          "md": "setmanes/2026-11-02/min/Per%20fi%20ha%20arribat%20l'album%20de%20Guatemala-m.webp"
         }
       ]
     },
@@ -739,7 +745,14 @@
       "nom": "Undecimo",
       "text": "",
       "fet": false,
-      "fotos": []
+      "fotos": [
+        {
+          "src": "restaurants/Undecimo/undecimo-el-prat-de-llobregat.webp",
+          "peu": "undecimo-el-prat-de-llobregat",
+          "th": "restaurants/Undecimo/min/undecimo-el-prat-de-llobregat-t.webp",
+          "md": "restaurants/Undecimo/min/undecimo-el-prat-de-llobregat-m.webp"
+        }
+      ]
     }
   ]
 }
