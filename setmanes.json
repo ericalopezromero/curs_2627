@@ -27,6 +27,78 @@
       "erica": "",
       "fotos": [
         {
+          "src": "setmanes/2026-11-09/Carrusel%20de%20nit.JPG",
+          "peu": "Carrusel de nit",
+          "th": "setmanes/2026-11-09/min/Carrusel%20de%20nit-t.webp",
+          "md": "setmanes/2026-11-09/min/Carrusel%20de%20nit-m.webp"
+        },
+        {
+          "src": "setmanes/2026-11-09/Cuca%20de%20llum.JPG",
+          "peu": "Cuca de llum",
+          "th": "setmanes/2026-11-09/min/Cuca%20de%20llum-t.webp",
+          "md": "setmanes/2026-11-09/min/Cuca%20de%20llum-m.webp"
+        },
+        {
+          "src": "setmanes/2026-11-09/Els%20xurros%20amb%20xocolata.JPG",
+          "peu": "Els xurros amb xocolata",
+          "th": "setmanes/2026-11-09/min/Els%20xurros%20amb%20xocolata-t.webp",
+          "md": "setmanes/2026-11-09/min/Els%20xurros%20amb%20xocolata-m.webp"
+        },
+        {
+          "src": "setmanes/2026-11-09/Erica%20a%20la%20n%C3%B2ria.JPG",
+          "peu": "Erica a la nòria",
+          "th": "setmanes/2026-11-09/min/Erica%20a%20la%20n%C3%B2ria-t.webp",
+          "md": "setmanes/2026-11-09/min/Erica%20a%20la%20n%C3%B2ria-m.webp"
+        },
+        {
+          "src": "setmanes/2026-11-09/Esgl%C3%A8sia%20Sagrat%20Cor.JPG",
+          "peu": "Esglèsia Sagrat Cor",
+          "th": "setmanes/2026-11-09/min/Esgl%C3%A8sia%20Sagrat%20Cor-t.webp",
+          "md": "setmanes/2026-11-09/min/Esgl%C3%A8sia%20Sagrat%20Cor-m.webp"
+        },
+        {
+          "src": "setmanes/2026-11-09/Giradabo%20(n%C3%B2ria%20m%C3%ADtica).JPG",
+          "peu": "Giradabo (nòria mítica)",
+          "th": "setmanes/2026-11-09/min/Giradabo%20(n%C3%B2ria%20m%C3%ADtica)-t.webp",
+          "md": "setmanes/2026-11-09/min/Giradabo%20(n%C3%B2ria%20m%C3%ADtica)-m.webp"
+        },
+        {
+          "src": "setmanes/2026-11-09/L'embruixa-bruixes.JPG",
+          "peu": "L'embruixa-bruixes",
+          "th": "setmanes/2026-11-09/min/L'embruixa-bruixes-t.webp",
+          "md": "setmanes/2026-11-09/min/L'embruixa-bruixes-m.webp"
+        },
+        {
+          "src": "setmanes/2026-11-09/L'esgl%C3%A8sia%20des%20d'un%20altre%20punt%20de%20vista.JPG",
+          "peu": "L'esglèsia des d'un altre punt de vista",
+          "th": "setmanes/2026-11-09/min/L'esgl%C3%A8sia%20des%20d'un%20altre%20punt%20de%20vista-t.webp",
+          "md": "setmanes/2026-11-09/min/L'esgl%C3%A8sia%20des%20d'un%20altre%20punt%20de%20vista-m.webp"
+        },
+        {
+          "src": "setmanes/2026-11-09/La%20J%C3%BAlia%20pujant%20a%20l'avioneta.JPG",
+          "peu": "La Júlia pujant a l'avioneta",
+          "th": "setmanes/2026-11-09/min/La%20J%C3%BAlia%20pujant%20a%20l'avioneta-t.webp",
+          "md": "setmanes/2026-11-09/min/La%20J%C3%BAlia%20pujant%20a%20l'avioneta-m.webp"
+        },
+        {
+          "src": "setmanes/2026-11-09/La%20n%C3%B2ria%20aesthetic.JPG",
+          "peu": "La nòria aesthetic",
+          "th": "setmanes/2026-11-09/min/La%20n%C3%B2ria%20aesthetic-t.webp",
+          "md": "setmanes/2026-11-09/min/La%20n%C3%B2ria%20aesthetic-m.webp"
+        },
+        {
+          "src": "setmanes/2026-11-09/Mer%C3%AD%20(caida%20lliure)%20(vam%20pujar%202%20cops).JPG",
+          "peu": "Merí (caida lliure) (vam pujar 2 cops)",
+          "th": "setmanes/2026-11-09/min/Mer%C3%AD%20(caida%20lliure)%20(vam%20pujar%202%20cops)-t.webp",
+          "md": "setmanes/2026-11-09/min/Mer%C3%AD%20(caida%20lliure)%20(vam%20pujar%202%20cops)-m.webp"
+        },
+        {
+          "src": "setmanes/2026-11-09/Sala%20de%20miralls.JPG",
+          "peu": "Sala de miralls",
+          "th": "setmanes/2026-11-09/min/Sala%20de%20miralls-t.webp",
+          "md": "setmanes/2026-11-09/min/Sala%20de%20miralls-m.webp"
+        },
+        {
           "src": "setmanes/2026-11-09/Winnie%20i%20Benjamin%20tranquils.jpeg",
           "peu": "Winnie i Benjamin tranquils",
           "th": "setmanes/2026-11-09/min/Winnie%20i%20Benjamin%20tranquils-t.webp",
@@ -458,8 +530,8 @@
   ],
   "pendents": [
     {
-      "text": "Anar al Tibidabo",
-      "fet": false,
+      "text": "Anar al Tibidabo | 2026-11-9",
+      "fet": true,
       "setmana": ""
     },
     {
