@@ -2,6 +2,6 @@
 #   - [ ] pendent        - [x] fet
 # Si està feta, pots afegir " | 2026-11-02" (qualsevol dia de la setmana) i sortirà un enllaç a aquella setmana.
 # Exemples (esborra'ls i posa els teus):
-- [ ] Anar al Tibidabo
+- [x] Anar al Tibidabo | 2026-11-9
 - [x] Veure un partit del Barça | 2026-10-19
 - [ ] Fer el finde en caravana
