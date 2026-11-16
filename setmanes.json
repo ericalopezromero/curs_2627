@@ -655,6 +655,13 @@
   ],
   "restaurants": [
     {
+      "carpeta": "Oryza",
+      "nom": "Oryza",
+      "text": "",
+      "fet": false,
+      "fotos": []
+    },
+    {
       "carpeta": "Pipa6",
       "nom": "Pipa6",
       "text": "",
