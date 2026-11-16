@@ -125,6 +125,11 @@ details[open]>.mh::before{transform:rotate(90deg)}
 .mosaic.n5 .ph{grid-column:span 2}
 .mosaic.n5 .ph:nth-child(1){grid-column:span 4}
 .mosaic.n6{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,minmax(0,1fr))}
+/* més de 6 fotos: quadrícula de 3 columnes que creix en alçada; l'última fila s'omple sense forats */
+.mosaic.nm{aspect-ratio:auto;grid-template-columns:repeat(6,1fr);grid-template-rows:none;grid-auto-rows:auto}
+.mosaic.nm .ph{grid-column:span 2;aspect-ratio:1}
+.mosaic.nm .ph.w1{grid-column:span 6;aspect-ratio:3/1}
+.mosaic.nm .ph.w2{grid-column:span 3;aspect-ratio:3/2}
 .ph{position:relative;min-width:0;min-height:0;padding:0;border:0;overflow:hidden;border-radius:14px;background:var(--line);cursor:zoom-in}
 .ph img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
 .ph:hover img{transform:scale(1.05)}
@@ -442,12 +447,13 @@ function setmana(x){
   if(esborrany(s))a.classList.add("bor");
   if(x.t===lunes(avui()))a.classList.add("ara");
   if(fs.length){
-    const v=Math.min(fs.length,MAXFOTOS),mo=$("div","mosaic n"+v);
-    fs.slice(0,v).forEach((p,i)=>{
+    const v=fs.length,mo=$("div","mosaic "+(v<=MAXFOTOS?"n"+v:"nm"));
+    if(v>MAXFOTOS)mo.style.setProperty("--rows",Math.ceil(v/3));
+    fs.forEach((p,i)=>{
       const b=$("button","ph"),im=document.createElement("img");
+      if(v>MAXFOTOS){const r=v%3;if(r===1&&i===v-1)b.classList.add("w1");else if(r===2&&i>=v-2)b.classList.add("w2")}
       b.type="button";b.setAttribute("aria-label","Ampliar: "+(p.peu||s.titol));
       im.onerror=()=>{im.onerror=null;im.src=p.src};im.src=p.th||p.src;im.alt=p.peu||s.titol;im.loading="lazy";im.decoding="async";b.appendChild(im);
-      if(i===v-1&&fs.length>v)b.appendChild($("span","more","+"+(fs.length-v)));
       b.addEventListener("click",()=>obre(fs,i));mo.appendChild(b);
     });
     a.appendChild(mo);
