@@ -560,7 +560,8 @@
           "th": "jocs/5%20Torres/min/5torres3-t.webp",
           "md": "jocs/5%20Torres/min/5torres3-m.webp"
         }
-      ]
+      ],
+      "pdfs": []
     },
     {
       "carpeta": "Aventureros al tren",
@@ -576,7 +577,8 @@
           "th": "jocs/Aventureros%20al%20tren/min/AVENTUREROSALTREN-t.webp",
           "md": "jocs/Aventureros%20al%20tren/min/AVENTUREROSALTREN-m.webp"
         }
-      ]
+      ],
+      "pdfs": []
     },
     {
       "carpeta": "Azul",
@@ -592,7 +594,8 @@
           "th": "jocs/Azul/min/azul-mini-juego-t.webp",
           "md": "jocs/Azul/min/azul-mini-juego-m.webp"
         }
-      ]
+      ],
+      "pdfs": []
     },
     {
       "carpeta": "Batalla de Genios",
@@ -608,7 +611,8 @@
           "th": "jocs/Batalla%20de%20Genios/min/EAN_8436536808001-3-2-t.webp",
           "md": "jocs/Batalla%20de%20Genios/min/EAN_8436536808001-3-2-m.webp"
         }
-      ]
+      ],
+      "pdfs": []
     },
     {
       "carpeta": "Claim",
@@ -624,7 +628,8 @@
           "th": "jocs/Claim/min/claim-juego-de-cartas-t.webp",
           "md": "jocs/Claim/min/claim-juego-de-cartas-m.webp"
         }
-      ]
+      ],
+      "pdfs": []
     },
     {
       "carpeta": "Ensalada de puntos",
@@ -640,7 +645,8 @@
           "th": "jocs/Ensalada%20de%20puntos/min/Ensalada-de-Puntos-t.webp",
           "md": "jocs/Ensalada%20de%20puntos/min/Ensalada-de-Puntos-m.webp"
         }
-      ]
+      ],
+      "pdfs": []
     },
     {
       "carpeta": "Jaipur",
@@ -656,7 +662,8 @@
           "th": "jocs/Jaipur/min/juego-de-mesa-jaipur-t.webp",
           "md": "jocs/Jaipur/min/juego-de-mesa-jaipur-m.webp"
         }
-      ]
+      ],
+      "pdfs": []
     },
     {
       "carpeta": "L'Illa Prohibida",
@@ -674,6 +681,29 @@
           "th": "jocs/L'Illa%20Prohibida/min/L'Illa%20Prohibida-t.webp",
           "md": "jocs/L'Illa%20Prohibida/min/L'Illa%20Prohibida-m.webp"
         }
+      ],
+      "pdfs": []
+    },
+    {
+      "carpeta": "NMBR9",
+      "nom": "NMBR9",
+      "text": "",
+      "jugadors": "1-4",
+      "durada": "20 min",
+      "fet": true,
+      "fotos": [
+        {
+          "src": "jocs/NMBR9/Nmbr-9-9.webp",
+          "peu": "Nmbr-9-9",
+          "th": "jocs/NMBR9/min/Nmbr-9-9-t.webp",
+          "md": "jocs/NMBR9/min/Nmbr-9-9-m.webp"
+        }
+      ],
+      "pdfs": [
+        {
+          "src": "jocs/NMBR9/NMBR9_reglas_es.pdf",
+          "idioma": "ES"
+        }
       ]
     },
     {
@@ -690,7 +720,8 @@
           "th": "jocs/Onirim/min/Onirim-GoblinTrader-900x621-t.webp",
           "md": "jocs/Onirim/min/Onirim-GoblinTrader-900x621-m.webp"
         }
-      ]
+      ],
+      "pdfs": []
     },
     {
       "carpeta": "Roll to the top",
@@ -706,7 +737,8 @@
           "th": "jocs/Roll%20to%20the%20top/min/roll_9-1-t.webp",
           "md": "jocs/Roll%20to%20the%20top/min/roll_9-1-m.webp"
         }
-      ]
+      ],
+      "pdfs": []
     },
     {
       "carpeta": "Songbirds",
@@ -722,7 +754,8 @@
           "th": "jocs/Songbirds/min/81lIoJRtOIL-t.webp",
           "md": "jocs/Songbirds/min/81lIoJRtOIL-m.webp"
         }
-      ]
+      ],
+      "pdfs": []
     }
   ],
   "restaurants": [
@@ -731,14 +764,16 @@
       "nom": "Oryza",
       "text": "",
       "fet": false,
-      "fotos": []
+      "fotos": [],
+      "pdfs": []
     },
     {
       "carpeta": "Pipa6",
       "nom": "Pipa6",
       "text": "",
       "fet": false,
-      "fotos": []
+      "fotos": [],
+      "pdfs": []
     },
     {
       "carpeta": "Undecimo",
@@ -752,7 +787,8 @@
           "th": "restaurants/Undecimo/min/undecimo-el-prat-de-llobregat-t.webp",
           "md": "restaurants/Undecimo/min/undecimo-el-prat-de-llobregat-m.webp"
         }
-      ]
+      ],
+      "pdfs": []
     }
   ]
 }
