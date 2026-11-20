@@ -582,10 +582,10 @@
     },
     {
       "carpeta": "Azul",
-      "nom": "Azul",
+      "nom": "Azul (mini)",
       "text": "",
-      "jugadors": "",
-      "durada": "",
+      "jugadors": "2-4",
+      "durada": "30-45 min",
       "fet": true,
       "fotos": [
         {
@@ -595,7 +595,12 @@
           "md": "jocs/Azul/min/azul-mini-juego-m.webp"
         }
       ],
-      "pdfs": []
+      "pdfs": [
+        {
+          "src": "jocs/Azul/pdf-p-classtruncatedtext-content-truncatedtext-content-mode-clamp-truncatedtext-content-withtoggle-false-truncatedtext-content-arraytext-false-style-max-lines5-truncated-text-line-hei.pdf",
+          "idioma": ""
+        }
+      ]
     },
     {
       "carpeta": "Batalla de Genios",
@@ -612,14 +617,19 @@
           "md": "jocs/Batalla%20de%20Genios/min/EAN_8436536808001-3-2-m.webp"
         }
       ],
-      "pdfs": []
+      "pdfs": [
+        {
+          "src": "jocs/Batalla%20de%20Genios/8436536808001-batalla-de-genios-reglas-del-juego.pdf",
+          "idioma": ""
+        }
+      ]
     },
     {
       "carpeta": "Claim",
       "nom": "Claim",
       "text": "",
-      "jugadors": "",
-      "durada": "",
+      "jugadors": "2",
+      "durada": "25 min",
       "fet": true,
       "fotos": [
         {
@@ -629,14 +639,19 @@
           "md": "jocs/Claim/min/claim-juego-de-cartas-m.webp"
         }
       ],
-      "pdfs": []
+      "pdfs": [
+        {
+          "src": "jocs/Claim/Reglamento-SDgames-Claim-Web.pdf",
+          "idioma": ""
+        }
+      ]
     },
     {
       "carpeta": "Ensalada de puntos",
       "nom": "Ensalada de puntos",
       "text": "",
-      "jugadors": "",
-      "durada": "",
+      "jugadors": "2-6",
+      "durada": "15-30 min",
       "fet": true,
       "fotos": [
         {
@@ -646,14 +661,19 @@
           "md": "jocs/Ensalada%20de%20puntos/min/Ensalada-de-Puntos-m.webp"
         }
       ],
-      "pdfs": []
+      "pdfs": [
+        {
+          "src": "jocs/Ensalada%20de%20puntos/8436017229486-Rules-ES-1.pdf",
+          "idioma": ""
+        }
+      ]
     },
     {
       "carpeta": "Jaipur",
       "nom": "Jaipur",
       "text": "",
-      "jugadors": "",
-      "durada": "",
+      "jugadors": "2",
+      "durada": "30 min",
       "fet": true,
       "fotos": [
         {
@@ -663,7 +683,12 @@
           "md": "jocs/Jaipur/min/juego-de-mesa-jaipur-m.webp"
         }
       ],
-      "pdfs": []
+      "pdfs": [
+        {
+          "src": "jocs/Jaipur/Jaipur.pdf",
+          "idioma": ""
+        }
+      ]
     },
     {
       "carpeta": "L'Illa Prohibida",
@@ -710,8 +735,8 @@
       "carpeta": "Onirim",
       "nom": "Onirim",
       "text": "",
-      "jugadors": "",
-      "durada": "",
+      "jugadors": "1-2",
+      "durada": "15 min",
       "fet": true,
       "fotos": [
         {
@@ -721,14 +746,19 @@
           "md": "jocs/Onirim/min/Onirim-GoblinTrader-900x621-m.webp"
         }
       ],
-      "pdfs": []
+      "pdfs": [
+        {
+          "src": "jocs/Onirim/Onirim_-_Reglas_Basicas_%5BmrKaf%5D.pdf",
+          "idioma": ""
+        }
+      ]
     },
     {
       "carpeta": "Roll to the top",
       "nom": "Roll to the top",
       "text": "",
-      "jugadors": "",
-      "durada": "",
+      "jugadors": "2-5",
+      "durada": "20 min",
       "fet": true,
       "fotos": [
         {
@@ -738,14 +768,19 @@
           "md": "jocs/Roll%20to%20the%20top/min/roll_9-1-m.webp"
         }
       ],
-      "pdfs": []
+      "pdfs": [
+        {
+          "src": "jocs/Roll%20to%20the%20top/reglamento-ESP.pdf",
+          "idioma": ""
+        }
+      ]
     },
     {
       "carpeta": "Songbirds",
       "nom": "Songbirds",
       "text": "",
-      "jugadors": "",
-      "durada": "",
+      "jugadors": "1-4",
+      "durada": "20 min",
       "fet": true,
       "fotos": [
         {
