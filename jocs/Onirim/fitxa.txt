@@ -1,4 +1,4 @@
 Onirim
 Estat: tenim
-Jugadors:
-Durada:
+Jugadors: 1-2
+Durada: 15 min

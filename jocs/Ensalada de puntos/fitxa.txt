@@ -1,4 +1,4 @@
 Ensalada de puntos
 Estat: tenim
-Jugadors:
-Durada:
+Jugadors: 2-6
+Durada: 15-30 min

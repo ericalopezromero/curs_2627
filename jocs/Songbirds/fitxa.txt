@@ -1,4 +1,4 @@
 Songbirds
 Estat: tenim
-Jugadors:
-Durada:
+Jugadors: 1-4
+Durada: 20 min

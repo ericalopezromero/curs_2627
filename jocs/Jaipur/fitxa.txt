@@ -1,4 +1,4 @@
 Jaipur
 Estat: tenim
-Jugadors:
-Durada:
+Jugadors: 2
+Durada: 30 min
