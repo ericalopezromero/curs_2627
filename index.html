@@ -216,6 +216,19 @@ details[open] .pt::after{content:"▴"}
 #lb .x{position:absolute;top:1rem;right:1rem}
 #lb.single .pv,#lb.single .nx{visibility:hidden}
 
+/* visor de PDF: finestra dins de la web (es pot posar en gran) */
+#pdfm{position:fixed;inset:0;z-index:70;display:flex;align-items:center;justify-content:center;padding:1rem;background:rgba(38,38,77,.6)}
+.pdf-box{display:flex;flex-direction:column;width:min(100%,60rem);height:min(100%,52rem);background:var(--card);border-radius:20px;overflow:hidden;box-shadow:0 20px 60px -15px rgba(0,0,0,.5)}
+#pdfm.gran{padding:0}
+#pdfm.gran .pdf-box{width:100%;height:100%;border-radius:0}
+.pdf-h{display:flex;align-items:center;gap:.4rem;padding:.6rem .8rem .6rem 1.1rem;border-bottom:1px solid var(--line)}
+.pdf-h h2{flex:1;min-width:0;font-size:1.05rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pdf-b{flex:none;display:grid;place-items:center;width:2.4rem;height:2.4rem;padding:0;border:0;border-radius:50%;background:var(--ac-soft);color:var(--ac-ink);font:700 1.4rem/1 var(--body);text-decoration:none;cursor:pointer}
+.pdf-b:hover{background:var(--ac);color:#fff}
+#pdf-f{flex:1;width:100%;border:0;background:#fff}
+#pdfm.gran .i-max,#pdfm:not(.gran) .i-min{display:none}
+@media (max-width:760px){#pdfm{padding:0}.pdf-box{width:100%;height:100%;border-radius:0}#pdf-max{display:none}}
+
 @media (max-width:760px){
   .hero{grid-template-columns:1fr;padding-top:2rem}
   #lb button.pv,#lb button.nx{position:absolute;bottom:1rem}
@@ -310,6 +323,23 @@ details[open] .pt::after{content:"▴"}
   <button class="pv" type="button" aria-label="Foto anterior">‹</button>
   <figure><img alt=""><figcaption></figcaption></figure>
   <button class="nx" type="button" aria-label="Foto següent">›</button>
+</div>
+
+<div id="pdfm" role="dialog" aria-modal="true" aria-labelledby="pdf-t" hidden>
+  <div class="pdf-box">
+    <header class="pdf-h">
+      <h2 id="pdf-t"></h2>
+      <a class="pdf-b" id="pdf-ext" target="_blank" rel="noopener" title="Obrir en una pestanya nova" aria-label="Obrir en una pestanya nova">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>
+      </a>
+      <button class="pdf-b" id="pdf-max" type="button" title="Posar en gran" aria-label="Posar en gran">
+        <svg class="i-max" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg>
+        <svg class="i-min" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10h-6V4M4 14h6v6M14 10l7-7M10 14l-7 7"/></svg>
+      </button>
+      <button class="pdf-b" id="pdf-x" type="button" title="Tancar" aria-label="Tancar">×</button>
+    </header>
+    <iframe id="pdf-f" title="Document PDF"></iframe>
+  </div>
 </div>
 
 <script>
@@ -608,7 +638,12 @@ function targeta(x,c){
     [["julia","Júlia"],["erica","Erica"]].forEach(([k,nom])=>{if(!x[k])return;const e=$("div","nota "+k);e.appendChild($("b","",nom));e.appendChild($("span","",x[k]));nt.appendChild(e)});
     t.appendChild(nt);
   }
-  (x.pdfs||[]).forEach(p=>{const l=$("a","lk","📄 "+c.pdf+(p.idioma?" ("+p.idioma+")":""));l.href=p.src;l.target="_blank";l.rel="noopener";t.appendChild(l)});
+  (x.pdfs||[]).forEach(p=>{
+    const et=c.pdf+(p.idioma?" ("+p.idioma+")":""),l=$("a","lk","📄 "+et);
+    l.href=p.src;l.target="_blank";l.rel="noopener";
+    l.addEventListener("click",ev=>{if(ev.ctrlKey||ev.metaKey||ev.shiftKey)return;ev.preventDefault();obrePdf(p.src,et+" · "+x.nom)});
+    t.appendChild(l);
+  });
   if(x.mapa){const l=$("a","lk","Veure al mapa →");l.href=x.mapa;l.target="_blank";l.rel="noopener";t.appendChild(l)}
   if(x.setmana){
     const tt=llegeix(x.setmana),y=D.find(z=>z.t===tt);
@@ -691,6 +726,31 @@ const fiGest=()=>{
   else if(m==="v"&&dy>90)lb.classList.remove("on");
 };
 fig.addEventListener("pointerup",fiGest);fig.addEventListener("pointercancel",fiGest);
+
+/* visor de PDF: s'obre dins de la mateixa web, es tanca amb × / Esc / clic fora i es pot posar en gran */
+const pm=document.getElementById("pdfm"),pf=document.getElementById("pdf-f");let pAnt=null;
+function textMax(){
+  const t=pm.classList.contains("gran")?"Reduir":"Posar en gran",b=document.getElementById("pdf-max");
+  b.title=t;b.setAttribute("aria-label",t);
+}
+function obrePdf(src,titol){
+  pAnt=document.activeElement;
+  document.getElementById("pdf-t").textContent=titol;
+  document.getElementById("pdf-ext").href=src;
+  pm.classList.remove("gran");textMax();
+  pf.src=src+"#view=FitH";
+  pm.hidden=false;document.body.style.overflow="hidden";
+  document.getElementById("pdf-x").focus();
+}
+function tancaPdf(){
+  if(pm.hidden)return;
+  pm.hidden=true;pf.src="about:blank";document.body.style.overflow="";
+  if(pAnt&&pAnt.focus)pAnt.focus();
+}
+document.getElementById("pdf-max").addEventListener("click",()=>{pm.classList.toggle("gran");textMax()});
+document.getElementById("pdf-x").addEventListener("click",tancaPdf);
+pm.addEventListener("click",e=>{if(e.target===pm)tancaPdf()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")tancaPdf()});
 
 /* entrada amb contrasenya */
 async function sha(t){
