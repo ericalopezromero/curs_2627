@@ -575,8 +575,8 @@ function pendents(){
 
 /* jocs de taula i restaurants */
 const LL={
-  jocs:{fb:"fj",id:"jocs",si:"Ja el tenim",no:"El volem",f:"jocs/"},
-  rest:{fb:"fr",id:"rest",si:"Hi hem anat",no:"Hi volem anar",f:"restaurants/"}
+  jocs:{fb:"fj",id:"jocs",si:"Ja el tenim",no:"El volem",f:"jocs/",pdf:"Instruccions"},
+  rest:{fb:"fr",id:"rest",si:"Hi hem anat",no:"Hi volem anar",f:"restaurants/",pdf:"Carta"}
 };
 const FL={jocs:"",rest:""};
 function renderLlista(k){
@@ -608,6 +608,7 @@ function targeta(x,c){
     [["julia","Júlia"],["erica","Erica"]].forEach(([k,nom])=>{if(!x[k])return;const e=$("div","nota "+k);e.appendChild($("b","",nom));e.appendChild($("span","",x[k]));nt.appendChild(e)});
     t.appendChild(nt);
   }
+  (x.pdfs||[]).forEach(p=>{const l=$("a","lk","📄 "+c.pdf+(p.idioma?" ("+p.idioma+")":""));l.href=p.src;l.target="_blank";l.rel="noopener";t.appendChild(l)});
   if(x.mapa){const l=$("a","lk","Veure al mapa →");l.href=x.mapa;l.target="_blank";l.rel="noopener";t.appendChild(l)}
   if(x.setmana){
     const tt=llegeix(x.setmana),y=D.find(z=>z.t===tt);

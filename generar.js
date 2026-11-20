@@ -119,7 +119,15 @@ function llegeixFitxes(tipus) {
       src: [...arrel.split(path.sep), carpeta, f].map(encodeURIComponent).join("/"),
       peu: f.replace(EXT, "").replace(/^\d+[\s._-]*/, "").trim()
     }));
-    return { carpeta, ...info, fet, fotos };
+    // PDFs de la carpeta (instruccions, carta...). L'idioma es treu del final del nom: "NMBR9_reglas_es.pdf" -> "ES"
+    const pdfs = fs.readdirSync(dir).filter(f => /\.pdf$/i.test(f)).sort(ordre).map(f => {
+      const m = f.match(/[_\-. ]([a-z]{2})\.pdf$/i);
+      return {
+        src: [...arrel.split(path.sep), carpeta, f].map(encodeURIComponent).join("/"),
+        idioma: m ? m[1].toUpperCase() : ""
+      };
+    });
+    return { carpeta, ...info, fet, fotos, pdfs };
   });
 }
 const pendents = llegeixPendents();

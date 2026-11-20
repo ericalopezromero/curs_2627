@@ -1,0 +1,4 @@
+NMBR9
+Estat: tenim
+Jugadors:1-4
+Durada:20 min
